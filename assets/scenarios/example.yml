@@ -1,0 +1,93 @@
+cdm_source:
+  name: "PHX Synthetic Test Dataset"
+  abbreviation: "PHX-SYNTH"
+  holder: "TuftsCTSI"
+  description: "Synthetic OMOP CDM 5.4 dataset for PHX integration testing"
+
+patients:
+
+  - handle: p01
+    gender_concept_id: 8532      # Female
+    birth_year: 1975
+    birth_month: 3
+    birth_day: 15
+    race_concept_id: 8527        # White
+    ethnicity_concept_id: 38003564  # Not Hispanic or Latino
+    visits:
+      - handle: v01
+        visit_concept_id: 9201   # Inpatient
+        start_date: "2023-01-15"
+        end_date: "2023-01-18"
+        conditions:
+          - condition_concept_id: 201826   # Type 2 diabetes mellitus
+            start_date: "2023-01-15"
+        drugs:
+          - drug_concept_id: 1503297       # Metformin 500mg
+            start_date: "2023-01-15"
+            end_date: "2023-04-15"
+            days_supply: 90
+        measurements:
+          - measurement_concept_id: 3004501  # HbA1c
+            date: "2023-01-16"
+            value_as_number: 8.2
+            unit_concept_id: 8554            # %
+          - measurement_concept_id: 3012888  # Systolic BP
+            date: "2023-01-16"
+            value_as_number: 138
+            unit_concept_id: 8876            # mmHg
+      - handle: v02
+        visit_concept_id: 9202   # Outpatient
+        start_date: "2023-06-10"
+        end_date: "2023-06-10"
+        measurements:
+          - measurement_concept_id: 3004501
+            date: "2023-06-10"
+            value_as_number: 7.1
+            unit_concept_id: 8554
+
+  - handle: p02
+    gender_concept_id: 8507      # Male
+    birth_year: 1948
+    race_concept_id: 8516        # Black or African American
+    ethnicity_concept_id: 38003564
+    death:
+      date: "2024-02-20"
+      cause_concept_id: 4306655  # Hypertensive disorder
+    visits:
+      - handle: v01
+        visit_concept_id: 9201   # Inpatient
+        start_date: "2024-02-10"
+        end_date: "2024-02-20"
+        conditions:
+          - condition_concept_id: 316866   # Hypertensive disorder
+            start_date: "2024-02-10"
+          - condition_concept_id: 4185932  # Acute kidney injury
+            start_date: "2024-02-11"
+        procedures:
+          - procedure_concept_id: 2108565  # Echocardiography
+            date: "2024-02-12"
+        observations:
+          - observation_concept_id: 4069590  # Tobacco use
+            date: "2024-02-10"
+
+  - handle: p03
+    gender_concept_id: 8532      # Female
+    birth_year: 2010
+    race_concept_id: 8515        # Asian
+    ethnicity_concept_id: 38003564
+    visits:
+      - handle: v01
+        visit_concept_id: 9202   # Outpatient
+        start_date: "2023-09-05"
+        end_date: "2023-09-05"
+        conditions:
+          - condition_concept_id: 317009   # Asthma
+            start_date: "2023-09-05"
+        drugs:
+          - drug_concept_id: 1154343       # Albuterol inhaler
+            start_date: "2023-09-05"
+            end_date: "2023-09-05"
+        devices:
+          - device_concept_id: 4116536     # Peak flow meter
+            start_date: "2023-09-05"
+
