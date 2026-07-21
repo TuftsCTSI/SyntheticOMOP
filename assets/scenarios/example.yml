@@ -1,8 +1,8 @@
 cdm_source:
-  name: "PHX Synthetic Test Dataset"
-  abbreviation: "PHX-SYNTH"
+  name: "Basic Synthetic Test Dataset"
+  abbreviation: "BASIC-SYNTH"
   holder: "TuftsCTSI"
-  description: "Synthetic OMOP CDM 5.4 dataset for PHX integration testing"
+  description: "Synthetic dataset for basic testing"
 
 patients:
 
