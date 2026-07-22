@@ -24,6 +24,20 @@ const _SCHEMA_MAP = Dict(
     :death                => Schema.DEATH,
 )
 
+const _KNOWN_CONCEPTS = Dict{Int,NamedTuple}(
+    0        => (name="No matching concept",        domain="Metadata",    vocab="None",       class="Undefined"),
+    8507     => (name="MALE",                        domain="Gender",      vocab="Gender",     class="Gender"),
+    8532     => (name="FEMALE",                      domain="Gender",      vocab="Gender",     class="Gender"),
+    8527     => (name="White",                       domain="Race",        vocab="Race",       class="Race"),
+    8516     => (name="Black or African American",   domain="Race",        vocab="Race",       class="Race"),
+    8515     => (name="Asian",                       domain="Race",        vocab="Race",       class="Race"),
+    38003563 => (name="Hispanic or Latino",          domain="Ethnicity",   vocab="Ethnicity",  class="Ethnicity"),
+    38003564 => (name="Not Hispanic or Latino",      domain="Ethnicity",   vocab="Ethnicity",  class="Ethnicity"),
+    9202     => (name="Outpatient Visit",             domain="Visit",       vocab="Visit",      class="Visit"),
+    581477   => (name="Ambulatory Clinic / Center",  domain="Visit",       vocab="Visit",      class="Visit"),
+    32817    => (name="EHR",                          domain="Type Concept", vocab="Type Concept", class="Type Concept"),
+)
+
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
@@ -89,7 +103,27 @@ function _fresh_accum()
     )
 end
 
-function _finalize(accum::Dict, src_cfg::Dict)::Dict{String,DataFrame}
+function _collect_concept_ids(tables::Dict{String,DataFrame})::Set{Int}
+    ids = Set{Int}()
+    for (_, df) in tables
+        for col in names(df)
+            if endswith(col, "_concept_id")
+                for val in df[!, col]
+                    if !ismissing(val) && !isnothing(val)
+                        push!(ids, Int(val))
+                    end
+                end
+            end
+        end
+    end
+    ids
+end
+
+function _finalize(
+    accum    :: Dict,
+    src_cfg  :: Dict,
+    locations :: Vector = [],
+) :: Dict{String,DataFrame}
     today = string(Dates.today())
     cdm_rows = [(
         cdm_source_name                = get(src_cfg, "name", "Synthetic OMOP Dataset"),
@@ -110,6 +144,19 @@ function _finalize(accum::Dict, src_cfg::Dict)::Dict{String,DataFrame}
         isempty(rows) && continue
         result[string(key)] = to_df(rows, _SCHEMA_MAP[key])
     end
+
+    if !isempty(locations)
+        result["location"] = to_df([build_location(loc) for loc in locations], Schema.LOCATION)
+    end
+
+    concept_ids = _collect_concept_ids(result)
+    if !isempty(concept_ids)
+        result["concept"] = to_df(
+            [build_concept(id) for id in sort(collect(concept_ids))],
+            Schema.CONCEPT,
+        )
+    end
+
     result
 end
 
@@ -117,7 +164,10 @@ end
 # Row builders
 # ---------------------------------------------------------------------------
 
-function build_person(patient, pid::Int)
+function build_person(patient, pid::Int, default_location_id::Union{Int,Missing}=missing)
+    loc = let v = get(patient, "location_id", nothing)
+        v !== nothing ? v : default_location_id
+    end
     (
         person_id                   = pid,
         gender_concept_id           = get(patient, "gender_concept_id", 0),
@@ -127,7 +177,7 @@ function build_person(patient, pid::Int)
         birth_datetime              = _birth_datetime(patient),
         race_concept_id             = get(patient, "race_concept_id", 0),
         ethnicity_concept_id        = get(patient, "ethnicity_concept_id", 0),
-        location_id                 = missing,
+        location_id                 = loc,
         provider_id                 = missing,
         care_site_id                = missing,
         person_source_value         = patient["handle"],
@@ -355,14 +405,53 @@ function build_death(spec, pid::Int)
     )
 end
 
+function build_location(spec)
+    (
+        location_id            = spec["id"],
+        address_1              = get(spec, "address_1", missing),
+        address_2              = get(spec, "address_2", missing),
+        city                   = get(spec, "city", missing),
+        state                  = get(spec, "state", missing),
+        zip                    = get(spec, "zip", missing),
+        county                 = get(spec, "county", missing),
+        location_source_value  = get(spec, "location_source_value", missing),
+        country_concept_id     = get(spec, "country_concept_id", 0),
+        country_source_value   = get(spec, "country_source_value", missing),
+        latitude               = get(spec, "latitude", missing),
+        longitude              = get(spec, "longitude", missing),
+    )
+end
+
+function build_concept(concept_id::Int)
+    known = get(_KNOWN_CONCEPTS, concept_id, nothing)
+    (
+        concept_id        = concept_id,
+        concept_name      = known !== nothing ? known.name  : string(concept_id),
+        domain_id         = known !== nothing ? known.domain : "Metadata",
+        vocabulary_id     = known !== nothing ? known.vocab  : "None",
+        concept_class_id  = known !== nothing ? known.class  : "Undefined",
+        standard_concept  = missing,
+        concept_code      = string(concept_id),
+        valid_start_date  = Date(2000, 1, 1),
+        valid_end_date    = Date(2099, 12, 31),
+        invalid_reason    = missing,
+    )
+end
+
 # ---------------------------------------------------------------------------
 # Core patient loop (shared by single-site and multi-site paths)
 # ---------------------------------------------------------------------------
 
-function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int)
+function process_patient!(
+    accum    :: Dict,
+    counters :: Dict,
+    patient  :: Dict,
+    pid      :: Int,
+    default_location_id :: Union{Int,Missing} = missing,
+)
     visits = get(patient, "visits", [])
 
-    push!(accum[:person], build_person(patient, pid))
+    push!(accum[:person], build_person(patient, pid, default_location_id))
 
     v_starts = [parse_date(v["start_date"]) for v in visits]
     v_ends   = [parse_date(get(v, "end_date", v["start_date"])) for v in visits]
@@ -392,19 +481,27 @@ end
 # ---------------------------------------------------------------------------
 
 function build_all(cfg::Dict)::Dict{String,DataFrame}
-    patients = cfg["patients"]
+    patients            = cfg["patients"]
+    locations           = get(cfg, "locations", [])
+    default_location_id = let v = get(cfg, "default_location_id", nothing)
+        v !== nothing ? Int(v) : missing
+    end
     counters = _fresh_counters()
     accum    = _fresh_accum()
     for (i, patient) in enumerate(patients)
-        process_patient!(accum, counters, patient, i)
+        process_patient!(accum, counters, patient, i, default_location_id)
     end
-    _finalize(accum, get(cfg, "cdm_source", Dict()))
+    _finalize(accum, get(cfg, "cdm_source", Dict()), locations)
 end
 
 function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},DataFrame}
-    site_ids  = [string(s["id"]) for s in cfg["sites"]]
-    patients  = cfg["patients"]
-    src_cfg   = get(cfg, "cdm_source", Dict())
+    site_ids            = [string(s["id"]) for s in cfg["sites"]]
+    patients            = cfg["patients"]
+    src_cfg             = get(cfg, "cdm_source", Dict())
+    locations           = get(cfg, "locations", [])
+    default_location_id = let v = get(cfg, "default_location_id", nothing)
+        v !== nothing ? Int(v) : missing
+    end
 
     site_tables  = Dict{String,Dict{String,DataFrame}}()
     linkage_rows = []
@@ -424,10 +521,10 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         counters = _fresh_counters()
         accum    = _fresh_accum()
         for (merged, pid) in entries
-            process_patient!(accum, counters, merged, pid)
+            process_patient!(accum, counters, merged, pid, default_location_id)
             push!(linkage_rows, (handle = merged["handle"], site_id = site_id, person_id = pid))
         end
-        site_tables[site_id] = _finalize(accum, src_cfg)
+        site_tables[site_id] = _finalize(accum, src_cfg, locations)
     end
 
     linkage_df = isempty(linkage_rows) ?

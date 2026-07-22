@@ -4,6 +4,15 @@ cdm_source:
   holder: "TuftsCTSI"
   description: "Draft PHX_data regression-test dataset spanning 2023-2025"
 
+default_location_id: 1
+
+locations:
+  - id: 1
+    address_1: "800 Washington St"
+    city: "Boston"
+    state: "MA"
+    zip: "02111"
+
 patients:
 
   # ---------------------------------------------------------------------------
