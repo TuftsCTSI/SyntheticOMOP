@@ -42,6 +42,13 @@ function parse_date_opt(s)::Union{Date,Missing}
     s === nothing ? missing : parse_date(s)
 end
 
+function _birth_datetime(patient)::Union{DateTime,Missing}
+    y  = get(patient, "birth_year",  nothing)
+    mo = get(patient, "birth_month", nothing)
+    d  = get(patient, "birth_day",   nothing)
+    (y !== nothing && mo !== nothing && d !== nothing) ? DateTime(y, mo, d) : missing
+end
+
 function to_df(rows::Vector, schema::Vector{Symbol})::DataFrame
     df = isempty(rows) ? DataFrame() : DataFrame(rows)
     for col in schema
@@ -117,7 +124,7 @@ function build_person(patient, pid::Int)
         year_of_birth               = get(patient, "birth_year", missing),
         month_of_birth              = get(patient, "birth_month", missing),
         day_of_birth                = get(patient, "birth_day", missing),
-        birth_datetime              = missing,
+        birth_datetime              = _birth_datetime(patient),
         race_concept_id             = get(patient, "race_concept_id", 0),
         ethnicity_concept_id        = get(patient, "ethnicity_concept_id", 0),
         location_id                 = missing,
@@ -205,7 +212,7 @@ function build_drug(spec, pid::Int, vid::Int, v_start::Date, v_end::Date, ctr::C
         days_supply                  = get(spec, "days_supply", missing),
         sig                          = missing,
         route_concept_id             = get(spec, "route_concept_id", 0),
-        lot_number                   = missing,
+        lot_number                   = get(spec, "lot_number", missing),
         provider_id                  = missing,
         visit_occurrence_id          = vid,
         visit_detail_id              = missing,
@@ -352,12 +359,6 @@ end
 # Core patient loop (shared by single-site and multi-site paths)
 # ---------------------------------------------------------------------------
 
-"""
-Process one patient dict into `accum`, using `pid` as the person_id.
-The dict must contain a `"handle"` key and may contain `"visits"` and `"death"`.
-In multi-site mode, pass the merged appearance dict so that appearance-level
-fields (demographics, visits) take precedence over patient-level defaults.
-"""
 function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int)
     visits = get(patient, "visits", [])
 
@@ -373,13 +374,13 @@ function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int)
         v_start = parse_date(v_spec["start_date"])
         v_end   = parse_date(get(v_spec, "end_date", v_spec["start_date"]))
         push!(accum[:visit_occurrence], build_visit(v_spec, pid, vid, v_start, v_end))
-        for spec in get(v_spec, "conditions",   []) push!(accum[:condition_occurrence], build_condition(spec,   pid, vid, v_start, counters[:condition_occurrence]))   end
-        for spec in get(v_spec, "drugs",        []) push!(accum[:drug_exposure],        build_drug(spec,       pid, vid, v_start, v_end, counters[:drug_exposure]))        end
-        for spec in get(v_spec, "procedures",   []) push!(accum[:procedure_occurrence], build_procedure(spec,  pid, vid, v_start, counters[:procedure_occurrence]))   end
-        for spec in get(v_spec, "devices",      []) push!(accum[:device_exposure],      build_device(spec,     pid, vid, v_start, counters[:device_exposure]))      end
-        for spec in get(v_spec, "measurements", []) push!(accum[:measurement],          build_measurement(spec,pid, vid, v_start, counters[:measurement]))          end
-        for spec in get(v_spec, "observations", []) push!(accum[:observation],          build_observation(spec,pid, vid, v_start, counters[:observation]))          end
-        for spec in get(v_spec, "notes",        []) push!(accum[:note],                 build_note(spec,       pid, vid, v_start, counters[:note]))                 end
+        for spec in get(v_spec, "conditions",   []) push!(accum[:condition_occurrence], build_condition(spec,    pid, vid, v_start, counters[:condition_occurrence]))   end
+        for spec in get(v_spec, "drugs",        []) push!(accum[:drug_exposure],        build_drug(spec,        pid, vid, v_start, v_end, counters[:drug_exposure]))    end
+        for spec in get(v_spec, "procedures",   []) push!(accum[:procedure_occurrence], build_procedure(spec,   pid, vid, v_start, counters[:procedure_occurrence]))   end
+        for spec in get(v_spec, "devices",      []) push!(accum[:device_exposure],      build_device(spec,      pid, vid, v_start, counters[:device_exposure]))      end
+        for spec in get(v_spec, "measurements", []) push!(accum[:measurement],          build_measurement(spec, pid, vid, v_start, counters[:measurement]))          end
+        for spec in get(v_spec, "observations", []) push!(accum[:observation],          build_observation(spec, pid, vid, v_start, counters[:observation]))          end
+        for spec in get(v_spec, "notes",        []) push!(accum[:note],                 build_note(spec,        pid, vid, v_start, counters[:note]))                 end
     end
 
     death_spec = get(patient, "death", nothing)
@@ -390,10 +391,6 @@ end
 # Public API
 # ---------------------------------------------------------------------------
 
-"""
-Build OMOP tables from a single-site config (no `sites` key).
-Returns a `Dict{String, DataFrame}` keyed by table name.
-"""
 function build_all(cfg::Dict)::Dict{String,DataFrame}
     patients = cfg["patients"]
     counters = _fresh_counters()
@@ -404,16 +401,6 @@ function build_all(cfg::Dict)::Dict{String,DataFrame}
     _finalize(accum, get(cfg, "cdm_source", Dict()))
 end
 
-"""
-Build OMOP tables for every site in a multi-site config.
-Returns `(site_tables, linkage_df)` where:
-- `site_tables` is a `Dict{String, Dict{String, DataFrame}}` keyed by site id
-- `linkage_df` is a DataFrame with columns `handle`, `site_id`, `person_id`
-
-Within each site, `person_id` is assigned sequentially (1-based) to patients
-that have an appearance at that site. The linkage manifest is the ground-truth
-cross-site join key.
-"""
 function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},DataFrame}
     site_ids  = [string(s["id"]) for s in cfg["sites"]]
     patients  = cfg["patients"]
@@ -423,10 +410,6 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
     linkage_rows = []
 
     for site_id in site_ids
-        # Collect patients that appear at this site, merging appearance-level
-        # fields over patient-level defaults. Appearance fields take priority
-        # (e.g. site-specific demographics or visits). `handle` is preserved
-        # from the patient record.
         entries = Tuple{Dict{String,Any},Int}[]
         for patient in patients
             appearances = get(patient, "appearances", [])
