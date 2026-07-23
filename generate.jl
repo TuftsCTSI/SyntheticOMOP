@@ -5,8 +5,7 @@ Usage:
     julia --project generate.jl <config.yml> [output_dir]
 
 If output_dir is omitted, files are written to out/omop_synth/.
-Table names are upper-cased (PERSON.csv, VISIT_OCCURRENCE.csv, etc.) to
-match the convention expected by the DuckDB loader in SyntheticOMOP.jl.
+Table names are upper-cased (PERSON.csv, VISIT_OCCURRENCE.csv, etc.).
 """
 
 using Pkg
