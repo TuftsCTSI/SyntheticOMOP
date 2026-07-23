@@ -10,23 +10,6 @@ const TYPE_EHR = 32817
 const CDM_VERSION = "v5.4"
 const CDM_VERSION_CONCEPT_ID = 756265
 
-const _SCHEMA_MAP = Dict(
-    :person               => Schema.PERSON,
-    :observation_period   => Schema.OBSERVATION_PERIOD,
-    :visit_occurrence     => Schema.VISIT_OCCURRENCE,
-    :condition_occurrence => Schema.CONDITION_OCCURRENCE,
-    :drug_exposure        => Schema.DRUG_EXPOSURE,
-    :procedure_occurrence => Schema.PROCEDURE_OCCURRENCE,
-    :device_exposure      => Schema.DEVICE_EXPOSURE,
-    :measurement          => Schema.MEASUREMENT,
-    :observation          => Schema.OBSERVATION,
-    :note                 => Schema.NOTE,
-    :death                => Schema.DEATH,
-    :location             => Schema.LOCATION,
-    :concept              => Schema.CONCEPT,
-    :concept_ancestor     => Schema.CONCEPT_ANCESTOR,
-)
-
 const _KNOWN_CONCEPTS = Dict{Int,Any}(
     0        => (name="No matching concept",                           domain="Metadata",      vocabulary="None",          class="Undefined"),
     8507     => (name="MALE",                                          domain="Gender",        vocabulary="Gender",        class="Gender"),
@@ -151,28 +134,33 @@ function _collect_concept_ids(tables::Dict{String,DataFrame})::Set{Int}
     ids
 end
 
+const _OPTIONAL_TABLES = (
+    :observation_period => Schema.OBSERVATION_PERIOD,
+    :device_exposure    => Schema.DEVICE_EXPOSURE,
+    :note               => Schema.NOTE,
+)
+
 function _finalize(accum::Dict, src_cfg::Dict, locations::Vector=Dict[])::Dict{String,DataFrame}
     result = Dict{String,DataFrame}()
 
-    # Required tables: populate from accumulated patient data, or produce an
-    # empty DataFrame with the correct schema. :location and :concept are
-    # handled separately because they are derived from config, not accum.
     for (key, schema) in Schema.REQUIRED_TABLES
         key in (:location, :concept) && continue
         result[string(key)] = to_df(get(accum, key, []), schema)
     end
 
-    # Location table: built from the config locations list.
+    for (key, schema) in _OPTIONAL_TABLES
+        rows = get(accum, key, [])
+        isempty(rows) || (result[string(key)] = to_df(rows, schema))
+    end
+
     result["location"] = to_df([build_location(s) for s in locations], Schema.LOCATION)
 
-    # Concept table: scanned from all clinical tables already in result.
     concept_ids = _collect_concept_ids(result)
     result["concept"] = to_df(
         [build_concept(id) for id in sort(collect(concept_ids))],
         Schema.CONCEPT,
     )
 
-    # cdm_source: optional, built only when config provides metadata.
     if !isempty(src_cfg)
         today = string(Dates.today())
         result["cdm_source"] = to_df([(
@@ -557,4 +545,3 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
 end
 
 end # module Generator
-
