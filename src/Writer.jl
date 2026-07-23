@@ -5,14 +5,15 @@ using DataFrames
 
 """
 Write all DataFrames in `tables` to `output_dir` as CSV files.
-Empty DataFrames are skipped. Prints a summary line for each file written.
+Empty DataFrames are written as header-only files so that all required tables
+are present on disk regardless of whether any rows were generated. Prints a
+summary line for each file written.
 """
 function write_tables(tables::Dict{String,DataFrame}, output_dir::String)
     mkpath(output_dir)
     written = String[]
     for name in sort(collect(keys(tables)))
         df = tables[name]
-        isempty(df) && continue
         path = joinpath(output_dir, "$(uppercase(name)).csv")
         CSV.write(path, df; missingstring = "")
         push!(written, name)
