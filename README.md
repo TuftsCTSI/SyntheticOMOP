@@ -50,28 +50,3 @@ Output is written to `output_dir/<site_id>/` per site.
 A `LINKAGE.csv` is written to `output_dir/` with columns `handle`, `site_id`, and `person_id`.
 
 See `assets/scenarios/multi_site_example.yml` for a fully annotated example.
-
-## Tables generated
-
-| Table | Source |
-| --- | --- |
-| `CDM_SOURCE` | `cdm_source` config key |
-| `PERSON` | one row per patient |
-| `OBSERVATION_PERIOD` | derived from visit date range |
-| `VISIT_OCCURRENCE` | patient `visits` list |
-| `CONDITION_OCCURRENCE` | visit `conditions` list |
-| `DRUG_EXPOSURE` | visit `drugs` list |
-| `PROCEDURE_OCCURRENCE` | visit `procedures` list |
-| `DEVICE_EXPOSURE` | visit `devices` list |
-| `MEASUREMENT` | visit `measurements` list |
-| `OBSERVATION` | visit `observations` list |
-| `NOTE` | visit `notes` list |
-| `DEATH` | patient `death` entry |
-
-All columns are written in canonical CDM 5.4 field order. Fields not populated by the config are left empty.
-
-## Dependencies
-
-Julia 1.x with `CSV`, `DataFrames`, `YAML` (see `Project.toml`).
-Run `julia --project -e 'using Pkg; Pkg.instantiate()'` to install.
-
