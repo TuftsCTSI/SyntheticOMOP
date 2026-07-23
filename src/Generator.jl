@@ -9,53 +9,51 @@ using .Schema
 const TYPE_EHR = 32817
 const CDM_VERSION = "v5.4"
 const CDM_VERSION_CONCEPT_ID = 756265
+const DEFAULT_OBSERVATION_DATE = Date(1970, 1, 1)
 
 const _KNOWN_CONCEPTS = Dict{Int,Any}(
-    0        => (name="No matching concept",                           domain="Metadata",      vocabulary="None",          class="Undefined"),
-    8507     => (name="MALE",                                          domain="Gender",        vocabulary="Gender",        class="Gender"),
-    8532     => (name="FEMALE",                                        domain="Gender",        vocabulary="Gender",        class="Gender"),
-    8527     => (name="White",                                         domain="Race",          vocabulary="Race",          class="Race"),
-    8516     => (name="Black or African American",                     domain="Race",          vocabulary="Race",          class="Race"),
-    8515     => (name="Asian",                                         domain="Race",          vocabulary="Race",          class="Race"),
-    38003563 => (name="Hispanic or Latino",                           domain="Ethnicity",     vocabulary="Ethnicity",     class="Ethnicity"),
-    38003564 => (name="Not Hispanic or Latino",                       domain="Ethnicity",     vocabulary="Ethnicity",     class="Ethnicity"),
-    9202     => (name="Outpatient Visit",                              domain="Visit",         vocabulary="Visit",         class="Visit"),
-    581477   => (name="Outpatient Visit - Telehealth",                domain="Visit",         vocabulary="Visit",         class="Visit"),
-    32817    => (name="EHR",                                          domain="Type Concept",  vocabulary="Type Concept",  class="Type Concept"),
-    320128   => (name="Essential hypertension",                       domain="Condition",     vocabulary="SNOMED",        class="Clinical Finding"),
-    201826   => (name="Type 2 diabetes mellitus",                     domain="Condition",     vocabulary="SNOMED",        class="Clinical Finding"),
-    3004249  => (name="Systolic blood pressure",                       domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
-    3012888  => (name="Diastolic blood pressure",                      domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
-    3004501  => (name="Hemoglobin A1c/Hemoglobin.total in Blood",      domain="Measurement",   vocabulary="LOINC",         class="Laboratory Test"),
-    8554     => (name="%",                                            domain="Unit",          vocabulary="UCUM",          class="Unit"),
-    8876     => (name="mmHg",                                         domain="Unit",          vocabulary="UCUM",          class="Unit"),
-    3016169  => (name="Mammography",                                  domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
-    2006395  => (name="Mastectomy",                                   domain="Procedure",     vocabulary="ICD9Proc",      class="ICD9Proc"),
-    3027299  => (name="Fecal occult blood test",                       domain="Measurement",   vocabulary="LOINC",         class="Laboratory Test"),
-    37163368 => (name="Colonoscopy",                                  domain="Procedure",     vocabulary="SNOMED",        class="Procedure"),
-    4262589  => (name="Sigmoidoscopy",                                domain="Procedure",     vocabulary="SNOMED",        class="Procedure"),
-    40763569 => (name="CT colonoscopy",                               domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
-    46236059 => (name="Fecal DNA test",                               domain="Measurement",   vocabulary="LOINC",         class="Laboratory Test"),
-    3038553  => (name="Body mass index (BMI [kg/m2])",                 domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
-    40490382 => (name="Body mass index for age percentile",            domain="Measurement",   vocabulary="SNOMED",        class="Clinical Finding"),
-    702866   => (name="COVID-19 mRNA BNT162b2 vaccine",                domain="Drug",          vocabulary="CVX",           class="Vaccine"),
-    2000000094 => (name="PSC-17 Total Score",                         domain="Observation",   vocabulary="Custom",        class="Survey"),
-    2000000095 => (name="PSC-17 Internalization",                     domain="Observation",   vocabulary="Custom",        class="Survey"),
-    2000000096 => (name="PSC-17 Externalization",                     domain="Observation",   vocabulary="Custom",        class="Survey"),
-    2000000097 => (name="PSC-17 Attention",                           domain="Observation",   vocabulary="Custom",        class="Survey"),
-    35609425 => (name="PHQ-9 total score",                            domain="Measurement",   vocabulary="SNOMED",        class="Clinical Finding"),
-    36304041 => (name="Within the past 12 months, worried food would run out [U.S. FSS]", domain="Observation", vocabulary="LOINC", class="Survey"),
-    36306143 => (name="Within the past 12 months, food bought just didn't last [U.S. FSS]", domain="Observation", vocabulary="LOINC", class="Survey"),
-    36309869 => (name="Never true",                                   domain="Observation",   vocabulary="LOINC",         class="Answer"),
-    45877955 => (name="Often true",                                   domain="Observation",   vocabulary="LOINC",         class="Answer"),
-    42869557 => (name="Housing status",                               domain="Observation",   vocabulary="LOINC",         class="Survey"),
-    4139934  => (name="Homeless",                                     domain="Observation",   vocabulary="SNOMED",        class="Clinical Finding"),
-    4306655  => (name="Hypertensive disorder",                        domain="Condition",     vocabulary="SNOMED",        class="Clinical Finding"),
+    0          => (name="No matching concept",                           domain="Metadata",      vocabulary="None",          class="Undefined"),
+    8507       => (name="MALE",                                          domain="Gender",        vocabulary="Gender",        class="Gender"),
+    8532       => (name="FEMALE",                                        domain="Gender",        vocabulary="Gender",        class="Gender"),
+    8527       => (name="White",                                         domain="Race",          vocabulary="Race",          class="Race"),
+    8516       => (name="Black or African American",                     domain="Race",          vocabulary="Race",          class="Race"),
+    8515       => (name="Asian",                                         domain="Race",          vocabulary="Race",          class="Race"),
+    38003563   => (name="Hispanic or Latino",                            domain="Ethnicity",     vocabulary="Ethnicity",     class="Ethnicity"),
+    38003564   => (name="Not Hispanic or Latino",                        domain="Ethnicity",     vocabulary="Ethnicity",     class="Ethnicity"),
+    9201       => (name="Inpatient Visit",                               domain="Visit",         vocabulary="Visit",         class="Visit"),
+    9202       => (name="Outpatient Visit",                              domain="Visit",         vocabulary="Visit",         class="Visit"),
+    581477     => (name="Outpatient Visit - Telehealth",                 domain="Visit",         vocabulary="Visit",         class="Visit"),
+    32817      => (name="EHR",                                           domain="Type Concept",  vocabulary="Type Concept",  class="Type Concept"),
+    320128     => (name="Essential hypertension",                        domain="Condition",     vocabulary="SNOMED",        class="Clinical Finding"),
+    201826     => (name="Type 2 diabetes mellitus",                      domain="Condition",     vocabulary="SNOMED",        class="Clinical Finding"),
+    3004249    => (name="Systolic blood pressure",                       domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
+    3012888    => (name="Diastolic blood pressure",                      domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
+    3004501    => (name="Hemoglobin A1c/Hemoglobin.total in Blood",      domain="Measurement",   vocabulary="LOINC",         class="Laboratory Test"),
+    8554       => (name="%",                                             domain="Unit",          vocabulary="UCUM",          class="Unit"),
+    8876       => (name="mmHg",                                          domain="Unit",          vocabulary="UCUM",          class="Unit"),
+    3016169    => (name="Mammography",                                   domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
+    2006395    => (name="Mastectomy",                                    domain="Procedure",     vocabulary="ICD9Proc",      class="ICD9Proc"),
+    3027299    => (name="Fecal occult blood test",                       domain="Measurement",   vocabulary="LOINC",         class="Laboratory Test"),
+    37163368   => (name="Colonoscopy",                                   domain="Procedure",     vocabulary="SNOMED",        class="Procedure"),
+    4262589    => (name="Sigmoidoscopy",                                 domain="Procedure",     vocabulary="SNOMED",        class="Procedure"),
+    40763569   => (name="CT colonoscopy",                                domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
+    46236059   => (name="Fecal DNA test",                                domain="Measurement",   vocabulary="LOINC",         class="Laboratory Test"),
+    3038553    => (name="Body mass index (BMI [kg/m2])",                 domain="Measurement",   vocabulary="LOINC",         class="Clinical Observation"),
+    40490382   => (name="Body mass index for age percentile",            domain="Measurement",   vocabulary="SNOMED",        class="Clinical Finding"),
+    702866     => (name="COVID-19 mRNA BNT162b2 vaccine",                domain="Drug",          vocabulary="CVX",           class="Vaccine"),
+    2000000094 => (name="PSC-17 Total Score",                            domain="Observation",   vocabulary="Custom",        class="Survey"),
+    2000000095 => (name="PSC-17 Internalization",                        domain="Observation",   vocabulary="Custom",        class="Survey"),
+    2000000096 => (name="PSC-17 Externalization",                        domain="Observation",   vocabulary="Custom",        class="Survey"),
+    2000000097 => (name="PSC-17 Attention",                              domain="Observation",   vocabulary="Custom",        class="Survey"),
+    35609425   => (name="PHQ-9 total score",                             domain="Measurement",   vocabulary="SNOMED",        class="Clinical Finding"),
+    36304041   => (name="Within the past 12 months, worried food would run out [U.S. FSS]", domain="Observation", vocabulary="LOINC", class="Survey"),
+    36306143   => (name="Within the past 12 months, food bought just didn't last [U.S. FSS]", domain="Observation", vocabulary="LOINC", class="Survey"),
+    36309869   => (name="Never true",                                    domain="Observation",   vocabulary="LOINC",         class="Answer"),
+    45877955   => (name="Often true",                                    domain="Observation",   vocabulary="LOINC",         class="Answer"),
+    42869557   => (name="Housing status",                                domain="Observation",   vocabulary="LOINC",         class="Survey"),
+    4139934    => (name="Homeless",                                      domain="Observation",   vocabulary="SNOMED",        class="Clinical Finding"),
+    4306655    => (name="Hypertensive disorder",                         domain="Condition",     vocabulary="SNOMED",        class="Clinical Finding"),
 )
-
-# ---------------------------------------------------------------------------
-# Internal helpers
-# ---------------------------------------------------------------------------
 
 mutable struct Counter
     n::Int
@@ -116,6 +114,7 @@ function _fresh_accum()
         :observation          => [],
         :note                 => [],
         :death                => [],
+        :concept_ancestor     => [],
     )
 end
 
@@ -134,41 +133,57 @@ function _collect_concept_ids(tables::Dict{String,DataFrame})::Set{Int}
     ids
 end
 
-const _OPTIONAL_TABLES = (
-    :observation_period => Schema.OBSERVATION_PERIOD,
-    :device_exposure    => Schema.DEVICE_EXPOSURE,
-    :note               => Schema.NOTE,
-)
+function _always_write_tables(cfg::Dict)::Vector{Symbol}
+    raw = get(cfg, "always_write_tables", [String(name) for name in Schema.DEFAULT_ALWAYS_WRITE_TABLES])
+    raw isa Vector || throw(ArgumentError("'always_write_tables' must be a list of table names"))
 
-function _finalize(accum::Dict, src_cfg::Dict, locations::Vector=Dict[])::Dict{String,DataFrame}
+    tables = Symbol[]
+    seen = Set{Symbol}()
+    for name in raw
+        name isa AbstractString || throw(ArgumentError("'always_write_tables' entries must be strings"))
+        table = Symbol(name)
+        haskey(Schema.TABLE_SCHEMAS, table) || throw(ArgumentError("Unknown table in always_write_tables: '$name'"))
+        table in seen && continue
+        push!(tables, table)
+        push!(seen, table)
+    end
+    tables
+end
+
+function _finalize(accum::Dict, cfg::Dict, locations::Vector=Dict[])::Dict{String,DataFrame}
     result = Dict{String,DataFrame}()
+    always_write = Set(_always_write_tables(cfg))
 
-    for (key, schema) in Schema.REQUIRED_TABLES
-        key in (:location, :concept) && continue
-        result[string(key)] = to_df(get(accum, key, []), schema)
-    end
-
-    for (key, schema) in _OPTIONAL_TABLES
+    for (key, schema) in Schema.ROW_TABLES
         rows = get(accum, key, [])
-        isempty(rows) || (result[string(key)] = to_df(rows, schema))
+        if key in always_write || !isempty(rows)
+            result[string(key)] = to_df(rows, schema)
+        end
     end
 
-    result["location"] = to_df([build_location(s) for s in locations], Schema.LOCATION)
+    location_df = to_df([build_location(s) for s in locations], Schema.LOCATION)
+    if :location in always_write || nrow(location_df) > 0
+        result["location"] = location_df
+    end
 
     concept_ids = _collect_concept_ids(result)
-    result["concept"] = to_df(
+    concept_df = to_df(
         [build_concept(id) for id in sort(collect(concept_ids))],
         Schema.CONCEPT,
     )
+    if :concept in always_write || nrow(concept_df) > 0
+        result["concept"] = concept_df
+    end
 
+    src_cfg = get(cfg, "cdm_source", Dict())
     if !isempty(src_cfg)
         today = string(Dates.today())
         result["cdm_source"] = to_df([(
-            cdm_source_name                = get(src_cfg, "name",                   "Synthetic OMOP Dataset"),
-            cdm_source_abbreviation        = get(src_cfg, "abbreviation",           "SYNTH"),
-            cdm_holder                     = get(src_cfg, "holder",                 ""),
-            source_description             = get(src_cfg, "description",            ""),
-            source_documentation_reference = get(src_cfg, "documentation_reference",""),
+            cdm_source_name                = get(src_cfg, "name",                    "Synthetic OMOP Dataset"),
+            cdm_source_abbreviation        = get(src_cfg, "abbreviation",            "SYNTH"),
+            cdm_holder                     = get(src_cfg, "holder",                  ""),
+            source_description             = get(src_cfg, "description",             ""),
+            source_documentation_reference = get(src_cfg, "documentation_reference", ""),
             cdm_etl_reference              = "SyntheticOMOP/generate.jl",
             source_release_date            = today,
             cdm_release_date               = today,
@@ -180,10 +195,6 @@ function _finalize(accum::Dict, src_cfg::Dict, locations::Vector=Dict[])::Dict{S
 
     result
 end
-
-# ---------------------------------------------------------------------------
-# Row builders
-# ---------------------------------------------------------------------------
 
 function build_person(patient, pid::Int, default_location_id=missing)
     loc_id = let v = get(patient, "location_id", missing)
@@ -245,8 +256,8 @@ function build_concept(concept_id::Int)
 end
 
 function build_observation_period(pid::Int, visit_starts::Vector{Date}, visit_ends::Vector{Date}, obs_id::Int)
-    obs_start = isempty(visit_starts) ? Dates.today() : minimum(visit_starts)
-    obs_end   = isempty(visit_ends)   ? Dates.today() : maximum(visit_ends)
+    obs_start = isempty(visit_starts) ? DEFAULT_OBSERVATION_DATE : minimum(visit_starts)
+    obs_end   = isempty(visit_ends)   ? DEFAULT_OBSERVATION_DATE : maximum(visit_ends)
     (
         observation_period_id         = obs_id,
         person_id                     = pid,
@@ -459,10 +470,6 @@ function build_death(spec, pid::Int)
     )
 end
 
-# ---------------------------------------------------------------------------
-# Core patient loop (shared by single-site and multi-site paths)
-# ---------------------------------------------------------------------------
-
 function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int, default_location_id=missing)
     visits = get(patient, "visits", [])
 
@@ -482,8 +489,8 @@ function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int, 
         for spec in get(v_spec, "drugs",        []) push!(accum[:drug_exposure],        build_drug(spec,       pid, vid, v_start, v_end, counters[:drug_exposure]))        end
         for spec in get(v_spec, "procedures",   []) push!(accum[:procedure_occurrence], build_procedure(spec,  pid, vid, v_start, counters[:procedure_occurrence]))   end
         for spec in get(v_spec, "devices",      []) push!(accum[:device_exposure],      build_device(spec,     pid, vid, v_start, counters[:device_exposure]))      end
-        for spec in get(v_spec, "measurements", []) push!(accum[:measurement],          build_measurement(spec,pid, vid, v_start, counters[:measurement]))          end
-        for spec in get(v_spec, "observations", []) push!(accum[:observation],          build_observation(spec,pid, vid, v_start, counters[:observation]))          end
+        for spec in get(v_spec, "measurements", []) push!(accum[:measurement],          build_measurement(spec, pid, vid, v_start, counters[:measurement]))          end
+        for spec in get(v_spec, "observations", []) push!(accum[:observation],          build_observation(spec, pid, vid, v_start, counters[:observation]))          end
         for spec in get(v_spec, "notes",        []) push!(accum[:note],                 build_note(spec,       pid, vid, v_start, counters[:note]))                 end
     end
 
@@ -491,27 +498,22 @@ function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int, 
     death_spec !== nothing && push!(accum[:death], build_death(death_spec, pid))
 end
 
-# ---------------------------------------------------------------------------
-# Public API
-# ---------------------------------------------------------------------------
-
 function build_all(cfg::Dict)::Dict{String,DataFrame}
     patients       = cfg["patients"]
-    locations      = get(cfg, "locations",         Dict[])
+    locations      = get(cfg, "locations", Dict[])
     default_loc_id = get(cfg, "default_location_id", missing)
     counters = _fresh_counters()
     accum    = _fresh_accum()
     for (i, patient) in enumerate(patients)
         process_patient!(accum, counters, patient, i, default_loc_id)
     end
-    _finalize(accum, get(cfg, "cdm_source", Dict()), locations)
+    _finalize(accum, cfg, locations)
 end
 
 function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},DataFrame}
     site_ids       = [string(s["id"]) for s in cfg["sites"]]
     patients       = cfg["patients"]
-    src_cfg        = get(cfg, "cdm_source",          Dict())
-    locations      = get(cfg, "locations",           Dict[])
+    locations      = get(cfg, "locations", Dict[])
     default_loc_id = get(cfg, "default_location_id", missing)
 
     site_tables  = Dict{String,Dict{String,DataFrame}}()
@@ -535,7 +537,7 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
             process_patient!(accum, counters, merged, pid, default_loc_id)
             push!(linkage_rows, (handle = merged["handle"], site_id = site_id, person_id = pid))
         end
-        site_tables[site_id] = _finalize(accum, src_cfg, locations)
+        site_tables[site_id] = _finalize(accum, cfg, locations)
     end
 
     linkage_df = isempty(linkage_rows) ?
@@ -545,3 +547,4 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
 end
 
 end # module Generator
+
