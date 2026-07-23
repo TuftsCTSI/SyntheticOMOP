@@ -1,7 +1,6 @@
 module SyntheticOMOP
 
 include("Config.jl")
-include("Schema.jl")
 include("Generator.jl")
 include("Writer.jl")
 
@@ -33,4 +32,3 @@ end
 export generate
 
 end # module SyntheticOMOP
-
