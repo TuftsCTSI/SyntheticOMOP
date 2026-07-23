@@ -21,10 +21,21 @@ function load(path::String)::Dict
 end
 
 function validate(cfg::Dict)
+    _validate_always_write_tables(cfg)
     if haskey(cfg, "sites")
         _validate_multi(cfg)
     else
         _validate_single(cfg)
+    end
+end
+
+function _validate_always_write_tables(cfg::Dict)
+    tables = get(cfg, "always_write_tables", nothing)
+    tables === nothing && return
+    tables isa Vector || throw(ConfigError("'always_write_tables' must be a list"))
+    for (i, name) in enumerate(tables)
+        name isa String && !isempty(name) ||
+            throw(ConfigError("always_write_tables[$i] must be a non-empty string"))
     end
 end
 

@@ -244,20 +244,52 @@ const CDM_SOURCE = Symbol[
     :cdm_version, :cdm_version_concept_id, :vocabulary_version,
 ]
 
-# Tables that must always be present in every generated dataset.
-const REQUIRED_TABLES = Dict{Symbol,Vector{Symbol}}(
+const TABLE_SCHEMAS = Dict{Symbol,Vector{Symbol}}(
     :person               => PERSON,
+    :observation_period   => OBSERVATION_PERIOD,
     :visit_occurrence     => VISIT_OCCURRENCE,
     :condition_occurrence => CONDITION_OCCURRENCE,
     :drug_exposure        => DRUG_EXPOSURE,
     :procedure_occurrence => PROCEDURE_OCCURRENCE,
+    :device_exposure      => DEVICE_EXPOSURE,
     :measurement          => MEASUREMENT,
     :observation          => OBSERVATION,
     :death                => DEATH,
+    :note                 => NOTE,
     :location             => LOCATION,
     :concept              => CONCEPT,
     :concept_ancestor     => CONCEPT_ANCESTOR,
 )
+
+const ROW_TABLES = Dict{Symbol,Vector{Symbol}}(
+    :person               => PERSON,
+    :observation_period   => OBSERVATION_PERIOD,
+    :visit_occurrence     => VISIT_OCCURRENCE,
+    :condition_occurrence => CONDITION_OCCURRENCE,
+    :drug_exposure        => DRUG_EXPOSURE,
+    :procedure_occurrence => PROCEDURE_OCCURRENCE,
+    :device_exposure      => DEVICE_EXPOSURE,
+    :measurement          => MEASUREMENT,
+    :observation          => OBSERVATION,
+    :death                => DEATH,
+    :note                 => NOTE,
+    :concept_ancestor     => CONCEPT_ANCESTOR,
+)
+
+const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[
+    :person,
+    :observation_period,
+    :visit_occurrence,
+    :condition_occurrence,
+    :drug_exposure,
+    :procedure_occurrence,
+    :measurement,
+    :observation,
+    :death,
+    :location,
+    :concept,
+    :concept_ancestor,
+]
 
 end # module Schema
 
