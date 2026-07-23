@@ -5,9 +5,8 @@ using DataFrames
 
 """
 Write all DataFrames in `tables` to `output_dir` as CSV files.
-Empty DataFrames are written as header-only files so that all required tables
-are present on disk regardless of whether any rows were generated. Prints a
-summary line for each file written.
+Required tables are always written (header-only when empty); optional tables
+appear only when the config populates them.
 """
 function write_tables(tables::Dict{String,DataFrame}, output_dir::String)
     mkpath(output_dir)
@@ -44,4 +43,3 @@ function write_sites(
 end
 
 end # module Writer
-
