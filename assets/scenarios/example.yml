@@ -31,7 +31,7 @@ patients:
             date: "2023-01-16"
             value_as_number: 8.2
             unit_concept_id: 8554            # %
-          - measurement_concept_id: 3012888  # Systolic BP
+          - measurement_concept_id: 3012888  # Diastolic BP
             date: "2023-01-16"
             value_as_number: 138
             unit_concept_id: 8876            # mmHg
