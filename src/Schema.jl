@@ -244,10 +244,12 @@ const CDM_SOURCE = Symbol[
     :cdm_version, :cdm_version_concept_id, :vocabulary_version,
 ]
 
+"""Registry of all recognized OMOP CDM 5.4 table schemas."""
 const TABLE_SCHEMAS = Dict{Symbol,Vector{Symbol}}(
     :person               => PERSON,
     :observation_period   => OBSERVATION_PERIOD,
     :visit_occurrence     => VISIT_OCCURRENCE,
+    :visit_detail         => VISIT_DETAIL,
     :condition_occurrence => CONDITION_OCCURRENCE,
     :drug_exposure        => DRUG_EXPOSURE,
     :procedure_occurrence => PROCEDURE_OCCURRENCE,
@@ -256,11 +258,26 @@ const TABLE_SCHEMAS = Dict{Symbol,Vector{Symbol}}(
     :observation          => OBSERVATION,
     :death                => DEATH,
     :note                 => NOTE,
+    :note_nlp             => NOTE_NLP,
+    :specimen             => SPECIMEN,
+    :fact_relationship    => FACT_RELATIONSHIP,
+    :survey_conduct       => SURVEY_CONDUCT,
     :location             => LOCATION,
+    :care_site            => CARE_SITE,
+    :provider             => PROVIDER,
+    :payer_plan_period    => PAYER_PLAN_PERIOD,
+    :cost                 => COST,
+    :drug_era             => DRUG_ERA,
+    :dose_era             => DOSE_ERA,
+    :condition_era        => CONDITION_ERA,
+    :episode              => EPISODE,
+    :episode_event        => EPISODE_EVENT,
     :concept              => CONCEPT,
     :concept_ancestor     => CONCEPT_ANCESTOR,
+    :cdm_source           => CDM_SOURCE,
 )
 
+"""Tables built via row accumulators in Generator."""
 const ROW_TABLES = Dict{Symbol,Vector{Symbol}}(
     :person               => PERSON,
     :observation_period   => OBSERVATION_PERIOD,
@@ -292,4 +309,3 @@ const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[
 ]
 
 end # module Schema
-
