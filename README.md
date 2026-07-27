@@ -18,15 +18,14 @@ julia --project generate.jl <input.yml> [output_dir]
 
 Example configs are in `assets/scenarios/`.
 Output defaults to `out/omop_synth/`.
-Table names are upper-cased (`PERSON.csv`, `VISIT_OCCURRENCE.csv`, etc.).
 Tables listed in `always_write_tables` are written even when empty.
-If `always_write_tables` is omitted, SyntheticOMOP writes the default regression-test set, which includes `CONCEPT_ANCESTOR.csv`.
-SyntheticOMOP does not generate vocabulary hierarchies, so `CONCEPT_ANCESTOR.csv` is header-only by default.
+If `always_write_tables` is omitted, SyntheticOMOP writes the default regression-test set, which includes `concept_ancestor.csv`.
+SyntheticOMOP does not generate vocabulary hierarchies, so `concept_ancestor.csv` is header-only by default.
 All other tables are written only when populated.
 
 ## Config format
 
-`cdm_source` (optional) sets provenance metadata written to `CDM_SOURCE.csv`.
+`cdm_source` (optional) sets provenance metadata written to `cdm_source.csv`.
 
 `always_write_tables` (optional) is a list of OMOP table names to write even when empty.
 Use it to control the baseline set of generated files per project without changing generator code.
@@ -54,7 +53,6 @@ A patient with no appearance at a given site is simply absent from that site's d
 `person_source_value` holds the patient handle and is the ground-truth join key.
 
 Output is written to `output_dir/<site_id>/` per site.
-A `LINKAGE.csv` is written to `output_dir/` with columns `handle`, `site_id`, and `person_id`.
+A `linkage.csv` is written to `output_dir/` with columns `handle`, `site_id`, and `person_id`.
 
 See `assets/scenarios/multi_site_example.yml` for a fully annotated example.
-
