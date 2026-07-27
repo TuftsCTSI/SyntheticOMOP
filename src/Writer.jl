@@ -32,14 +32,17 @@ function write_sites(
     output_dir::String,
 )
     mkpath(output_dir)
+    total_tables = 0
     for site_id in sort(collect(keys(site_tables)))
         println("[$site_id]")
         write_tables(site_tables[site_id], joinpath(output_dir, site_id))
+        total_tables += length(site_tables[site_id])
         println()
     end
     linkage_path = joinpath(output_dir, "LINKAGE.csv")
     CSV.write(linkage_path, linkage_df)
     println("LINKAGE.csv  ($(nrow(linkage_df)) row$(nrow(linkage_df) == 1 ? "" : "s"))")
+    println("Total: $(total_tables) table$(total_tables == 1 ? "" : "s") across $(length(site_tables)) site$(length(site_tables) == 1 ? "" : "s")")
 end
 
 end # module Writer
