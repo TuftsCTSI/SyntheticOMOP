@@ -3,8 +3,7 @@ module Generator
 using DataFrames
 using Dates
 
-include("Schema.jl")
-using .Schema
+using ..Schema
 
 const TYPE_EHR = 32817
 const CDM_VERSION = "v5.4"
@@ -135,19 +134,7 @@ end
 
 function _always_write_tables(cfg::Dict)::Vector{Symbol}
     raw = get(cfg, "always_write_tables", [String(name) for name in Schema.DEFAULT_ALWAYS_WRITE_TABLES])
-    raw isa Vector || throw(ArgumentError("'always_write_tables' must be a list of table names"))
-
-    tables = Symbol[]
-    seen = Set{Symbol}()
-    for name in raw
-        name isa AbstractString || throw(ArgumentError("'always_write_tables' entries must be strings"))
-        table = Symbol(name)
-        haskey(Schema.TABLE_SCHEMAS, table) || throw(ArgumentError("Unknown table in always_write_tables: '$name'"))
-        table in seen && continue
-        push!(tables, table)
-        push!(seen, table)
-    end
-    tables
+    [Symbol(name) for name in raw]
 end
 
 function _finalize(accum::Dict, cfg::Dict, locations::Vector=Dict[])::Dict{String,DataFrame}
@@ -255,6 +242,9 @@ function build_concept(concept_id::Int)
     )
 end
 
+# Patients with no visits get a sentinel observation period at epoch.
+# This ensures every person_id has a corresponding observation_period row,
+# which some downstream OMOP tools require.
 function build_observation_period(pid::Int, visit_starts::Vector{Date}, visit_ends::Vector{Date}, obs_id::Int)
     obs_start = isempty(visit_starts) ? DEFAULT_OBSERVATION_DATE : minimum(visit_starts)
     obs_end   = isempty(visit_ends)   ? DEFAULT_OBSERVATION_DATE : maximum(visit_ends)
@@ -547,4 +537,3 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
 end
 
 end # module Generator
-
