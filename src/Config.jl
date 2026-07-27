@@ -2,6 +2,8 @@ module Config
 
 using YAML
 
+using ..Schema
+
 struct ConfigError <: Exception
     msg::String
 end
@@ -36,6 +38,8 @@ function _validate_always_write_tables(cfg::Dict)
     for (i, name) in enumerate(tables)
         name isa String && !isempty(name) ||
             throw(ConfigError("always_write_tables[$i] must be a non-empty string"))
+        haskey(Schema.TABLE_SCHEMAS, Symbol(name)) ||
+            throw(ConfigError("always_write_tables[$i] references unknown table: '$name'"))
     end
 end
 
@@ -109,4 +113,3 @@ function _validate_multi(cfg::Dict)
 end
 
 end # module Config
-
