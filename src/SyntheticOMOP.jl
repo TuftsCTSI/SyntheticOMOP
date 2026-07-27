@@ -1,9 +1,11 @@
 module SyntheticOMOP
 
+include("Schema.jl")
 include("Config.jl")
 include("Generator.jl")
 include("Writer.jl")
 
+using .Schema
 using .Config
 using .Generator
 using .Writer
