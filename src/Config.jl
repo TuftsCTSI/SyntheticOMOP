@@ -77,7 +77,9 @@ function _validate_patients(cfg::Dict)
         if is_multi
             appearances = get(p, "appearances", nothing)
             appearances isa Vector ||
-                throw(ConfigError("patients[$i] must have 'appearances' in multi-site mode"))
+                throw(ConfigError("patients[$i] ('$psv') must have 'appearances' in multi-site mode"))
+            isempty(appearances) &&
+                throw(ConfigError("patients[$i] ('$psv') has empty 'appearances' list"))
             site_ids = Set(string(s["id"]) for s in cfg["sites"])
             for (j, app) in enumerate(appearances)
                 app isa Dict ||
@@ -195,4 +197,3 @@ function _validate_multi(cfg::Dict)
 end
 
 end # module Config
-
