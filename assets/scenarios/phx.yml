@@ -1,0 +1,992 @@
+concepts:
+  # Demographics
+  male: 8507
+  female: 8532
+  white: 8527
+  black: 8516
+  not_hispanic: 38003564
+  # Visits
+  outpatient: 9202
+  # Conditions
+  hypertension: 320128
+  type_2_diabetes: 201826
+  # Measurements
+  systolic_bp: 3004249
+  diastolic_bp: 3012888
+  hba1c: 3004501
+  bmi: 3038553
+  bmi_percentile: 40490382
+  fobt: 3027299
+  sdna_fit: 46236059
+  phq9: 35609425
+  # Procedures
+  mammography: 3016169
+  mastectomy: 2006395
+  colonoscopy: 37163368
+  sigmoidoscopy: 4262589
+  ct_colonography: 40763569
+  # Observations
+  food_security_q1: 36304041
+  food_security_q2: 36306143
+  housing_stability: 42869557
+  homelessness: 4139934
+  psc17_internalization: 2000000095
+  psc17_externalization: 2000000096
+  psc17_attention: 2000000097
+  psc17_total: 2000000094
+  routine_exam: 4085802
+  # Drugs
+  covid_pfizer: 702866
+  # Units
+  percent: 8554
+  # Value concepts (food/housing responses)
+  never_true: 36309869
+  sometimes_true: 45877955
+  steady_place: 1
+  worried_about_losing: 2
+  yes_homeless: 3
+
+cdm_source:
+  name: "PHX CI Synthetic Dataset"
+  abbreviation: "PHX-CI"
+  holder: "TuftsCTSI"
+  description: "Draft PHX_data regression-test dataset spanning 2023-2025"
+
+patients:
+
+  # ---------------------------------------------------------------------------
+  # Hypertension
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: htn_age17_excluded
+    gender_concept_id: male
+    birth_year: 2006
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-06-15"
+        value_as_number: 139
+      - concept_id: diastolic_bp
+        date: "2023-06-15"
+        value_as_number: 89
+
+  - person_source_value: htn_age18_met
+    gender_concept_id: male
+    birth_year: 2005
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-05"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-07-15"
+        value_as_number: 139
+      - concept_id: diastolic_bp
+        date: "2023-07-15"
+        value_as_number: 89
+
+  - person_source_value: htn_age84_met
+    gender_concept_id: female
+    birth_year: 1939
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-05"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-07-15"
+        value_as_number: 139
+      - concept_id: diastolic_bp
+        date: "2023-07-15"
+        value_as_number: 89
+
+  - person_source_value: htn_age85_excluded
+    gender_concept_id: female
+    birth_year: 1938
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-05"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-07-15"
+        value_as_number: 139
+      - concept_id: diastolic_bp
+        date: "2023-07-15"
+        value_as_number: 89
+
+  - person_source_value: htn_notmet_dia
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 2
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-08-01"
+        value_as_number: 138
+      - concept_id: diastolic_bp
+        date: "2023-08-01"
+        value_as_number: 91
+
+  - person_source_value: htn_notmet_sys
+    gender_concept_id: male
+    birth_year: 1971
+    birth_month: 2
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-08-02"
+        value_as_number: 141
+      - concept_id: diastolic_bp
+        date: "2023-08-02"
+        value_as_number: 90
+
+  - person_source_value: htn_notmet_both
+    gender_concept_id: female
+    birth_year: 1972
+    birth_month: 2
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-08-03"
+        value_as_number: 141
+      - concept_id: diastolic_bp
+        date: "2023-08-03"
+        value_as_number: 91
+
+  - person_source_value: htn_last_reading_met_sep
+    gender_concept_id: female
+    birth_year: 1965
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2022-12-15"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-04-01"
+        value_as_number: 145
+      - concept_id: diastolic_bp
+        date: "2023-04-01"
+        value_as_number: 91
+      - concept_id: systolic_bp
+        date: "2023-10-01"
+        value_as_number: 138
+      - concept_id: diastolic_bp
+        date: "2023-10-01"
+        value_as_number: 88
+
+  - person_source_value: htn_last_reading_notmet_sep
+    gender_concept_id: male
+    birth_year: 1966
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2022-12-15"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-04-01"
+        value_as_number: 138
+      - concept_id: diastolic_bp
+        date: "2023-04-01"
+        value_as_number: 88
+      - concept_id: systolic_bp
+        date: "2023-10-01"
+        value_as_number: 145
+      - concept_id: diastolic_bp
+        date: "2023-10-01"
+        value_as_number: 91
+
+  - person_source_value: htn_same_day_low_high_sql_met
+    gender_concept_id: female
+    birth_year: 1967
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2022-12-15"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-10-01"
+        value_as_number: 145
+      - concept_id: systolic_bp
+        date: "2023-10-01"
+        value_as_number: 138
+      - concept_id: diastolic_bp
+        date: "2023-10-01"
+        value_as_number: 91
+      - concept_id: diastolic_bp
+        date: "2023-10-01"
+        value_as_number: 88
+
+  - person_source_value: htn_not_measured
+    gender_concept_id: male
+    birth_year: 1968
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2022-12-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-09-01"
+
+  - person_source_value: htn_multi_year
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 5
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2022-12-01"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-06-15"
+        value_as_number: 139
+      - concept_id: diastolic_bp
+        date: "2023-06-15"
+        value_as_number: 89
+      - concept_id: systolic_bp
+        date: "2024-06-15"
+        value_as_number: 145
+      - concept_id: diastolic_bp
+        date: "2024-06-15"
+        value_as_number: 91
+      - concept_id: systolic_bp
+        date: "2025-06-15"
+        value_as_number: 138
+      - concept_id: diastolic_bp
+        date: "2025-06-15"
+        value_as_number: 88
+
+  # ---------------------------------------------------------------------------
+  # Diabetes / HbA1c
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dm_age17_excluded
+    gender_concept_id: male
+    birth_year: 2006
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2023-01-10"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-06-10"
+        value_as_number: 9.0
+        unit_concept_id: percent
+
+  - person_source_value: dm_age18_met_9
+    gender_concept_id: male
+    birth_year: 2005
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2023-01-10"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-06-10"
+        value_as_number: 9.0
+        unit_concept_id: percent
+
+  - person_source_value: dm_age75_met_9
+    gender_concept_id: female
+    birth_year: 1948
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2023-01-10"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-06-10"
+        value_as_number: 9.0
+        unit_concept_id: percent
+
+  - person_source_value: dm_age76_excluded
+    gender_concept_id: female
+    birth_year: 1947
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2023-01-10"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-06-10"
+        value_as_number: 9.0
+        unit_concept_id: percent
+
+  - person_source_value: dm_notmet_10
+    gender_concept_id: male
+    birth_year: 1969
+    birth_month: 4
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2022-12-15"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-09-10"
+        value_as_number: 10.0
+        unit_concept_id: percent
+
+  - person_source_value: dm_missing
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 4
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2022-12-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-09-10"
+
+  - person_source_value: dm_multi_year
+    gender_concept_id: female
+    birth_year: 1965
+    birth_month: 4
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2022-12-15"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-05-10"
+        value_as_number: 8.9
+        unit_concept_id: percent
+      - concept_id: hba1c
+        date: "2024-05-10"
+        value_as_number: 10.1
+        unit_concept_id: percent
+      - concept_id: hba1c
+        date: "2025-05-10"
+        value_as_number: 8.5
+        unit_concept_id: percent
+
+  # ---------------------------------------------------------------------------
+  # Breast cancer screening
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: breast_met_recent_mammo
+    gender_concept_id: female
+    birth_year: 1973
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: mammography
+        date: "2022-06-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: breast_notmet_old_mammo
+    gender_concept_id: female
+    birth_year: 1973
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: mammography
+        date: "2020-12-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: breast_notmet_none
+    gender_concept_id: female
+    birth_year: 1973
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: breast_excluded_mastectomy
+    gender_concept_id: female
+    birth_year: 1973
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: mastectomy
+        date: "2022-03-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  # ---------------------------------------------------------------------------
+  # Colorectal cancer screening
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: crc_met_fobt
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: fobt
+        date: "2023-05-15"
+        value_as_number: 1.0
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_met_colonoscopy_window
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: colonoscopy
+        date: "2014-07-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_notmet_colonoscopy_old
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: colonoscopy
+        date: "2013-07-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_met_sigmoid_window
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: sigmoidoscopy
+        date: "2020-07-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_notmet_sigmoid_old
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: sigmoidoscopy
+        date: "2018-07-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_met_ct_window
+    gender_concept_id: male
+    birth_year: 1971
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: ct_colonography
+        date: "2020-07-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_notmet_ct_old
+    gender_concept_id: male
+    birth_year: 1971
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: ct_colonography
+        date: "2018-07-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_met_fitdna_window
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: sdna_fit
+        date: "2022-06-01"
+        value_as_number: 1.0
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_notmet_fitdna_old
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: sdna_fit
+        date: "2020-06-01"
+        value_as_number: 1.0
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_notmet_none
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  # ---------------------------------------------------------------------------
+  # BMI adult and pediatric
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bmi_adult_met_29
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-08-01"
+        value_as_number: 29.0
+
+  - person_source_value: bmi_adult_notmet_30
+    gender_concept_id: female
+    birth_year: 1981
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-08-01"
+        value_as_number: 30.0
+
+  - person_source_value: bmi_adult_last_met
+    gender_concept_id: male
+    birth_year: 1982
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-05-01"
+        value_as_number: 31.0
+      - concept_id: bmi
+        date: "2023-10-01"
+        value_as_number: 29.0
+
+  - person_source_value: bmi_adult_last_notmet
+    gender_concept_id: female
+    birth_year: 1983
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-05-01"
+        value_as_number: 29.0
+      - concept_id: bmi
+        date: "2023-10-01"
+        value_as_number: 31.0
+
+  - person_source_value: bmi_peds_met_94
+    gender_concept_id: male
+    birth_year: 2010
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi_percentile
+        date: "2023-08-01"
+        value_as_number: 94.0
+
+  - person_source_value: bmi_peds_notmet_95
+    gender_concept_id: female
+    birth_year: 2010
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi_percentile
+        date: "2023-08-01"
+        value_as_number: 95.0
+
+  - person_source_value: bmi_peds_last_notmet
+    gender_concept_id: male
+    birth_year: 2010
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi_percentile
+        date: "2023-05-01"
+        value_as_number: 94.0
+      - concept_id: bmi_percentile
+        date: "2023-10-01"
+        value_as_number: 95.0
+
+  - person_source_value: bmi_peds_age18_excluded
+    gender_concept_id: female
+    birth_year: 2005
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi_percentile
+        date: "2023-08-01"
+        value_as_number: 94.0
+
+  # ---------------------------------------------------------------------------
+  # Food and housing security
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: food_secure
+    gender_concept_id: female
+    birth_year: 1985
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: food_security_q1
+        date: "2023-07-01"
+        value_as_string: "Never true"
+        value_as_concept_id: never_true
+
+  - person_source_value: food_insecure
+    gender_concept_id: male
+    birth_year: 1985
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: food_security_q2
+        date: "2023-07-01"
+        value_as_string: "Sometimes true"
+        value_as_concept_id: sometimes_true
+
+  - person_source_value: housing_secure
+    gender_concept_id: female
+    birth_year: 1986
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: housing_stability
+        date: "2023-07-01"
+        value_as_string: "I have a steady place to live"
+        value_as_concept_id: steady_place
+
+  - person_source_value: housing_insecure
+    gender_concept_id: male
+    birth_year: 1986
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: housing_stability
+        date: "2023-07-01"
+        value_as_string: "I have a place to live today, but I am worried about losing"
+        value_as_concept_id: worried_about_losing
+
+  - person_source_value: housing_homeless
+    gender_concept_id: male
+    birth_year: 1986
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: homelessness
+        date: "2023-07-01"
+        value_as_string: "Yes"
+        value_as_concept_id: yes_homeless
+
+  # ---------------------------------------------------------------------------
+  # COVID vaccination
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: covid_adult_met_2023
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: covid_pfizer
+        date: "2023-03-01"
+        lot_number: "LOT-2023-A"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-01"
+
+  - person_source_value: covid_adult_notmet_none
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-01"
+
+  - person_source_value: covid_peds_met_2023
+    gender_concept_id: female
+    birth_year: 2010
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: covid_pfizer
+        date: "2023-03-01"
+        lot_number: "LOT-2023-P"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-01"
+
+  - person_source_value: covid_peds_notmet_none
+    gender_concept_id: female
+    birth_year: 2010
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-01"
+
+  # ---------------------------------------------------------------------------
+  # PSC-17
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: psc_all_met
+    gender_concept_id: male
+    birth_year: 2014
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_internalization
+        date: "2023-09-01"
+        value_as_number: 4
+      - concept_id: psc17_externalization
+        date: "2023-09-01"
+        value_as_number: 6
+      - concept_id: psc17_attention
+        date: "2023-09-01"
+        value_as_number: 6
+      - concept_id: psc17_total
+        date: "2023-09-01"
+        value_as_number: 14
+
+  - person_source_value: psc_internal_notmet
+    gender_concept_id: female
+    birth_year: 2014
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_internalization
+        date: "2023-09-01"
+        value_as_number: 5
+
+  - person_source_value: psc_external_notmet
+    gender_concept_id: male
+    birth_year: 2014
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_externalization
+        date: "2023-09-01"
+        value_as_number: 7
+
+  - person_source_value: psc_attention_notmet
+    gender_concept_id: female
+    birth_year: 2014
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_attention
+        date: "2023-09-01"
+        value_as_number: 7
+
+  - person_source_value: psc_total_notmet
+    gender_concept_id: male
+    birth_year: 2014
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_total
+        date: "2023-09-01"
+        value_as_number: 15
+
+  - person_source_value: psc_age12_excluded
+    gender_concept_id: female
+    birth_year: 2011
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_internalization
+        date: "2023-09-01"
+        value_as_number: 4
+
+  # ---------------------------------------------------------------------------
+  # PHQ-9
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: phq_both_met
+    gender_concept_id: female
+    birth_year: 2000
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: phq9
+        date: "2023-03-01"
+        value_as_number: 8
+      - concept_id: phq9
+        date: "2023-10-01"
+        value_as_number: 9
+
+  - person_source_value: phq_avg_notmet_any_notmet
+    gender_concept_id: male
+    birth_year: 2000
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: phq9
+        date: "2023-03-01"
+        value_as_number: 8
+      - concept_id: phq9
+        date: "2023-10-01"
+        value_as_number: 12
+
+  - person_source_value: phq_any_notmet_avg_met
+    gender_concept_id: female
+    birth_year: 2000
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: phq9
+        date: "2023-03-01"
+        value_as_number: 9
+      - concept_id: phq9
+        date: "2023-10-01"
+        value_as_number: 10
