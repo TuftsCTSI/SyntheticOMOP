@@ -1,23 +1,46 @@
 # SyntheticOMOP
 
-A config-driven generator for synthetic [OMOP CDM 5.4](https://ohdsi.github.io/CommonDataModel/cdm54.html) datasets.
-The input is a YAML scenario file describing patients and their clinical events, and the output is a set of CSVs.
+A deterministic config-driven generator for synthetic [OMOP CDM 5.4](https://ohdsi.github.io/CommonDataModel/cdm54.html) datasets.
+Given a YAML file describing fictional patients and their clinical events, it produces a directory of CSV files that conform to the OMOP Common Data Model.
 
-## Purpose
+## Summary
 
-This tool creates custom datasets with specific patient scenarios for regression testing.
-The config file serves as a design artifact, preserving the intent of each patient scenario.
+- This tool is mainly intended for preparing datasets for use in software testing.
+- The input file serves as a design artifact, preserving the intent of each patient scenario, which might be lost if we prepared the dataset directly.
+- No randomness is used. Data generation is entirely deterministic.
+- This tool creates entirely fictional test data. Assuming real patient records weren't used to make the input file, the output cannot contain protected health information (PHI).
+- Coherence of medical records isn't a major design aim. Other tools exist for creating realistic patient data.
 
-Multi-site configs produce one dataset per site plus a linkage manifest, supporting record linkage testing across sites with known ground-truth matches.
+## Quickstart
 
-## Usage
-
+```sh
+git clone https://github.com/TuftsCTSI/SyntheticOMOP.git
+cd SyntheticOMOP
+julia --project -e 'using Pkg; Pkg.instantiate()'
+julia --project generate.jl assets/example.yml
 ```
-julia --project generate.jl <input.yml> [output_dir]
+
+Output appears in `out/example/`. Along with the OMOP CSVs, the output directory will contains a `_provenance.yml` metadata file recording the generator version, source config filename, and generation timestamp.
+
+## Minimal config
+
+A complete working config needs only `concepts` and `patients`:
+
+```yaml
+concepts:
+  female: 8532          # OMOP concept ID for "female"
+  hypertension: 320128  # OMOP concept ID for hypertension
+
+patients:
+  - person_source_value: patient_1
+    gender_concept_id: female
+    birth_year: 1980
+    conditions:
+      - concept_id: hypertension
+        date: "2023-06-01"
 ```
 
-Example configs are in `assets/scenarios/`.
-Output defaults to `out/omop_synth/`.
+This produces one patient with one condition record, one auto-generated outpatient visit, and one observation period spanning that date.
 
 ## Config format
 
@@ -37,7 +60,8 @@ Output defaults to `out/omop_synth/`.
 ### Concepts
 
 All concept references use string aliases defined in the `concepts` section.
-Raw integer concept codes are not allowed.
+Raw integer concept codes are not allowed in patient or template definitions.
+This makes configs readable and reviewable: every medical code has a human-readable label, and all codes used in a scenario are declared in one place.
 
 ```yaml
 concepts:
@@ -106,7 +130,7 @@ Optional `visit_end_date` sets a multi-day visit end (for inpatient stays).
 
 ### Templates
 
-Templates produce patients via deterministic cartesian product over list-valued fields.
+Templates produce patients via deterministic Cartesian product over list-valued fields.
 Every field whose value is a list of scalars becomes a parameter axis.
 
 ```yaml
@@ -127,7 +151,16 @@ templates:
 This produces 2 x 3 x 3 = 18 patients.
 `person_source_value` is auto-generated as `<template_name>_<index>` unless provided as a list (which becomes another axis).
 
+The Cartesian product is purely combinatorial.
+Generated combinations are not guaranteed to be clinically plausible (for example, a template might produce a 3-year-old with a diagnosis typically seen in adults).
+Design templates with awareness of which axes interact clinically.
+
 ### Multi-site mode
+
+Multi-site configs support testing record linkage across institutions.
+The basic problem: the same patient may appear at multiple hospitals under different IDs.
+Record linkage algorithms try to match these records back together.
+To test such algorithms, you need datasets where the ground truth (which records belong to the same person) is known.
 
 Add a `sites` list and replace each patient's events with an `appearances` list.
 Each appearance specifies a `site` plus demographics and events for that site.
@@ -157,6 +190,7 @@ patients:
 Output is written to `output_dir/<site_id>/` per site.
 A `linkage.csv` is written to `output_dir/` with columns `person_source_value`, `site_id`, and `person_id`.
 `person_id` is assigned sequentially per site and is not consistent across sites by design.
+The `person_source_value` column is the ground-truth key linking the same person across sites.
 
 ### Visit generation
 
@@ -165,3 +199,39 @@ The generator groups same-date events into a single visit per date.
 Visits default to outpatient (concept 9202).
 To override, set `visit_concept_id` on any event for that date.
 To create a multi-day visit, set `visit_end_date` on any event for that date.
+
+## Scenario configs
+
+Example configs are in `assets/`:
+
+| File | Purpose |
+|------|---------|
+| `example.yml` | Basic demonstration of all event types (conditions, drugs, procedures, devices, measurements, observations) across three patients |
+| `phx.yml` | PHX quality measures regression suite covering hypertension, diabetes, BMI, colorectal screening, breast cancer screening, depression, food security, housing, and immunization scenarios |
+| `multi_site_example.yml` | Demonstrates multi-site mode with cross-site patient appearances and linkage output |
+
+## Library usage
+
+The module exports `build` and `generate`:
+
+```julia
+using SyntheticOMOP
+
+# Generate CSVs to disk
+SyntheticOMOP.generate("assets/example.yml", "out/example")
+
+# Build in-memory DataFrames (no file I/O)
+tables = SyntheticOMOP.build("assets/example.yml")
+tables["person"]  # DataFrame
+```
+
+## Data governance
+
+This tool is designed so that its output is provably synthetic:
+
+* Input is a YAML config file which should not be based on real data.
+* Every record in the output traces to a specific config entry or template expansion.
+* All medical concept codes are declared as named aliases, making them more readily reviewable.
+* Each output directory contains a `_provenance.yml` file recording the generator version and source config, providing an audit trail.
+* The generator has no database connections, no file readers beyond the config, and no network access.
+
