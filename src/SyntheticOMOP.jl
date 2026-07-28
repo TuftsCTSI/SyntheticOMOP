@@ -2,11 +2,13 @@ module SyntheticOMOP
 
 include("Schema.jl")
 include("Config.jl")
+include("Templates.jl")
 include("Generator.jl")
 include("Writer.jl")
 
 using .Schema
 using .Config
+using .Templates
 using .Generator
 using .Writer
 
@@ -36,4 +38,3 @@ end
 export generate
 
 end # module SyntheticOMOP
-
