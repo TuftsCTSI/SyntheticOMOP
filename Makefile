@@ -9,7 +9,7 @@ test:
 	julia --project test/runtests.jl
 
 phx:
-	julia --project generate.jl assets/scenarios/phx.yml
+	julia --project generate.jl assets/phx.yml
 
 update-expected:
 	julia --project test/update_expected.jl
