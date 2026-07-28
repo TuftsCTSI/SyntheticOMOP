@@ -4,6 +4,7 @@ using DataFrames
 using Dates
 
 using ..Schema
+using ..Templates
 
 const TYPE_EHR = 32817
 const VISIT_OUTPATIENT = 9202
@@ -16,6 +17,41 @@ mutable struct Counter
 end
 Counter() = Counter(0)
 next!(c::Counter)::Int = (c.n += 1; c.n)
+
+mutable struct BuildState
+    counters::Dict{Symbol,Counter}
+    accum::Dict{Symbol,Vector}
+    concepts::Dict
+end
+
+function BuildState(concepts::Dict)
+    counters = Dict{Symbol,Counter}(
+        :observation_period   => Counter(),
+        :visit_occurrence     => Counter(),
+        :condition_occurrence => Counter(),
+        :drug_exposure        => Counter(),
+        :procedure_occurrence => Counter(),
+        :device_exposure      => Counter(),
+        :measurement          => Counter(),
+        :observation          => Counter(),
+        :note                 => Counter(),
+    )
+    accum = Dict{Symbol,Vector}(
+        :person               => [],
+        :observation_period   => [],
+        :visit_occurrence     => [],
+        :condition_occurrence => [],
+        :drug_exposure        => [],
+        :procedure_occurrence => [],
+        :device_exposure      => [],
+        :measurement          => [],
+        :observation          => [],
+        :note                 => [],
+        :death                => [],
+        :concept_ancestor     => [],
+    )
+    BuildState(counters, accum, concepts)
+end
 
 function parse_date(s)::Date
     Date(string(s), dateformat"yyyy-mm-dd")
@@ -35,45 +71,14 @@ function to_df(rows::Vector, schema::Vector{Symbol})::DataFrame
     select(df, schema)
 end
 
-function resolve(concepts::Dict, value)::Int
-    value === nothing && return 0
+function resolve(concepts::Dict, value)::Union{Int,Missing}
+    value === nothing && return missing
     concepts[string(value)]
 end
 
-function resolve_opt(concepts::Dict, node::Dict, key::String)::Int
+function resolve_opt(concepts::Dict, node::Dict, key::String)::Union{Int,Missing}
     value = get(node, key, nothing)
-    value === nothing ? 0 : resolve(concepts, value)
-end
-
-function _fresh_counters()
-    Dict(
-        :observation_period   => Counter(),
-        :visit_occurrence     => Counter(),
-        :condition_occurrence => Counter(),
-        :drug_exposure        => Counter(),
-        :procedure_occurrence => Counter(),
-        :device_exposure      => Counter(),
-        :measurement          => Counter(),
-        :observation          => Counter(),
-        :note                 => Counter(),
-    )
-end
-
-function _fresh_accum()
-    Dict{Symbol,Vector}(
-        :person               => [],
-        :observation_period   => [],
-        :visit_occurrence     => [],
-        :condition_occurrence => [],
-        :drug_exposure        => [],
-        :procedure_occurrence => [],
-        :device_exposure      => [],
-        :measurement          => [],
-        :observation          => [],
-        :note                 => [],
-        :death                => [],
-        :concept_ancestor     => [],
-    )
+    value === nothing ? missing : resolve(concepts, value)
 end
 
 function _always_write_tables(cfg::Dict)::Vector{Symbol}
@@ -82,12 +87,12 @@ function _always_write_tables(cfg::Dict)::Vector{Symbol}
     [Symbol(name) for name in raw]
 end
 
-function _finalize(accum::Dict, cfg::Dict)::Dict{String,DataFrame}
+function _finalize(state::BuildState, cfg::Dict)::Dict{String,DataFrame}
     result = Dict{String,DataFrame}()
     always_write = Set(_always_write_tables(cfg))
 
     for (key, schema) in Schema.ROW_TABLES
-        rows = get(accum, key, [])
+        rows = get(state.accum, key, [])
         if key in always_write || !isempty(rows)
             result[string(key)] = to_df(rows, schema)
         end
@@ -189,7 +194,7 @@ function build_condition(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         condition_end_date            = parse_date_opt(get(spec, "end_date", nothing)),
         condition_end_datetime        = missing,
         condition_type_concept_id     = resolve_opt(concepts, spec, "type_concept_id"),
-        condition_status_concept_id   = 0,
+        condition_status_concept_id   = missing,
         stop_reason                   = missing,
         provider_id                   = missing,
         visit_occurrence_id           = vid,
@@ -239,7 +244,7 @@ function build_procedure(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         procedure_end_date          = parse_date_opt(get(spec, "end_date", nothing)),
         procedure_end_datetime      = missing,
         procedure_type_concept_id   = resolve_opt(concepts, spec, "type_concept_id"),
-        modifier_concept_id         = 0,
+        modifier_concept_id         = missing,
         quantity                    = get(spec, "quantity", missing),
         provider_id                 = missing,
         visit_occurrence_id         = vid,
@@ -298,7 +303,7 @@ function build_measurement(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counte
         unit_source_concept_id        = 0,
         value_source_value            = missing,
         measurement_event_id          = missing,
-        meas_event_field_concept_id   = 0,
+        meas_event_field_concept_id   = missing,
     )
 end
 
@@ -313,7 +318,7 @@ function build_observation(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counte
         value_as_number               = get(spec, "value_as_number",    missing),
         value_as_string               = get(spec, "value_as_string",    missing),
         value_as_concept_id           = resolve_opt(concepts, spec, "value_as_concept_id"),
-        qualifier_concept_id          = 0,
+        qualifier_concept_id          = missing,
         unit_concept_id               = resolve_opt(concepts, spec, "unit_concept_id"),
         provider_id                   = missing,
         visit_occurrence_id           = vid,
@@ -324,7 +329,7 @@ function build_observation(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counte
         qualifier_source_value        = missing,
         value_source_value            = missing,
         observation_event_id          = missing,
-        obs_event_field_concept_id    = 0,
+        obs_event_field_concept_id    = missing,
     )
 end
 
@@ -361,7 +366,7 @@ function build_death(spec, pid::Int, concepts::Dict)
     )
 end
 
-struct VisitGroup
+mutable struct VisitGroup
     date::Date
     end_date::Date
     concept_id::Int
@@ -384,34 +389,30 @@ function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitG
             d = parse_date(spec["date"])
             if !haskey(groups, d)
                 visit_cid = resolve_opt(concepts, spec, "visit_concept_id")
-                visit_end = parse_date(get(spec, "visit_end_date", spec["date"]))
-                if visit_cid == 0
+                if visit_cid === missing
                     visit_cid = VISIT_OUTPATIENT
                 end
+                visit_end = parse_date(get(spec, "visit_end_date", spec["date"]))
                 groups[d] = VisitGroup(d, visit_end, visit_cid, [], [], [], [], [], [], [])
             else
                 g = groups[d]
                 ve = parse_date(get(spec, "visit_end_date", spec["date"]))
                 if ve > g.end_date
-                    groups[d] = VisitGroup(g.date, ve, g.concept_id,
-                        g.conditions, g.drugs, g.procedures, g.devices,
-                        g.measurements, g.observations, g.notes)
+                    g.end_date = ve
                 end
                 vc = resolve_opt(concepts, spec, "visit_concept_id")
-                if vc != 0 && g.concept_id == VISIT_OUTPATIENT
-                    groups[d] = VisitGroup(g.date, groups[d].end_date, vc,
-                        g.conditions, g.drugs, g.procedures, g.devices,
-                        g.measurements, g.observations, g.notes)
+                if vc !== missing && g.concept_id == VISIT_OUTPATIENT
+                    g.concept_id = vc
                 end
             end
             g = groups[d]
-            if key == "conditions"     push!(g.conditions, spec)
-            elseif key == "drugs"      push!(g.drugs, spec)
-            elseif key == "procedures" push!(g.procedures, spec)
-            elseif key == "devices"    push!(g.devices, spec)
+            if key == "conditions"       push!(g.conditions, spec)
+            elseif key == "drugs"        push!(g.drugs, spec)
+            elseif key == "procedures"   push!(g.procedures, spec)
+            elseif key == "devices"      push!(g.devices, spec)
             elseif key == "measurements" push!(g.measurements, spec)
             elseif key == "observations" push!(g.observations, spec)
-            elseif key == "notes"      push!(g.notes, spec)
+            elseif key == "notes"        push!(g.notes, spec)
             end
         end
     end
@@ -419,152 +420,51 @@ function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitG
     sort(collect(values(groups)); by = g -> g.date)
 end
 
-function process_patient!(accum::Dict, counters::Dict, patient::Dict, pid::Int, concepts::Dict)
-    push!(accum[:person], build_person(patient, pid, concepts))
+function process_patient!(state::BuildState, patient::Dict, pid::Int)
+    push!(state.accum[:person], build_person(patient, pid, state.concepts))
 
-    visit_groups = _group_events_into_visits(patient, concepts)
+    visit_groups = _group_events_into_visits(patient, state.concepts)
     all_dates = [g.date for g in visit_groups]
     append!(all_dates, [g.end_date for g in visit_groups if g.end_date != g.date])
 
-    push!(accum[:observation_period],
-        build_observation_period(pid, all_dates, next!(counters[:observation_period])))
+    push!(state.accum[:observation_period],
+        build_observation_period(pid, all_dates, next!(state.counters[:observation_period])))
 
     for g in visit_groups
-        vid = next!(counters[:visit_occurrence])
-        push!(accum[:visit_occurrence], build_visit(pid, vid, g.date, g.end_date, g.concept_id))
-        for spec in g.conditions     push!(accum[:condition_occurrence], build_condition(spec, pid, vid, concepts, counters[:condition_occurrence]))   end
-        for spec in g.drugs          push!(accum[:drug_exposure],        build_drug(spec, pid, vid, concepts, counters[:drug_exposure]))              end
-        for spec in g.procedures     push!(accum[:procedure_occurrence], build_procedure(spec, pid, vid, concepts, counters[:procedure_occurrence])) end
-        for spec in g.devices        push!(accum[:device_exposure],      build_device(spec, pid, vid, concepts, counters[:device_exposure]))          end
-        for spec in g.measurements   push!(accum[:measurement],          build_measurement(spec, pid, vid, concepts, counters[:measurement]))        end
-        for spec in g.observations   push!(accum[:observation],          build_observation(spec, pid, vid, concepts, counters[:observation]))        end
-        for spec in g.notes          push!(accum[:note],                 build_note(spec, pid, vid, concepts, counters[:note]))                      end
+        vid = next!(state.counters[:visit_occurrence])
+        push!(state.accum[:visit_occurrence], build_visit(pid, vid, g.date, g.end_date, g.concept_id))
+        for spec in g.conditions     push!(state.accum[:condition_occurrence], build_condition(spec, pid, vid, state.concepts, state.counters[:condition_occurrence]))   end
+        for spec in g.drugs          push!(state.accum[:drug_exposure],        build_drug(spec, pid, vid, state.concepts, state.counters[:drug_exposure]))              end
+        for spec in g.procedures     push!(state.accum[:procedure_occurrence], build_procedure(spec, pid, vid, state.concepts, state.counters[:procedure_occurrence])) end
+        for spec in g.devices        push!(state.accum[:device_exposure],      build_device(spec, pid, vid, state.concepts, state.counters[:device_exposure]))          end
+        for spec in g.measurements   push!(state.accum[:measurement],          build_measurement(spec, pid, vid, state.concepts, state.counters[:measurement]))        end
+        for spec in g.observations   push!(state.accum[:observation],          build_observation(spec, pid, vid, state.concepts, state.counters[:observation]))        end
+        for spec in g.notes          push!(state.accum[:note],                 build_note(spec, pid, vid, state.concepts, state.counters[:note]))                      end
     end
 
     death_spec = get(patient, "death", nothing)
-    death_spec !== nothing && push!(accum[:death], build_death(death_spec, pid, concepts))
-end
-
-struct Axis
-    path::Vector{Any}
-    values::Vector{Any}
-end
-
-function _find_axes(node, path::Vector{Any} = Any[])::Vector{Axis}
-    axes = Axis[]
-    if node isa Dict
-        for (key, value) in node
-            if key in Schema.EVENT_KEYS && value isa Vector
-                for (i, event) in enumerate(value)
-                    append!(axes, _find_axes(event, Any[path..., key, i]))
-                end
-            elseif value isa Vector && !isempty(value) && !(value[1] isa Dict)
-                push!(axes, Axis(Any[path..., key], value))
-            elseif value isa Dict
-                append!(axes, _find_axes(value, Any[path..., key]))
-            end
-        end
-    end
-    axes
-end
-
-function _get_at_path(node, path::Vector{Any})
-    for key in path
-        if key isa Integer
-            node = node[key]
-        else
-            node = node[key]
-        end
-    end
-    node
-end
-
-function _set_at_path!(node, path::Vector{Any}, value)
-    for key in path[1:end-1]
-        if key isa Integer
-            node = node[key]
-        else
-            node = node[key]
-        end
-    end
-    last_key = path[end]
-    if last_key isa Integer
-        node[last_key] = value
-    else
-        node[last_key] = value
-    end
-end
-
-function _deepcopy_template(tmpl::Dict)::Dict{String,Any}
-    result = Dict{String,Any}()
-    for (k, v) in tmpl
-        if v isa Dict
-            result[k] = _deepcopy_template(v)
-        elseif v isa Vector
-            result[k] = [item isa Dict ? _deepcopy_template(item) : item for item in v]
-        else
-            result[k] = v
-        end
-    end
-    result
-end
-
-function expand_templates(cfg::Dict)::Vector{Dict{String,Any}}
-    templates = get(cfg, "templates", nothing)
-    templates === nothing && return Dict{String,Any}[]
-    patients = Dict{String,Any}[]
-
-    for (name, tmpl) in templates
-        axes = _find_axes(tmpl)
-        if isempty(axes)
-            patient = _deepcopy_template(tmpl)
-            if !haskey(patient, "person_source_value")
-                patient["person_source_value"] = "$(name)_1"
-            end
-            push!(patients, patient)
-            continue
-        end
-
-        ranges = [1:length(ax.values) for ax in axes]
-        idx = 0
-        for combo in Iterators.product(ranges...)
-            idx += 1
-            patient = _deepcopy_template(tmpl)
-            for (ax, val_idx) in zip(axes, combo)
-                _set_at_path!(patient, ax.path, ax.values[val_idx])
-            end
-            if !haskey(patient, "person_source_value")
-                patient["person_source_value"] = "$(name)_$idx"
-            elseif patient["person_source_value"] isa Vector
-                error("Template '$name': person_source_value must not remain a list after expansion")
-            end
-            push!(patients, patient)
-        end
-    end
-
-    patients
+    death_spec !== nothing && push!(state.accum[:death], build_death(death_spec, pid, state.concepts))
 end
 
 function build_all(cfg::Dict)::Dict{String,DataFrame}
     concepts = cfg["concepts"]
-    counters = _fresh_counters()
-    accum    = _fresh_accum()
+    state = BuildState(concepts)
 
     hand_crafted = get(cfg, "patients", Dict{String,Any}[])
-    templated    = expand_templates(cfg)
+    templated    = Templates.expand(cfg)
     all_patients = vcat(hand_crafted, templated)
 
     for (i, patient) in enumerate(all_patients)
-        process_patient!(accum, counters, patient, i, concepts)
+        process_patient!(state, patient, i)
     end
-    _finalize(accum, cfg)
+    _finalize(state, cfg)
 end
 
 function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},DataFrame}
     site_ids     = [string(s["id"]) for s in cfg["sites"]]
     concepts     = cfg["concepts"]
     hand_crafted = get(cfg, "patients", Dict{String,Any}[])
-    templated    = expand_templates(cfg)
+    templated    = Templates.expand(cfg)
     all_patients = vcat(hand_crafted, templated)
 
     site_tables  = Dict{String,Dict{String,DataFrame}}()
@@ -574,7 +474,11 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         entries = Tuple{Dict{String,Any},Int}[]
         for patient in all_patients
             appearances = get(patient, "appearances", nothing)
-            appearances === nothing && continue
+            if appearances === nothing
+                psv = get(patient, "person_source_value", "<unknown>")
+                @warn "Patient '$psv' has no appearances; skipped for site '$site_id'"
+                continue
+            end
             idx = findfirst(a -> string(get(a, "site", "")) == site_id, appearances)
             if idx !== nothing
                 merged = merge(patient, appearances[idx])
@@ -584,17 +488,16 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
             end
         end
 
-        counters = _fresh_counters()
-        accum    = _fresh_accum()
+        state = BuildState(concepts)
         for (merged, pid) in entries
-            process_patient!(accum, counters, merged, pid, concepts)
+            process_patient!(state, merged, pid)
             push!(linkage_rows, (
                 person_source_value = merged["person_source_value"],
                 site_id = site_id,
                 person_id = pid,
             ))
         end
-        site_tables[site_id] = _finalize(accum, cfg)
+        site_tables[site_id] = _finalize(state, cfg)
     end
 
     linkage_df = isempty(linkage_rows) ?
