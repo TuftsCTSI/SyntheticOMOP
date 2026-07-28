@@ -1,16 +1,24 @@
-const ROOT = dirname(@__DIR__)
-
+using Test
 using Pkg
+
+const ROOT = dirname(@__DIR__)
 Pkg.activate(ROOT)
 
 include(joinpath(ROOT, "src", "SyntheticOMOP.jl"))
 using .SyntheticOMOP
 
-using Test
-
 const VALID_DIR = joinpath(@__DIR__, "configs", "valid")
 const INVALID_DIR = joinpath(@__DIR__, "configs", "invalid")
 const EXPECTED_DIR = joinpath(@__DIR__, "expected")
+
+function run_generate_inprocess(config_path::String, output_dir::String)
+    try
+        SyntheticOMOP.generate(config_path, output_dir)
+        (exit_code = 0, stderr = "")
+    catch e
+        (exit_code = 1, stderr = sprint(showerror, e))
+    end
+end
 
 function collect_files(dir::String)::Vector{String}
     files = String[]
@@ -44,7 +52,9 @@ end
                     continue
                 end
                 mktempdir() do tmpdir
-                    SyntheticOMOP.generate(config_path, tmpdir)
+                    result = run_generate_inprocess(config_path, tmpdir)
+                    @test result.exit_code == 0
+                    result.exit_code != 0 && @info result.stderr
 
                     actual_files = collect_files(tmpdir)
                     expected_files = collect_files(expected)
@@ -69,16 +79,11 @@ end
             expected_msg = parse_expected_error(config_path)
             @testset "$name" begin
                 mktempdir() do tmpdir
-                    err = try
-                        SyntheticOMOP.generate(config_path, tmpdir)
-                        nothing
-                    catch e
-                        sprint(showerror, e)
-                    end
-                    @test err !== nothing
-                    @test contains(err, expected_msg)
-                    if !contains(something(err, ""), expected_msg)
-                        @info "Expected: $expected_msg" actual=err
+                    result = run_generate_inprocess(config_path, tmpdir)
+                    @test result.exit_code != 0
+                    @test contains(result.stderr, expected_msg)
+                    if !contains(result.stderr, expected_msg)
+                        @info "Expected: $expected_msg" actual=result.stderr
                     end
                 end
             end
