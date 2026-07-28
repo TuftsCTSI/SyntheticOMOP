@@ -1,7 +1,3 @@
-module Templates
-
-using ..Schema
-
 struct Axis
     path::Vector{Any}
     values::Vector{Any}
@@ -11,7 +7,7 @@ function _find_axes(node, path::Vector{Any} = Any[])::Vector{Axis}
     axes = Axis[]
     if node isa Dict
         for (key, value) in node
-            if key in Schema.EVENT_KEYS && value isa Vector
+            if key in EVENT_KEYS && value isa Vector
                 for (i, event) in enumerate(value)
                     append!(axes, _find_axes(event, Any[path..., key, i]))
                 end
@@ -53,7 +49,7 @@ function _deepcopy_template(tmpl::Dict)::Dict{String,Any}
     result
 end
 
-function expand(cfg::Dict)::Vector{Dict{String,Any}}
+function expand_templates(cfg::Dict)::Vector{Dict{String,Any}}
     templates = get(cfg, "templates", nothing)
     templates === nothing && return Dict{String,Any}[]
     patients = Dict{String,Any}[]
@@ -88,5 +84,3 @@ function expand(cfg::Dict)::Vector{Dict{String,Any}}
 
     patients
 end
-
-end # module Templates

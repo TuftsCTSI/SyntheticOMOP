@@ -1,27 +1,21 @@
-module Config
-
-using YAML
-
-using ..Schema
-
 struct ConfigError <: Exception
     msg::String
 end
 
 Base.showerror(io::IO, e::ConfigError) = print(io, "ConfigError: ", e.msg)
 
-function load(path::String)::Dict
+function load_config(path::String)::Dict
     isfile(path) || throw(ConfigError("File not found: $path"))
     raw = try
         YAML.load_file(path; dicttype = Dict{String,Any})
     catch e
         throw(ConfigError("YAML parse error: $(sprint(showerror, e))"))
     end
-    validate(raw)
+    _validate(raw)
     raw
 end
 
-function validate(cfg::Dict)
+function _validate(cfg::Dict)
     _validate_concepts(cfg)
     _validate_always_write_tables(cfg)
     if haskey(cfg, "sites")
@@ -54,7 +48,7 @@ function _validate_always_write_tables(cfg::Dict)
     for (i, name) in enumerate(tables)
         name isa String && !isempty(name) ||
             throw(ConfigError("always_write_tables[$i] must be a non-empty string"))
-        haskey(Schema.TABLE_SCHEMAS, Symbol(name)) ||
+        haskey(TABLE_SCHEMAS, Symbol(name)) ||
             throw(ConfigError("always_write_tables[$i] references unknown table: '$name'"))
     end
 end
@@ -112,7 +106,7 @@ end
 
 function _validate_template_concepts(node::Dict, path::String, concepts::Dict)
     for (key, value) in node
-        if key in Schema.EVENT_KEYS
+        if key in EVENT_KEYS
             value isa Vector || throw(ConfigError("$path.$key must be a list"))
             for (i, event) in enumerate(value)
                 event isa Dict ||
@@ -150,7 +144,7 @@ function _validate_events(node::Dict, path::String, concepts::Dict)
         end
     end
 
-    for key in Schema.EVENT_KEYS
+    for key in EVENT_KEYS
         events = get(node, key, nothing)
         events === nothing && continue
         events isa Vector || throw(ConfigError("$path.$key must be a list"))
@@ -195,5 +189,3 @@ function _validate_multi(cfg::Dict)
         push!(site_ids, id)
     end
 end
-
-end # module Config

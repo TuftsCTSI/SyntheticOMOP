@@ -8,11 +8,7 @@ If output_dir is omitted, files are written to out/<config_name>/.
 Table names are lower-cased (person.csv, visit_occurrence.csv, etc.).
 """
 
-using Pkg
-Pkg.activate(@__DIR__)
-
-include(joinpath(@__DIR__, "src", "SyntheticOMOP.jl"))
-using .SyntheticOMOP
+using SyntheticOMOP
 
 function main(args = ARGS)
     if isempty(args) || length(args) > 2

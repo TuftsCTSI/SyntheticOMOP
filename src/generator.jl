@@ -1,11 +1,3 @@
-module Generator
-
-using DataFrames
-using Dates
-
-using ..Schema
-using ..Templates
-
 const TYPE_EHR = 32817
 const VISIT_OUTPATIENT = 9202
 const CDM_VERSION = "v5.4"
@@ -83,7 +75,7 @@ end
 
 function _always_write_tables(cfg::Dict)::Vector{Symbol}
     raw = get(cfg, "always_write_tables",
-        [String(name) for name in Schema.DEFAULT_ALWAYS_WRITE_TABLES])
+        [String(name) for name in DEFAULT_ALWAYS_WRITE_TABLES])
     [Symbol(name) for name in raw]
 end
 
@@ -91,7 +83,7 @@ function _finalize(state::BuildState, cfg::Dict)::Dict{String,DataFrame}
     result = Dict{String,DataFrame}()
     always_write = Set(_always_write_tables(cfg))
 
-    for (key, schema) in Schema.ROW_TABLES
+    for (key, schema) in ROW_TABLES
         rows = get(state.accum, key, [])
         if key in always_write || !isempty(rows)
             result[string(key)] = to_df(rows, schema)
@@ -113,7 +105,7 @@ function _finalize(state::BuildState, cfg::Dict)::Dict{String,DataFrame}
             cdm_version                    = CDM_VERSION,
             cdm_version_concept_id         = CDM_VERSION_CONCEPT_ID,
             vocabulary_version             = "none (synthetic)",
-        )], Schema.CDM_SOURCE)
+        )], CDM_SOURCE)
     end
 
     result
@@ -206,12 +198,11 @@ function build_condition(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
 end
 
 function build_drug(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
-    event_date = parse_date(spec["date"])
     (
         drug_exposure_id             = next!(ctr),
         person_id                    = pid,
         drug_concept_id              = resolve(concepts, spec["concept_id"]),
-        drug_exposure_start_date     = event_date,
+        drug_exposure_start_date     = parse_date(spec["date"]),
         drug_exposure_start_datetime = missing,
         drug_exposure_end_date       = parse_date(get(spec, "end_date", spec["date"])),
         drug_exposure_end_datetime   = missing,
@@ -307,7 +298,7 @@ function build_measurement(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counte
     )
 end
 
-function build_observation(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
+function build_observation_row(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
     (
         observation_id                = next!(ctr),
         person_id                     = pid,
@@ -382,7 +373,7 @@ end
 function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitGroup}
     groups = Dict{Date,VisitGroup}()
 
-    for key in Schema.EVENT_KEYS
+    for key in EVENT_KEYS
         events = get(patient, key, nothing)
         events === nothing && continue
         for spec in events
@@ -438,7 +429,7 @@ function process_patient!(state::BuildState, patient::Dict, pid::Int)
         for spec in g.procedures     push!(state.accum[:procedure_occurrence], build_procedure(spec, pid, vid, state.concepts, state.counters[:procedure_occurrence])) end
         for spec in g.devices        push!(state.accum[:device_exposure],      build_device(spec, pid, vid, state.concepts, state.counters[:device_exposure]))          end
         for spec in g.measurements   push!(state.accum[:measurement],          build_measurement(spec, pid, vid, state.concepts, state.counters[:measurement]))        end
-        for spec in g.observations   push!(state.accum[:observation],          build_observation(spec, pid, vid, state.concepts, state.counters[:observation]))        end
+        for spec in g.observations   push!(state.accum[:observation],          build_observation_row(spec, pid, vid, state.concepts, state.counters[:observation]))    end
         for spec in g.notes          push!(state.accum[:note],                 build_note(spec, pid, vid, state.concepts, state.counters[:note]))                      end
     end
 
@@ -451,7 +442,7 @@ function build_all(cfg::Dict)::Dict{String,DataFrame}
     state = BuildState(concepts)
 
     hand_crafted = get(cfg, "patients", Dict{String,Any}[])
-    templated    = Templates.expand(cfg)
+    templated    = expand_templates(cfg)
     all_patients = vcat(hand_crafted, templated)
 
     for (i, patient) in enumerate(all_patients)
@@ -464,7 +455,7 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
     site_ids     = [string(s["id"]) for s in cfg["sites"]]
     concepts     = cfg["concepts"]
     hand_crafted = get(cfg, "patients", Dict{String,Any}[])
-    templated    = Templates.expand(cfg)
+    templated    = expand_templates(cfg)
     all_patients = vcat(hand_crafted, templated)
 
     site_tables  = Dict{String,Dict{String,DataFrame}}()
@@ -505,5 +496,3 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         DataFrame(linkage_rows)
     (site_tables, linkage_df)
 end
-
-end # module Generator

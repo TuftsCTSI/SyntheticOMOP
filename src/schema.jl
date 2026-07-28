@@ -1,5 +1,3 @@
-module Schema
-
 const PERSON = Symbol[
     :person_id, :gender_concept_id, :year_of_birth, :month_of_birth,
     :day_of_birth, :birth_datetime, :race_concept_id, :ethnicity_concept_id,
@@ -303,5 +301,3 @@ const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[
 ]
 
 const EVENT_KEYS = Set(["conditions", "drugs", "procedures", "devices", "measurements", "observations", "notes"])
-
-end # module Schema

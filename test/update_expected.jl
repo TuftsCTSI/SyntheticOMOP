@@ -17,9 +17,8 @@ for filename in readdir(VALID_DIR)
     config_path = joinpath(VALID_DIR, filename)
     expected = joinpath(EXPECTED_DIR, name)
     rm(expected; recursive=true, force=true)
-    println("Generating: $name")
+    println("Generating: $name...")
     SyntheticOMOP.generate(config_path, expected)
-    println()
 end
 
-println("Golden files updated in $EXPECTED_DIR")
+println("Expected output files updated in $EXPECTED_DIR")

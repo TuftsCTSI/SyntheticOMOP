@@ -1,40 +1,47 @@
 module SyntheticOMOP
 
-include("Schema.jl")
-include("Config.jl")
-include("Templates.jl")
-include("Generator.jl")
-include("Writer.jl")
+using CSV
+using DataFrames
+using Dates
+using YAML
 
-using .Schema
-using .Config
-using .Templates
-using .Generator
-using .Writer
+include("schema.jl")
+include("config.jl")
+include("templates.jl")
+include("generator.jl")
+include("writer.jl")
 
 """
-Generate OMOP CDM 5.4 CSV files from a YAML scenario config.
+    build(config_path) -> Dict{String,DataFrame}
+    build(config_path) -> (Dict{String,Dict{String,DataFrame}}, DataFrame)
 
-When the config contains a top-level `sites` key, one subdirectory is written
-per site and a linkage.csv manifest is written to `output_dir`. Otherwise a
-single flat set of tables is written directly to `output_dir`.
-
-If `output_dir` is omitted, defaults to `out/<config_basename>/`.
+Parse and generate OMOP tables in memory without writing to disk.
 """
-function generate(config_path::String, output_dir::String = joinpath("out", splitext(basename(config_path))[1]))
-    println("Config:  $config_path")
-    println("Output:  $output_dir")
-    println()
-    cfg = Config.load(config_path)
+function build(config_path::String)
+    cfg = load_config(config_path)
     if haskey(cfg, "sites")
-        site_tables, linkage_df = Generator.build_all_sites(cfg)
-        Writer.write_sites(site_tables, linkage_df, output_dir)
+        build_all_sites(cfg)
     else
-        tables = Generator.build_all(cfg)
-        Writer.write_tables(tables, output_dir)
+        build_all(cfg)
     end
 end
 
-export generate
+"""
+    generate(config_path, [output_dir])
+
+Generate OMOP CDM 5.4 CSV files from a YAML scenario config.
+"""
+function generate(config_path::String, output_dir::String = joinpath("out", splitext(basename(config_path))[1]))
+    cfg = load_config(config_path)
+    if haskey(cfg, "sites")
+        site_tables, linkage_df = build_all_sites(cfg)
+        write_sites(site_tables, linkage_df, output_dir)
+    else
+        tables = build_all(cfg)
+        write_tables(tables, output_dir)
+    end
+end
+
+export build, generate
 
 end # module SyntheticOMOP
