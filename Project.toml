@@ -1,7 +1,7 @@
 name = "SyntheticOMOP"
 uuid = "95dbed7d-512f-498c-8aeb-12ed12b37354"
 authors = ["AshlinHarris <90787010+AshlinHarris@users.noreply.github.com>"]
-version = "0.2.0"
+version = "0.3.0"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
