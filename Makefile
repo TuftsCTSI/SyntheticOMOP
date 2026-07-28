@@ -3,10 +3,10 @@
 all: test
 
 deps:
-	julia --project --threads=auto -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
+	julia --project -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
 
 test:
-	julia --project --threads=auto test/runtests.jl
+	julia --project test/runtests.jl
 
 update-expected:
 	julia --project test/update_expected.jl

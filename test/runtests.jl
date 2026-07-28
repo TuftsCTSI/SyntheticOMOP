@@ -1,5 +1,6 @@
 using Test
 using SyntheticOMOP
+using SyntheticOMOP: CSV
 
 const VALID_DIR = joinpath(@__DIR__, "configs", "valid")
 const INVALID_DIR = joinpath(@__DIR__, "configs", "invalid")
@@ -20,6 +21,12 @@ function parse_expected_error(config_path::String)::String
     m = match(r"^# expect: (.+)$", first_line)
     m === nothing && error("Invalid test config: missing '# expect:' on line 1 of $config_path")
     m.captures[1]
+end
+
+function table_to_string(df)::String
+    buf = IOBuffer()
+    CSV.write(buf, df; missingstring = "")
+    String(take!(buf))
 end
 
 struct ValidResult
@@ -47,25 +54,49 @@ function run_valid_config(filename::String)
         return ValidResult(name, -1, "no expected output", [], [], [])
     end
 
-    tmpdir = mktempdir()
     exit_code = 0
     err = ""
+    actual_files = String[]
+    mismatches = String[]
     try
-        SyntheticOMOP.generate(config_path, tmpdir)
+        result = SyntheticOMOP.build(config_path)
+        if result isa Tuple
+            site_tables, linkage_df = result
+            for site_id in sort(collect(keys(site_tables)))
+                for tname in sort(collect(keys(site_tables[site_id])))
+                    relfile = joinpath(site_id, "$tname.csv")
+                    push!(actual_files, relfile)
+                    expected_path = joinpath(expected_dir, relfile)
+                    if isfile(expected_path)
+                        actual_str = table_to_string(site_tables[site_id][tname])
+                        actual_str != read(expected_path, String) && push!(mismatches, relfile)
+                    end
+                end
+            end
+            push!(actual_files, "linkage.csv")
+            sort!(actual_files)
+            expected_path = joinpath(expected_dir, "linkage.csv")
+            if isfile(expected_path)
+                actual_str = table_to_string(linkage_df)
+                actual_str != read(expected_path, String) && push!(mismatches, "linkage.csv")
+            end
+        else
+            tables = result
+            for tname in sort(collect(keys(tables)))
+                push!(actual_files, "$tname.csv")
+                expected_path = joinpath(expected_dir, "$tname.csv")
+                if isfile(expected_path)
+                    actual_str = table_to_string(tables[tname])
+                    actual_str != read(expected_path, String) && push!(mismatches, "$tname.csv")
+                end
+            end
+        end
     catch e
         exit_code = 1
         err = sprint(showerror, e)
     end
 
-    actual_files = collect_files(tmpdir)
     expected_files = collect_files(expected_dir)
-    mismatches = String[]
-    for f in expected_files
-        af = joinpath(tmpdir, f)
-        isfile(af) || continue
-        read(af, String) != read(joinpath(expected_dir, f), String) && push!(mismatches, f)
-    end
-    rm(tmpdir; recursive = true, force = true)
     ValidResult(name, exit_code, err, actual_files, expected_files, mismatches)
 end
 

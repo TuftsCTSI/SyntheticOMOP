@@ -51,12 +51,52 @@ export build, generate
     write(_pc_single, """
     concepts:
       c1: 1
+      c2: 2
+    templates:
+      t1:
+        gender_concept_id: [c1, c2]
+        birth_year: [1980, 1990]
+        conditions:
+          - concept_id: c1
+            date: "2023-01-01"
+            end_date: "2023-06-01"
+        drugs:
+          - concept_id: c1
+            date: "2023-01-01"
+            end_date: "2023-03-01"
+            days_supply: 30
+            quantity: 30
+            route_concept_id: c2
+        procedures:
+          - concept_id: c1
+            date: "2023-02-01"
+        devices:
+          - concept_id: c1
+            date: "2023-01-01"
+            end_date: "2023-12-31"
+        measurements:
+          - concept_id: c1
+            date: "2023-03-01"
+            value_as_number: 120
+            unit_concept_id: c2
+        observations:
+          - concept_id: c1
+            date: "2023-01-01"
+            value_as_string: "x"
+        notes:
+          - concept_id: c1
+            date: "2023-01-01"
+            title: "t"
+            text: "n"
     patients:
       - person_source_value: pc1
         gender_concept_id: c1
         birth_year: 2000
         birth_month: 1
         birth_day: 1
+        death:
+          date: "2024-01-01"
+          cause_concept_id: c1
         conditions:
           - concept_id: c1
             date: "2023-01-01"
@@ -66,6 +106,7 @@ export build, generate
       c1: 1
     sites:
       - id: s1
+      - id: s2
     patients:
       - person_source_value: pc1
         appearances:
@@ -77,6 +118,15 @@ export build, generate
             conditions:
               - concept_id: c1
                 date: "2023-01-01"
+          - site: s2
+            gender_concept_id: c1
+            birth_year: 2000
+            birth_month: 1
+            birth_day: 1
+            measurements:
+              - concept_id: c1
+                date: "2023-06-01"
+                value_as_number: 99
     """)
     @compile_workload begin
         generate(_pc_single, mktempdir())
