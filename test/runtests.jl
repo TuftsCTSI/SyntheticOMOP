@@ -1,18 +1,16 @@
+const ROOT = dirname(@__DIR__)
+
+using Pkg
+Pkg.activate(ROOT)
+
+include(joinpath(ROOT, "src", "SyntheticOMOP.jl"))
+using .SyntheticOMOP
+
 using Test
 
-const ROOT = dirname(@__DIR__)
-const GENERATE = joinpath(ROOT, "generate.jl")
 const VALID_DIR = joinpath(@__DIR__, "configs", "valid")
 const INVALID_DIR = joinpath(@__DIR__, "configs", "invalid")
 const EXPECTED_DIR = joinpath(@__DIR__, "expected")
-
-function run_generate(config_path::String, output_dir::String)
-    stderr_file = tempname()
-    cmd = `julia --project=$ROOT $GENERATE $config_path $output_dir`
-    p = run(pipeline(ignorestatus(cmd), stdout=devnull, stderr=stderr_file))
-    err = isfile(stderr_file) ? strip(read(stderr_file, String)) : ""
-    (exit_code = p.exitcode, stderr = err)
-end
 
 function collect_files(dir::String)::Vector{String}
     files = String[]
@@ -46,9 +44,7 @@ end
                     continue
                 end
                 mktempdir() do tmpdir
-                    result = run_generate(config_path, tmpdir)
-                    @test result.exit_code == 0
-                    result.exit_code != 0 && @info result.stderr
+                    SyntheticOMOP.generate(config_path, tmpdir)
 
                     actual_files = collect_files(tmpdir)
                     expected_files = collect_files(expected)
@@ -73,15 +69,19 @@ end
             expected_msg = parse_expected_error(config_path)
             @testset "$name" begin
                 mktempdir() do tmpdir
-                    result = run_generate(config_path, tmpdir)
-                    @test result.exit_code != 0
-                    @test contains(result.stderr, expected_msg)
-                    if !contains(result.stderr, expected_msg)
-                        @info "Expected: $expected_msg" actual=result.stderr
+                    err = try
+                        SyntheticOMOP.generate(config_path, tmpdir)
+                        nothing
+                    catch e
+                        sprint(showerror, e)
+                    end
+                    @test err !== nothing
+                    @test contains(err, expected_msg)
+                    if !contains(something(err, ""), expected_msg)
+                        @info "Expected: $expected_msg" actual=err
                     end
                 end
             end
         end
     end
 end
-

@@ -1,5 +1,11 @@
 const ROOT = dirname(@__DIR__)
-const GENERATE = joinpath(ROOT, "generate.jl")
+
+using Pkg
+Pkg.activate(ROOT)
+
+include(joinpath(ROOT, "src", "SyntheticOMOP.jl"))
+using .SyntheticOMOP
+
 const VALID_DIR = joinpath(@__DIR__, "configs", "valid")
 const EXPECTED_DIR = joinpath(@__DIR__, "expected")
 
@@ -12,9 +18,8 @@ for filename in readdir(VALID_DIR)
     expected = joinpath(EXPECTED_DIR, name)
     rm(expected; recursive=true, force=true)
     println("Generating: $name")
-    run(`julia --project=$ROOT $GENERATE $config_path $expected`)
+    SyntheticOMOP.generate(config_path, expected)
     println()
 end
 
 println("Golden files updated in $EXPECTED_DIR")
-
