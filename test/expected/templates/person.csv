@@ -1,0 +1,9 @@
+person_id,gender_concept_id,year_of_birth,month_of_birth,day_of_birth,birth_datetime,race_concept_id,ethnicity_concept_id,location_id,provider_id,care_site_id,person_source_value,gender_source_value,gender_source_concept_id,race_source_value,race_source_concept_id,ethnicity_source_value,ethnicity_source_concept_id
+1,8507,1960,,,,,,,,,htn_bp_1,,0,,0,,0
+2,8507,1980,,,,,,,,,htn_bp_2,,0,,0,,0
+3,8507,1960,,,,,,,,,htn_bp_3,,0,,0,,0
+4,8507,1980,,,,,,,,,htn_bp_4,,0,,0,,0
+5,8532,1960,,,,,,,,,htn_bp_5,,0,,0,,0
+6,8532,1980,,,,,,,,,htn_bp_6,,0,,0,,0
+7,8532,1960,,,,,,,,,htn_bp_7,,0,,0,,0
+8,8532,1980,,,,,,,,,htn_bp_8,,0,,0,,0

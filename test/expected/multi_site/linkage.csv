@@ -1,0 +1,4 @@
+person_source_value,site_id,person_id
+shared_patient,site_a,1
+site_a_only,site_a,2
+shared_patient,site_b,1

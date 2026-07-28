@@ -1,0 +1,5 @@
+measurement_id,person_id,measurement_concept_id,measurement_date,measurement_datetime,measurement_time,measurement_type_concept_id,operator_concept_id,value_as_number,value_as_concept_id,unit_concept_id,range_low,range_high,provider_id,visit_occurrence_id,visit_detail_id,measurement_source_value,measurement_source_concept_id,unit_source_value,unit_source_concept_id,value_source_value,measurement_event_id,meas_event_field_concept_id
+1,1,3004249,2023-05-01,,,,,145,,,,,,1,,,0,,0,,,
+2,1,3012888,2023-05-01,,,,,92,,,,,,1,,,0,,0,,,
+3,2,3004249,2023-08-10,,,,,160,,,,,,2,,,0,,0,,,
+4,2,3004249,2023-09-15,,,,,138,,,,,,3,,,0,,0,,,
