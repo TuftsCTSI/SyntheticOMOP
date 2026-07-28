@@ -1,0 +1,13 @@
+# expect: references unknown table
+concepts:
+  hypertension: 320128
+
+always_write_tables:
+  - not_a_real_table
+
+patients:
+  - person_source_value: p01
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+

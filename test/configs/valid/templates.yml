@@ -1,0 +1,20 @@
+concepts:
+  male: 8507
+  female: 8532
+  hypertension: 320128
+  systolic_bp: 3004249
+  mmHg: 8876
+
+templates:
+  htn_bp:
+    gender_concept_id: [male, female]
+    birth_year: [1960, 1980]
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-06-01"
+        value_as_number: [130, 150]
+        unit_concept_id: mmHg
+

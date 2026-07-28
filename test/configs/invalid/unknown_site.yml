@@ -1,0 +1,15 @@
+# expect: references unknown site
+concepts:
+  hypertension: 320128
+
+sites:
+  - id: hospital_a
+
+patients:
+  - person_source_value: p01
+    appearances:
+      - site: hospital_b
+        conditions:
+          - concept_id: hypertension
+            date: "2023-01-10"
+

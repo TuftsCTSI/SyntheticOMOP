@@ -1,0 +1,14 @@
+concepts:
+  female: 8532
+  hypertension: 320128
+
+patients:
+  - person_source_value: p01
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 6
+    birth_day: 15
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+

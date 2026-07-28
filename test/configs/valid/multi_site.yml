@@ -1,0 +1,37 @@
+concepts:
+  female: 8532
+  hypertension: 320128
+  systolic_bp: 3004249
+  mmHg: 8876
+
+sites:
+  - id: site_a
+  - id: site_b
+
+patients:
+  - person_source_value: shared_patient
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1975
+        conditions:
+          - concept_id: hypertension
+            date: "2023-01-15"
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 1975
+        measurements:
+          - concept_id: systolic_bp
+            date: "2023-06-01"
+            value_as_number: 140
+            unit_concept_id: mmHg
+
+  - person_source_value: site_a_only
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1990
+        conditions:
+          - concept_id: hypertension
+            date: "2023-03-01"
+

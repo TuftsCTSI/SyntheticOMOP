@@ -1,0 +1,10 @@
+# expect: references unknown concept
+concepts:
+  hypertension: 320128
+
+patients:
+  - person_source_value: p01
+    conditions:
+      - concept_id: diabetes
+        date: "2023-01-10"
+

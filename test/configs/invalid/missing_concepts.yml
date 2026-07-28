@@ -1,0 +1,7 @@
+# expect: 'concepts' section is required
+patients:
+  - person_source_value: p01
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+

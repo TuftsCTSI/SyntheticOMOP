@@ -1,0 +1,59 @@
+concepts:
+  male: 8507
+  white: 8527
+  outpatient: 9202
+  hypertension: 320128
+  metformin: 1503297
+  echocardiography: 2108565
+  glucose_monitor: 4116536
+  systolic_bp: 3004249
+  tobacco_use: 4069590
+  progress_note: 44814637
+  hypertensive_disorder: 4306655
+  mmHg: 8876
+  oral: 4132161
+
+patients:
+  - person_source_value: full_patient
+    gender_concept_id: male
+    birth_year: 1960
+    birth_month: 3
+    birth_day: 10
+    race_concept_id: white
+    death:
+      date: "2024-06-01"
+      cause_concept_id: hypertensive_disorder
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-15"
+        end_date: "2024-06-01"
+    drugs:
+      - concept_id: metformin
+        date: "2023-01-15"
+        end_date: "2023-04-15"
+        days_supply: 90
+        quantity: 90
+        route_concept_id: oral
+        lot_number: "LOT-A"
+    procedures:
+      - concept_id: echocardiography
+        date: "2023-02-10"
+    devices:
+      - concept_id: glucose_monitor
+        date: "2023-01-15"
+        end_date: "2023-12-31"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-03-01"
+        value_as_number: 145
+        unit_concept_id: mmHg
+    observations:
+      - concept_id: tobacco_use
+        date: "2023-01-15"
+        value_as_string: "Current smoker"
+    notes:
+      - concept_id: progress_note
+        date: "2023-01-15"
+        title: "Initial visit"
+        text: "Patient presents with elevated BP."
+

@@ -1,0 +1,42 @@
+concepts:
+  male: 8507
+  inpatient: 9201
+  hypertension: 320128
+  systolic_bp: 3004249
+  diastolic_bp: 3012888
+  tobacco_use: 4069590
+
+patients:
+  - person_source_value: same_day_grouped
+    gender_concept_id: male
+    birth_year: 1970
+    conditions:
+      - concept_id: hypertension
+        date: "2023-05-01"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-05-01"
+        value_as_number: 145
+      - concept_id: diastolic_bp
+        date: "2023-05-01"
+        value_as_number: 92
+    observations:
+      - concept_id: tobacco_use
+        date: "2023-05-01"
+
+  - person_source_value: inpatient_multiday
+    gender_concept_id: male
+    birth_year: 1965
+    conditions:
+      - concept_id: hypertension
+        date: "2023-08-10"
+        visit_concept_id: inpatient
+        visit_end_date: "2023-08-14"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-08-10"
+        value_as_number: 160
+      - concept_id: systolic_bp
+        date: "2023-09-15"
+        value_as_number: 138
+

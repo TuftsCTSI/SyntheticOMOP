@@ -142,6 +142,12 @@ function _validate_single_concept_ref(value, path::String, concepts::Dict)
 end
 
 function _validate_events(node::Dict, path::String, concepts::Dict)
+    for (k, v) in node
+        if endswith(k, "_concept_id")
+            _validate_single_concept_ref(v, "$path.$k", concepts)
+        end
+    end
+
     for key in Schema.EVENT_KEYS
         events = get(node, key, nothing)
         events === nothing && continue
@@ -189,3 +195,4 @@ function _validate_multi(cfg::Dict)
 end
 
 end # module Config
+

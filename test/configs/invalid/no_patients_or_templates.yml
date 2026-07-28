@@ -1,0 +1,4 @@
+# expect: at least one of 'patients' or 'templates'
+concepts:
+  hypertension: 320128
+

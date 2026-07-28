@@ -1,0 +1,9 @@
+# expect: missing 'date'
+concepts:
+  hypertension: 320128
+
+patients:
+  - person_source_value: p01
+    conditions:
+      - concept_id: hypertension
+
