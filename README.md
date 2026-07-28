@@ -37,7 +37,7 @@ Output defaults to `out/omop_synth/`.
 ### Concepts
 
 All concept references use string aliases defined in the `concepts` section.
-Raw integers are not allowed anywhere in the config.
+Raw integer concept codes are not allowed.
 
 ```yaml
 concepts:
