@@ -1,7 +1,5 @@
 module Schema
 
-"""Column names for all OMOP CDM 5.4 tables, in canonical field order."""
-
 const PERSON = Symbol[
     :person_id, :gender_concept_id, :year_of_birth, :month_of_birth,
     :day_of_birth, :birth_datetime, :race_concept_id, :ethnicity_concept_id,
@@ -244,7 +242,6 @@ const CDM_SOURCE = Symbol[
     :cdm_version, :cdm_version_concept_id, :vocabulary_version,
 ]
 
-"""Registry of all recognized OMOP CDM 5.4 table schemas."""
 const TABLE_SCHEMAS = Dict{Symbol,Vector{Symbol}}(
     :person               => PERSON,
     :observation_period   => OBSERVATION_PERIOD,
@@ -277,7 +274,6 @@ const TABLE_SCHEMAS = Dict{Symbol,Vector{Symbol}}(
     :cdm_source           => CDM_SOURCE,
 )
 
-"""Tables built via row accumulators in Generator."""
 const ROW_TABLES = Dict{Symbol,Vector{Symbol}}(
     :person               => PERSON,
     :observation_period   => OBSERVATION_PERIOD,
@@ -303,9 +299,9 @@ const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[
     :measurement,
     :observation,
     :death,
-    :location,
-    :concept,
     :concept_ancestor,
 ]
+
+const EVENT_KEYS = Set(["conditions", "drugs", "procedures", "devices", "measurements", "observations", "notes"])
 
 end # module Schema

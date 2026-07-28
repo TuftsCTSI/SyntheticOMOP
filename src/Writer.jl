@@ -3,11 +3,6 @@ module Writer
 using CSV
 using DataFrames
 
-"""
-Write all DataFrames in `tables` to `output_dir` as CSV files.
-Required tables are always written (header-only when empty); optional tables
-appear only when the config populates them.
-"""
 function write_tables(tables::Dict{String,DataFrame}, output_dir::String)
     mkpath(output_dir)
     written = String[]
@@ -21,11 +16,6 @@ function write_tables(tables::Dict{String,DataFrame}, output_dir::String)
     println("Wrote $(length(written)) table$(length(written) == 1 ? "" : "s") to $output_dir/")
 end
 
-"""
-Write one subdirectory of OMOP CSVs per site, plus a linkage.csv at the top
-level of `output_dir`. The linkage manifest has columns `handle`, `site_id`,
-and `person_id`, and is the authoritative cross-site join key.
-"""
 function write_sites(
     site_tables::Dict{String,Dict{String,DataFrame}},
     linkage_df::DataFrame,

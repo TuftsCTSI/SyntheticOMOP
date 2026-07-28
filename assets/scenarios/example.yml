@@ -1,3 +1,27 @@
+concepts:
+  male: 8507
+  female: 8532
+  white: 8527
+  black: 8516
+  asian: 8515
+  not_hispanic: 38003564
+  inpatient: 9201
+  outpatient: 9202
+  type_2_diabetes: 201826
+  hypertensive_disorder: 4306655
+  hypertension: 316866
+  acute_kidney_injury: 4185932
+  asthma: 317009
+  tobacco_use: 4069590
+  hba1c: 3004501
+  diastolic_bp: 3012888
+  echocardiography: 2108565
+  metformin_500mg: 1503297
+  albuterol_inhaler: 1154343
+  peak_flow_meter: 4116536
+  percent: 8554
+  mmHg: 8876
+
 cdm_source:
   name: "Basic Synthetic Test Dataset"
   abbreviation: "BASIC-SYNTH"
@@ -6,88 +30,76 @@ cdm_source:
 
 patients:
 
-  - handle: p01
-    gender_concept_id: 8532      # Female
+  - person_source_value: p01
+    gender_concept_id: female
     birth_year: 1975
     birth_month: 3
     birth_day: 15
-    race_concept_id: 8527        # White
-    ethnicity_concept_id: 38003564  # Not Hispanic or Latino
-    visits:
-      - handle: v01
-        visit_concept_id: 9201   # Inpatient
-        start_date: "2023-01-15"
-        end_date: "2023-01-18"
-        conditions:
-          - condition_concept_id: 201826   # Type 2 diabetes mellitus
-            start_date: "2023-01-15"
-        drugs:
-          - drug_concept_id: 1503297       # Metformin 500mg
-            start_date: "2023-01-15"
-            end_date: "2023-04-15"
-            days_supply: 90
-        measurements:
-          - measurement_concept_id: 3004501  # HbA1c
-            date: "2023-01-16"
-            value_as_number: 8.2
-            unit_concept_id: 8554            # %
-          - measurement_concept_id: 3012888  # Diastolic BP
-            date: "2023-01-16"
-            value_as_number: 138
-            unit_concept_id: 8876            # mmHg
-      - handle: v02
-        visit_concept_id: 9202   # Outpatient
-        start_date: "2023-06-10"
-        end_date: "2023-06-10"
-        measurements:
-          - measurement_concept_id: 3004501
-            date: "2023-06-10"
-            value_as_number: 7.1
-            unit_concept_id: 8554
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2023-01-15"
+        visit_concept_id: inpatient
+        visit_end_date: "2023-01-18"
+    drugs:
+      - concept_id: metformin_500mg
+        date: "2023-01-15"
+        end_date: "2023-04-15"
+        days_supply: 90
+        visit_concept_id: inpatient
+        visit_end_date: "2023-01-18"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-01-16"
+        value_as_number: 8.2
+        unit_concept_id: percent
+      - concept_id: diastolic_bp
+        date: "2023-01-16"
+        value_as_number: 138
+        unit_concept_id: mmHg
+      - concept_id: hba1c
+        date: "2023-06-10"
+        value_as_number: 7.1
+        unit_concept_id: percent
 
-  - handle: p02
-    gender_concept_id: 8507      # Male
+  - person_source_value: p02
+    gender_concept_id: male
     birth_year: 1948
-    race_concept_id: 8516        # Black or African American
-    ethnicity_concept_id: 38003564
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
     death:
       date: "2024-02-20"
-      cause_concept_id: 4306655  # Hypertensive disorder
-    visits:
-      - handle: v01
-        visit_concept_id: 9201   # Inpatient
-        start_date: "2024-02-10"
-        end_date: "2024-02-20"
-        conditions:
-          - condition_concept_id: 316866   # Hypertensive disorder
-            start_date: "2024-02-10"
-          - condition_concept_id: 4185932  # Acute kidney injury
-            start_date: "2024-02-11"
-        procedures:
-          - procedure_concept_id: 2108565  # Echocardiography
-            date: "2024-02-12"
-        observations:
-          - observation_concept_id: 4069590  # Tobacco use
-            date: "2024-02-10"
+      cause_concept_id: hypertensive_disorder
+    conditions:
+      - concept_id: hypertension
+        date: "2024-02-10"
+        visit_concept_id: inpatient
+        visit_end_date: "2024-02-20"
+      - concept_id: acute_kidney_injury
+        date: "2024-02-10"
+        visit_concept_id: inpatient
+        visit_end_date: "2024-02-20"
+    procedures:
+      - concept_id: echocardiography
+        date: "2024-02-12"
+    observations:
+      - concept_id: tobacco_use
+        date: "2024-02-10"
+        visit_concept_id: inpatient
+        visit_end_date: "2024-02-20"
 
-  - handle: p03
-    gender_concept_id: 8532      # Female
+  - person_source_value: p03
+    gender_concept_id: female
     birth_year: 2010
-    race_concept_id: 8515        # Asian
-    ethnicity_concept_id: 38003564
-    visits:
-      - handle: v01
-        visit_concept_id: 9202   # Outpatient
-        start_date: "2023-09-05"
-        end_date: "2023-09-05"
-        conditions:
-          - condition_concept_id: 317009   # Asthma
-            start_date: "2023-09-05"
-        drugs:
-          - drug_concept_id: 1154343       # Albuterol inhaler
-            start_date: "2023-09-05"
-            end_date: "2023-09-05"
-        devices:
-          - device_concept_id: 4116536     # Peak flow meter
-            start_date: "2023-09-05"
-
+    race_concept_id: asian
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: asthma
+        date: "2023-09-05"
+    drugs:
+      - concept_id: albuterol_inhaler
+        date: "2023-09-05"
+    devices:
+      - concept_id: peak_flow_meter
+        date: "2023-09-05"

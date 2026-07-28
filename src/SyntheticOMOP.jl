@@ -14,7 +14,7 @@ using .Writer
 Generate OMOP CDM 5.4 CSV files from a YAML scenario config.
 
 When the config contains a top-level `sites` key, one subdirectory is written
-per site and a LINKAGE.csv manifest is written to `output_dir`. Otherwise a
+per site and a linkage.csv manifest is written to `output_dir`. Otherwise a
 single flat set of tables is written directly to `output_dir`.
 """
 function generate(config_path::String, output_dir::String = "out/omop_synth")
