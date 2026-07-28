@@ -90,16 +90,10 @@ valid_configs = filter(f -> endswith(f, ".yml"), readdir(VALID_DIR))
 invalid_configs = filter(f -> endswith(f, ".yml"), readdir(INVALID_DIR))
 
 t1 = time()
-valid_results = Vector{ValidResult}(undef, length(valid_configs))
-Threads.@threads for i in eachindex(valid_configs)
-    valid_results[i] = run_valid_config(valid_configs[i])
-end
+valid_results = [run_valid_config(f) for f in valid_configs]
 t2 = time()
 
-invalid_results = Vector{InvalidResult}(undef, length(invalid_configs))
-Threads.@threads for i in eachindex(invalid_configs)
-    invalid_results[i] = run_invalid_config(invalid_configs[i])
-end
+invalid_results = [run_invalid_config(f) for f in invalid_configs]
 t3 = time()
 
 @testset "SyntheticOMOP" begin
@@ -138,7 +132,8 @@ t3 = time()
 end
 t4 = time()
 
-@info "Valid generation ($(length(valid_configs)) configs, $(Threads.nthreads()) threads): $(round(t2 - t1; digits=2))s"
+@info "Valid generation ($(length(valid_configs)) configs): $(round(t2 - t1; digits=2))s"
 @info "Invalid validation ($(length(invalid_configs)) configs): $(round(t3 - t2; digits=2))s"
 @info "Assertions: $(round(t4 - t3; digits=2))s"
 @info "Total (post-import): $(round(t4 - t0; digits=2))s"
+

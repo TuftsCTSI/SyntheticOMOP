@@ -3,6 +3,7 @@ module SyntheticOMOP
 using CSV
 using DataFrames
 using Dates
+using PrecompileTools
 using YAML
 
 include("schema.jl")
@@ -44,4 +45,46 @@ end
 
 export build, generate
 
+@setup_workload begin
+    _pc_single = joinpath(tempdir(), "_syntheticomop_pc_single.yml")
+    _pc_multi = joinpath(tempdir(), "_syntheticomop_pc_multi.yml")
+    write(_pc_single, """
+    concepts:
+      c1: 1
+    patients:
+      - person_source_value: pc1
+        gender_concept_id: c1
+        birth_year: 2000
+        birth_month: 1
+        birth_day: 1
+        conditions:
+          - concept_id: c1
+            date: "2023-01-01"
+    """)
+    write(_pc_multi, """
+    concepts:
+      c1: 1
+    sites:
+      - id: s1
+    patients:
+      - person_source_value: pc1
+        appearances:
+          - site: s1
+            gender_concept_id: c1
+            birth_year: 2000
+            birth_month: 1
+            birth_day: 1
+            conditions:
+              - concept_id: c1
+                date: "2023-01-01"
+    """)
+    @compile_workload begin
+        generate(_pc_single, mktempdir())
+        generate(_pc_multi, mktempdir())
+    end
+    rm(_pc_single; force=true)
+    rm(_pc_multi; force=true)
+end
+
 end # module SyntheticOMOP
+
