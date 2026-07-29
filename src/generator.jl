@@ -46,7 +46,8 @@ function BuildState(concepts::Dict)
 end
 
 function parse_date(s)::Date
-    Date(string(s), dateformat"yyyy-mm-dd")
+    s isa Date && return s
+    Date(s, dateformat"yyyy-mm-dd")
 end
 
 function parse_date_opt(s)::Union{Date,Missing}
@@ -65,7 +66,10 @@ end
 
 function resolve(concepts::Dict, value)::Union{Int,Missing}
     value === nothing && return missing
-    concepts[string(value)]
+    key = string(value)
+    haskey(concepts, key) ||
+        throw(ConfigError("Unknown concept alias: '$value'"))
+    concepts[key]
 end
 
 function resolve_opt(concepts::Dict, node::Dict, key::String)::Union{Int,Missing}
@@ -73,9 +77,14 @@ function resolve_opt(concepts::Dict, node::Dict, key::String)::Union{Int,Missing
     value === nothing ? missing : resolve(concepts, value)
 end
 
+function resolve_type(concepts::Dict, node::Dict)::Int
+    value = get(node, "type_concept_id", nothing)
+    value === nothing ? TYPE_EHR : resolve(concepts, value)
+end
+
 function _always_write_tables(cfg::Dict)::Vector{Symbol}
-    raw = get(cfg, "always_write_tables",
-        [String(name) for name in DEFAULT_ALWAYS_WRITE_TABLES])
+    raw = get(cfg, "always_write_tables", nothing)
+    raw === nothing && return DEFAULT_ALWAYS_WRITE_TABLES
     [Symbol(name) for name in raw]
 end
 
@@ -185,7 +194,7 @@ function build_condition(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         condition_start_datetime      = missing,
         condition_end_date            = parse_date_opt(get(spec, "end_date", nothing)),
         condition_end_datetime        = missing,
-        condition_type_concept_id     = resolve_opt(concepts, spec, "type_concept_id"),
+        condition_type_concept_id     = resolve_type(concepts, spec),
         condition_status_concept_id   = missing,
         stop_reason                   = missing,
         provider_id                   = missing,
@@ -207,7 +216,7 @@ function build_drug(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         drug_exposure_end_date       = parse_date(get(spec, "end_date", spec["date"])),
         drug_exposure_end_datetime   = missing,
         verbatim_end_date            = missing,
-        drug_type_concept_id         = resolve_opt(concepts, spec, "type_concept_id"),
+        drug_type_concept_id         = resolve_type(concepts, spec),
         stop_reason                  = missing,
         refills                      = get(spec, "refills",      missing),
         quantity                     = get(spec, "quantity",     missing),
@@ -234,7 +243,7 @@ function build_procedure(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         procedure_datetime          = missing,
         procedure_end_date          = parse_date_opt(get(spec, "end_date", nothing)),
         procedure_end_datetime      = missing,
-        procedure_type_concept_id   = resolve_opt(concepts, spec, "type_concept_id"),
+        procedure_type_concept_id   = resolve_type(concepts, spec),
         modifier_concept_id         = missing,
         quantity                    = get(spec, "quantity", missing),
         provider_id                 = missing,
@@ -255,7 +264,7 @@ function build_device(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         device_exposure_start_datetime = missing,
         device_exposure_end_date       = parse_date_opt(get(spec, "end_date", nothing)),
         device_exposure_end_datetime   = missing,
-        device_type_concept_id         = resolve_opt(concepts, spec, "type_concept_id"),
+        device_type_concept_id         = resolve_type(concepts, spec),
         unique_device_id               = missing,
         production_id                  = missing,
         quantity                       = get(spec, "quantity", missing),
@@ -278,7 +287,7 @@ function build_measurement(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counte
         measurement_date              = parse_date(spec["date"]),
         measurement_datetime          = missing,
         measurement_time              = missing,
-        measurement_type_concept_id   = resolve_opt(concepts, spec, "type_concept_id"),
+        measurement_type_concept_id   = resolve_type(concepts, spec),
         operator_concept_id           = resolve_opt(concepts, spec, "operator_concept_id"),
         value_as_number               = get(spec, "value_as_number",   missing),
         value_as_concept_id           = resolve_opt(concepts, spec, "value_as_concept_id"),
@@ -305,7 +314,7 @@ function build_observation_row(spec, pid::Int, vid::Int, concepts::Dict, ctr::Co
         observation_concept_id        = resolve(concepts, spec["concept_id"]),
         observation_date              = parse_date(spec["date"]),
         observation_datetime          = missing,
-        observation_type_concept_id   = resolve_opt(concepts, spec, "type_concept_id"),
+        observation_type_concept_id   = resolve_type(concepts, spec),
         value_as_number               = get(spec, "value_as_number",    missing),
         value_as_string               = get(spec, "value_as_string",    missing),
         value_as_concept_id           = resolve_opt(concepts, spec, "value_as_concept_id"),
@@ -330,12 +339,12 @@ function build_note(spec, pid::Int, vid::Int, concepts::Dict, ctr::Counter)
         person_id                   = pid,
         note_date                   = parse_date(spec["date"]),
         note_datetime               = missing,
-        note_type_concept_id        = resolve_opt(concepts, spec, "type_concept_id"),
+        note_type_concept_id        = resolve_type(concepts, spec),
         note_class_concept_id       = resolve_opt(concepts, spec, "class_concept_id"),
         note_title                  = get(spec, "title",  missing),
         note_text                   = get(spec, "text",   missing),
-        encoding_concept_id         = 0,
-        language_concept_id         = 0,
+        encoding_concept_id         = coalesce(resolve_opt(concepts, spec, "encoding_concept_id"), 0),
+        language_concept_id         = coalesce(resolve_opt(concepts, spec, "language_concept_id"), 0),
         provider_id                 = missing,
         visit_occurrence_id         = vid,
         visit_detail_id             = missing,
@@ -350,7 +359,7 @@ function build_death(spec, pid::Int, concepts::Dict)
         person_id               = pid,
         death_date              = parse_date(spec["date"]),
         death_datetime          = missing,
-        death_type_concept_id   = resolve_opt(concepts, spec, "type_concept_id"),
+        death_type_concept_id   = resolve_type(concepts, spec),
         cause_concept_id        = resolve_opt(concepts, spec, "cause_concept_id"),
         cause_source_value      = missing,
         cause_source_concept_id = 0,
@@ -396,15 +405,7 @@ function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitG
                     g.concept_id = vc
                 end
             end
-            g = groups[d]
-            if key == "conditions"       push!(g.conditions, spec)
-            elseif key == "drugs"        push!(g.drugs, spec)
-            elseif key == "procedures"   push!(g.procedures, spec)
-            elseif key == "devices"      push!(g.devices, spec)
-            elseif key == "measurements" push!(g.measurements, spec)
-            elseif key == "observations" push!(g.observations, spec)
-            elseif key == "notes"        push!(g.notes, spec)
-            end
+            push!(getfield(groups[d], Symbol(key)), spec)
         end
     end
 
@@ -417,6 +418,11 @@ function process_patient!(state::BuildState, patient::Dict, pid::Int)
     visit_groups = _group_events_into_visits(patient, state.concepts)
     all_dates = [g.date for g in visit_groups]
     append!(all_dates, [g.end_date for g in visit_groups if g.end_date != g.date])
+
+    death_spec = get(patient, "death", nothing)
+    if death_spec !== nothing
+        push!(all_dates, parse_date(death_spec["date"]))
+    end
 
     push!(state.accum[:observation_period],
         build_observation_period(pid, all_dates, next!(state.counters[:observation_period])))
@@ -433,7 +439,6 @@ function process_patient!(state::BuildState, patient::Dict, pid::Int)
         for spec in g.notes          push!(state.accum[:note],                 build_note(spec, pid, vid, state.concepts, state.counters[:note]))                      end
     end
 
-    death_spec = get(patient, "death", nothing)
     death_spec !== nothing && push!(state.accum[:death], build_death(death_spec, pid, state.concepts))
 end
 
@@ -472,6 +477,7 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
             end
             idx = findfirst(a -> string(get(a, "site", "")) == site_id, appearances)
             if idx !== nothing
+                # Appearance fields override patient-level fields (except person_source_value)
                 merged = merge(patient, appearances[idx])
                 merged["person_source_value"] = patient["person_source_value"]
                 delete!(merged, "appearances")
@@ -496,3 +502,4 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         DataFrame(linkage_rows)
     (site_tables, linkage_df)
 end
+
