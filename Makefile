@@ -1,4 +1,4 @@
-.PHONY: all test deps update-expected clean
+.PHONY: all test deps update-expected phx
 
 all: phx
 
@@ -14,6 +14,3 @@ phx:
 update-expected:
 	julia --project test/update_expected.jl
 
-clean:
-	rm -rf out/
-	rm -rf test/expected/
