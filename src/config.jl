@@ -95,19 +95,38 @@ function _validate_templates(cfg::Dict)
     templates = cfg["templates"]
     templates isa Dict || throw(ConfigError("'templates' must be a mapping"))
     concepts = cfg["concepts"]
+    is_multi = haskey(cfg, "sites")
     for (name, tmpl) in templates
         name isa String && !isempty(name) ||
             throw(ConfigError("Template name must be a non-empty string"))
         tmpl isa Dict ||
             throw(ConfigError("Template '$name' must be a mapping"))
+        if is_multi
+            haskey(tmpl, "appearances") ||
+                throw(ConfigError("Template '$name' must have 'appearances' in multi-site mode"))
+            appearances = tmpl["appearances"]
+            appearances isa Vector ||
+                throw(ConfigError("Template '$name'.appearances must be a list"))
+            isempty(appearances) &&
+                throw(ConfigError("Template '$name' has empty 'appearances' list"))
+            site_ids = Set(string(s["id"]) for s in cfg["sites"])
+            for (j, app) in enumerate(appearances)
+                app isa Dict ||
+                    throw(ConfigError("Template '$name'.appearances[$j] must be a mapping"))
+                sid = get(app, "site", nothing)
+                sid isa String && !isempty(sid) ||
+                    throw(ConfigError("Template '$name'.appearances[$j] missing 'site'"))
+                sid ∈ site_ids ||
+                    throw(ConfigError("Template '$name'.appearances[$j] references unknown site: '$sid'"))
+            end
+        end
         _validate_template_concepts(tmpl, "templates.$name", concepts)
     end
 end
 
 function _validate_template_concepts(node::Dict, path::String, concepts::Dict)
     for (key, value) in node
-        if key in EVENT_KEYS
-            value isa Vector || throw(ConfigError("$path.$key must be a list"))
+        if value isa Vector && !isempty(value) && value[1] isa Dict
             for (i, event) in enumerate(value)
                 event isa Dict ||
                     throw(ConfigError("$path.$key[$i] must be a mapping"))
@@ -189,3 +208,4 @@ function _validate_multi(cfg::Dict)
         push!(site_ids, id)
     end
 end
+
