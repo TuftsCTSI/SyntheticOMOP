@@ -123,7 +123,7 @@ All events require `concept_id` (alias) and `date` (YYYY-MM-DD).
 | `devices` | `end_date`, `quantity`, `unit_concept_id`, `type_concept_id` |
 | `measurements` | `value_as_number`, `value_as_concept_id`, `unit_concept_id`, `operator_concept_id`, `range_low`, `range_high`, `type_concept_id` |
 | `observations` | `value_as_number`, `value_as_string`, `value_as_concept_id`, `unit_concept_id`, `type_concept_id` |
-| `notes` | `title`, `text`, `class_concept_id`, `type_concept_id` |
+| `notes` | `title`, `text`, `class_concept_id`, `encoding_concept_id`, `language_concept_id`, `type_concept_id` |
 
 Optional `visit_concept_id` overrides the default outpatient visit for that date.
 Optional `visit_end_date` sets a multi-day visit end (for inpatient stays).
@@ -154,6 +154,10 @@ This produces 2 x 3 x 3 = 18 patients.
 The Cartesian product is purely combinatorial.
 Generated combinations are not guaranteed to be clinically plausible (for example, a template might produce a 3-year-old with a diagnosis typically seen in adults).
 Design templates with awareness of which axes interact clinically.
+
+Templates are supported in multi-site mode.
+Each template must include an `appearances` list with the same structure as hand-crafted multi-site patients.
+Axes inside appearances are expanded normally.
 
 ### Multi-site mode
 
@@ -191,6 +195,8 @@ Output is written to `output_dir/<site_id>/` per site.
 A `linkage.csv` is written to `output_dir/` with columns `person_source_value`, `site_id`, and `person_id`.
 `person_id` is assigned sequentially per site and is not consistent across sites by design.
 The `person_source_value` column is the ground-truth key linking the same person across sites.
+
+When an appearance is merged with the patient record, appearance-level fields override patient-level fields (except `person_source_value`, which is always preserved from the patient).
 
 ### Visit generation
 
