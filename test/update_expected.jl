@@ -1,10 +1,4 @@
-const ROOT = dirname(@__DIR__)
-
-using Pkg
-Pkg.activate(ROOT)
-
-include(joinpath(ROOT, "src", "SyntheticOMOP.jl"))
-using .SyntheticOMOP
+using SyntheticOMOP
 
 const VALID_DIR = joinpath(@__DIR__, "configs", "valid")
 const EXPECTED_DIR = joinpath(@__DIR__, "expected")
@@ -22,3 +16,4 @@ for filename in readdir(VALID_DIR)
 end
 
 println("Expected output files updated in $EXPECTED_DIR")
+
