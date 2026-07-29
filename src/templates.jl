@@ -7,7 +7,7 @@ function _find_axes(node, path::Vector{Any} = Any[])::Vector{Axis}
     axes = Axis[]
     if node isa Dict
         for (key, value) in node
-            if key in EVENT_KEYS && value isa Vector
+            if value isa Vector && !isempty(value) && value[1] isa Dict
                 for (i, event) in enumerate(value)
                     append!(axes, _find_axes(event, Any[path..., key, i]))
                 end
@@ -84,3 +84,4 @@ function expand_templates(cfg::Dict)::Vector{Dict{String,Any}}
 
     patients
 end
+
