@@ -133,7 +133,7 @@ t3 = time()
         for r in valid_results
             @testset "$(r.name)" begin
                 if r.exit_code == -1
-                    @warn "No expected output for $(r.name); run `make update-golden`"
+                    @warn "No expected output for $(r.name); run `make update-expected`"
                     @test false
                     continue
                 end
