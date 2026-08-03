@@ -284,6 +284,7 @@ const ROW_TABLES = Dict{Symbol,Vector{Symbol}}(
     :observation          => OBSERVATION,
     :death                => DEATH,
     :note                 => NOTE,
+    :location             => LOCATION,
     :concept_ancestor     => CONCEPT_ANCESTOR,
 )
 

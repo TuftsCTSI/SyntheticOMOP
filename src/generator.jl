@@ -14,9 +14,10 @@ mutable struct BuildState
     counters::Dict{Symbol,Counter}
     accum::Dict{Symbol,Vector}
     concepts::Dict
+    location_map::Dict{String,Int}
 end
 
-function BuildState(concepts::Dict)
+function BuildState(concepts::Dict, location_map::Dict{String,Int} = Dict{String,Int}())
     counters = Dict{Symbol,Counter}(
         :observation_period   => Counter(),
         :visit_occurrence     => Counter(),
@@ -40,9 +41,10 @@ function BuildState(concepts::Dict)
         :observation          => [],
         :note                 => [],
         :death                => [],
+        :location             => [],
         :concept_ancestor     => [],
     )
-    BuildState(counters, accum, concepts)
+    BuildState(counters, accum, concepts, location_map)
 end
 
 function parse_date(s)::Date
@@ -128,7 +130,13 @@ function _birth_datetime(patient)
     DateTime(y, mo, d)
 end
 
-function build_person(patient, pid::Int, concepts::Dict)
+function build_person(patient, pid::Int, concepts::Dict, location_map::Dict{String,Int})
+    loc_ref = get(patient, "location", nothing)
+    loc_id = if loc_ref !== nothing
+        get(location_map, string(loc_ref), missing)
+    else
+        missing
+    end
     (
         person_id                   = pid,
         gender_concept_id           = resolve_opt(concepts, patient, "gender_concept_id"),
@@ -138,7 +146,7 @@ function build_person(patient, pid::Int, concepts::Dict)
         birth_datetime              = _birth_datetime(patient),
         race_concept_id             = resolve_opt(concepts, patient, "race_concept_id"),
         ethnicity_concept_id        = resolve_opt(concepts, patient, "ethnicity_concept_id"),
-        location_id                 = missing,
+        location_id                 = loc_id,
         provider_id                 = missing,
         care_site_id                = missing,
         person_source_value         = patient["person_source_value"],
@@ -366,6 +374,23 @@ function build_death(spec, pid::Int, concepts::Dict)
     )
 end
 
+function build_location_row(loc::Dict, loc_id::Int)
+    (
+        location_id            = loc_id,
+        address_1              = get(loc, "address_1", missing),
+        address_2              = get(loc, "address_2", missing),
+        city                   = get(loc, "city",      missing),
+        state                  = get(loc, "state",     missing),
+        zip                    = get(loc, "zip",       missing),
+        county                 = get(loc, "county",    missing),
+        location_source_value  = get(loc, "id",        missing),
+        country_concept_id     = 0,
+        country_source_value   = missing,
+        latitude               = get(loc, "latitude",  missing),
+        longitude              = get(loc, "longitude", missing),
+    )
+end
+
 mutable struct VisitGroup
     date::Date
     end_date::Date
@@ -413,7 +438,7 @@ function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitG
 end
 
 function process_patient!(state::BuildState, patient::Dict, pid::Int)
-    push!(state.accum[:person], build_person(patient, pid, state.concepts))
+    push!(state.accum[:person], build_person(patient, pid, state.concepts, state.location_map))
 
     visit_groups = _group_events_into_visits(patient, state.concepts)
     all_dates = [g.date for g in visit_groups]
@@ -442,9 +467,50 @@ function process_patient!(state::BuildState, patient::Dict, pid::Int)
     death_spec !== nothing && push!(state.accum[:death], build_death(death_spec, pid, state.concepts))
 end
 
+function _process_locations!(state::BuildState, cfg::Dict)::Dict{String,Int}
+    locations = get(cfg, "locations", nothing)
+    locations === nothing && return Dict{String,Int}()
+    location_map = Dict{String,Int}()
+    for (i, loc) in enumerate(locations)
+        loc_id = i
+        id_key = string(loc["id"])
+        location_map[id_key] = loc_id
+        push!(state.accum[:location], build_location_row(loc, loc_id))
+    end
+    location_map
+end
+
+function _process_concept_ancestors!(state::BuildState, cfg::Dict)
+    concepts = cfg["concepts"]
+    for (_, cid) in concepts
+        push!(state.accum[:concept_ancestor], (
+            ancestor_concept_id      = cid,
+            descendant_concept_id    = cid,
+            min_levels_of_separation = 0,
+            max_levels_of_separation = 0,
+        ))
+    end
+    ancestors = get(cfg, "concept_ancestors", nothing)
+    ancestors === nothing && return
+    for entry in ancestors
+        anc = resolve(concepts, entry["ancestor"])
+        desc = resolve(concepts, entry["descendant"])
+        push!(state.accum[:concept_ancestor], (
+            ancestor_concept_id      = anc,
+            descendant_concept_id    = desc,
+            min_levels_of_separation = get(entry, "min_levels", 1),
+            max_levels_of_separation = get(entry, "max_levels", 1),
+        ))
+    end
+end
+
 function build_all(cfg::Dict)::Dict{String,DataFrame}
     concepts = cfg["concepts"]
     state = BuildState(concepts)
+
+    location_map = _process_locations!(state, cfg)
+    state.location_map = location_map
+    _process_concept_ancestors!(state, cfg)
 
     hand_crafted = get(cfg, "patients", Dict{String,Any}[])
     templated    = expand_templates(cfg)
@@ -477,7 +543,6 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
             end
             idx = findfirst(a -> string(get(a, "site", "")) == site_id, appearances)
             if idx !== nothing
-                # Appearance fields override patient-level fields (except person_source_value)
                 merged = merge(patient, appearances[idx])
                 merged["person_source_value"] = patient["person_source_value"]
                 delete!(merged, "appearances")
@@ -486,6 +551,9 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         end
 
         state = BuildState(concepts)
+        _process_locations!(state, cfg)
+        state.location_map = state.location_map
+        _process_concept_ancestors!(state, cfg)
         for (merged, pid) in entries
             process_patient!(state, merged, pid)
             push!(linkage_rows, (
@@ -502,4 +570,3 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         DataFrame(linkage_rows)
     (site_tables, linkage_df)
 end
-
