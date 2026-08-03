@@ -9,9 +9,8 @@ Table names are lower-cased (person.csv, visit_occurrence.csv, etc.).
 """
 
 using SyntheticOMOP
+using SyntheticOMOP: DEFAULT_OBSERVATION_DATE
 using Dates
-
-const DEFAULT_OBSERVATION_DATE = Date(1970, 1, 1)
 
 function _read_version()::String
     path = joinpath(@__DIR__, "Project.toml")
@@ -42,13 +41,11 @@ function warn_empty_obs(output_dir::String)
     isfile(obs_path) || return
     first_line = true
     date_col = 0
-    psv_col = 0
     empty_obs = String[]
     for line in eachline(obs_path)
         if first_line
             cols = split(line, ',')
             date_col = findfirst(==( "observation_period_start_date"), cols)
-            psv_col = 0  # not in this file, skip patient names
             first_line = false
             continue
         end
