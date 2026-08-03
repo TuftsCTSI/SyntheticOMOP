@@ -20,7 +20,7 @@ julia --project -e 'using Pkg; Pkg.instantiate()'
 julia --project generate.jl assets/example.yml
 ```
 
-Output appears in `out/example/`. Along with the OMOP CSVs, the output directory will contains a `_provenance.yml` metadata file recording the generator version, source config filename, and generation timestamp.
+Output appears in `out/example/`. Along with the OMOP CSVs, the output directory will contain a `_provenance.yml` metadata file recording the generator version, source config filename, and generation timestamp.
 
 ## Minimal config
 
@@ -213,7 +213,7 @@ Example configs are in `assets/`:
 | File | Purpose |
 |------|---------|
 | `example.yml` | Basic demonstration of all event types (conditions, drugs, procedures, devices, measurements, observations) across three patients |
-| `phx.yml` | PHX quality measures regression suite covering hypertension, diabetes, BMI, colorectal screening, breast cancer screening, depression, food security, housing, and immunization scenarios |
+| `boston.yml` | Quality measures regression suite covering hypertension, diabetes, BMI, colorectal screening, breast cancer screening, depression, food security, housing, and immunization scenarios |
 | `multi_site_example.yml` | Demonstrates multi-site mode with cross-site patient appearances and linkage output |
 
 ## Library usage
@@ -240,4 +240,3 @@ This tool is designed so that its output is provably synthetic:
 * All medical concept codes are declared as named aliases, making them more readily reviewable.
 * Each output directory contains a `_provenance.yml` file recording the generator version and source config, providing an audit trail.
 * The generator has no database connections, no file readers beyond the config, and no network access.
-
