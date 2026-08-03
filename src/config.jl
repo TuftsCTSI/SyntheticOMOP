@@ -18,6 +18,8 @@ end
 function _validate(cfg::Dict)
     _validate_concepts(cfg)
     _validate_always_write_tables(cfg)
+    _validate_locations(cfg)
+    _validate_concept_ancestors(cfg)
     if haskey(cfg, "sites")
         _validate_multi(cfg)
     end
@@ -53,11 +55,43 @@ function _validate_always_write_tables(cfg::Dict)
     end
 end
 
+function _validate_locations(cfg::Dict)
+    locations = get(cfg, "locations", nothing)
+    locations === nothing && return
+    locations isa Vector || throw(ConfigError("'locations' must be a list"))
+    seen = Set{String}()
+    for (i, loc) in enumerate(locations)
+        loc isa Dict || throw(ConfigError("locations[$i] must be a mapping"))
+        id = get(loc, "id", nothing)
+        id isa String && !isempty(id) ||
+            throw(ConfigError("locations[$i] missing non-empty 'id'"))
+        id ∉ seen || throw(ConfigError("Duplicate location id: '$id'"))
+        push!(seen, id)
+    end
+end
+
+function _validate_concept_ancestors(cfg::Dict)
+    ancestors = get(cfg, "concept_ancestors", nothing)
+    ancestors === nothing && return
+    ancestors isa Vector || throw(ConfigError("'concept_ancestors' must be a list"))
+    concepts = cfg["concepts"]
+    for (i, entry) in enumerate(ancestors)
+        entry isa Dict || throw(ConfigError("concept_ancestors[$i] must be a mapping"))
+        haskey(entry, "ancestor") ||
+            throw(ConfigError("concept_ancestors[$i] missing 'ancestor'"))
+        haskey(entry, "descendant") ||
+            throw(ConfigError("concept_ancestors[$i] missing 'descendant'"))
+        _validate_single_concept_ref(entry["ancestor"], "concept_ancestors[$i].ancestor", concepts)
+        _validate_single_concept_ref(entry["descendant"], "concept_ancestors[$i].descendant", concepts)
+    end
+end
+
 function _validate_patients(cfg::Dict)
     patients = cfg["patients"]
     patients isa Vector || throw(ConfigError("'patients' must be a list"))
     concepts = cfg["concepts"]
     is_multi = haskey(cfg, "sites")
+    location_ids = _location_ids(cfg)
 
     seen = Set{String}()
     for (i, p) in enumerate(patients)
@@ -67,6 +101,8 @@ function _validate_patients(cfg::Dict)
             throw(ConfigError("patients[$i] missing non-empty 'person_source_value'"))
         psv ∉ seen || throw(ConfigError("Duplicate person_source_value: '$psv'"))
         push!(seen, psv)
+
+        _validate_location_ref(p, "patients[$i]", location_ids)
 
         if is_multi
             appearances = get(p, "appearances", nothing)
@@ -209,3 +245,16 @@ function _validate_multi(cfg::Dict)
     end
 end
 
+function _location_ids(cfg::Dict)::Set{String}
+    locations = get(cfg, "locations", nothing)
+    locations === nothing && return Set{String}()
+    Set{String}(string(loc["id"]) for loc in locations)
+end
+
+function _validate_location_ref(node::Dict, path::String, location_ids::Set{String})
+    loc = get(node, "location", nothing)
+    loc === nothing && return
+    loc isa String || throw(ConfigError("$path.location must be a string"))
+    loc ∈ location_ids ||
+        throw(ConfigError("$path.location references unknown location: '$loc'"))
+end
