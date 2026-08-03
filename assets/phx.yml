@@ -46,6 +46,13 @@ concepts:
   worried_about_losing: 2
   yes_homeless: 3
 
+locations:
+  - id: boston
+    address_1: "123 Main St"
+    city: "Boston"
+    state: "MA"
+    zip: "02118"
+
 cdm_source:
   name: "PHX CI Synthetic Dataset"
   abbreviation: "PHX-CI"
@@ -59,6 +66,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: htn_age17_excluded
+    location: boston
     gender_concept_id: male
     birth_year: 2006
     birth_month: 1
@@ -77,6 +85,7 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_age18_met
+    location: boston
     gender_concept_id: male
     birth_year: 2005
     birth_month: 1
@@ -95,6 +104,7 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_age84_met
+    location: boston
     gender_concept_id: female
     birth_year: 1939
     birth_month: 1
@@ -113,6 +123,7 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_age85_excluded
+    location: boston
     gender_concept_id: female
     birth_year: 1938
     birth_month: 1
@@ -131,6 +142,7 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_notmet_dia
+    location: boston
     gender_concept_id: male
     birth_year: 1970
     birth_month: 2
@@ -149,6 +161,7 @@ patients:
         value_as_number: 91
 
   - person_source_value: htn_notmet_sys
+    location: boston
     gender_concept_id: male
     birth_year: 1971
     birth_month: 2
@@ -167,6 +180,7 @@ patients:
         value_as_number: 90
 
   - person_source_value: htn_notmet_both
+    location: boston
     gender_concept_id: female
     birth_year: 1972
     birth_month: 2
@@ -185,6 +199,7 @@ patients:
         value_as_number: 91
 
   - person_source_value: htn_last_reading_met_sep
+    location: boston
     gender_concept_id: female
     birth_year: 1965
     birth_month: 3
@@ -209,6 +224,7 @@ patients:
         value_as_number: 88
 
   - person_source_value: htn_last_reading_notmet_sep
+    location: boston
     gender_concept_id: male
     birth_year: 1966
     birth_month: 3
@@ -233,6 +249,7 @@ patients:
         value_as_number: 91
 
   - person_source_value: htn_same_day_low_high_sql_met
+    location: boston
     gender_concept_id: female
     birth_year: 1967
     birth_month: 3
@@ -257,6 +274,7 @@ patients:
         value_as_number: 88
 
   - person_source_value: htn_not_measured
+    location: boston
     gender_concept_id: male
     birth_year: 1968
     birth_month: 3
@@ -271,6 +289,7 @@ patients:
         date: "2023-09-01"
 
   - person_source_value: htn_multi_year
+    location: boston
     gender_concept_id: female
     birth_year: 1970
     birth_month: 5
@@ -305,6 +324,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: dm_age17_excluded
+    location: boston
     gender_concept_id: male
     birth_year: 2006
     birth_month: 1
@@ -321,6 +341,7 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_age18_met_9
+    location: boston
     gender_concept_id: male
     birth_year: 2005
     birth_month: 1
@@ -337,6 +358,7 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_age75_met_9
+    location: boston
     gender_concept_id: female
     birth_year: 1948
     birth_month: 1
@@ -353,6 +375,7 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_age76_excluded
+    location: boston
     gender_concept_id: female
     birth_year: 1947
     birth_month: 1
@@ -369,6 +392,7 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_notmet_10
+    location: boston
     gender_concept_id: male
     birth_year: 1969
     birth_month: 4
@@ -385,6 +409,7 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_missing
+    location: boston
     gender_concept_id: female
     birth_year: 1970
     birth_month: 4
@@ -399,6 +424,7 @@ patients:
         date: "2023-09-10"
 
   - person_source_value: dm_multi_year
+    location: boston
     gender_concept_id: female
     birth_year: 1965
     birth_month: 4
@@ -427,6 +453,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: breast_met_recent_mammo
+    location: boston
     gender_concept_id: female
     birth_year: 1973
     birth_month: 1
@@ -441,6 +468,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_notmet_old_mammo
+    location: boston
     gender_concept_id: female
     birth_year: 1973
     birth_month: 1
@@ -455,6 +483,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_notmet_none
+    location: boston
     gender_concept_id: female
     birth_year: 1973
     birth_month: 1
@@ -466,6 +495,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_excluded_mastectomy
+    location: boston
     gender_concept_id: female
     birth_year: 1973
     birth_month: 1
@@ -484,6 +514,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: crc_met_fobt
+    location: boston
     gender_concept_id: male
     birth_year: 1970
     birth_month: 1
@@ -499,6 +530,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_colonoscopy_window
+    location: boston
     gender_concept_id: male
     birth_year: 1970
     birth_month: 1
@@ -513,6 +545,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_colonoscopy_old
+    location: boston
     gender_concept_id: male
     birth_year: 1970
     birth_month: 1
@@ -527,6 +560,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_sigmoid_window
+    location: boston
     gender_concept_id: female
     birth_year: 1970
     birth_month: 1
@@ -541,6 +575,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_sigmoid_old
+    location: boston
     gender_concept_id: female
     birth_year: 1970
     birth_month: 1
@@ -555,6 +590,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_ct_window
+    location: boston
     gender_concept_id: male
     birth_year: 1971
     birth_month: 1
@@ -569,6 +605,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_ct_old
+    location: boston
     gender_concept_id: male
     birth_year: 1971
     birth_month: 1
@@ -583,6 +620,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_fitdna_window
+    location: boston
     gender_concept_id: female
     birth_year: 1970
     birth_month: 1
@@ -598,6 +636,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_fitdna_old
+    location: boston
     gender_concept_id: female
     birth_year: 1970
     birth_month: 1
@@ -613,6 +652,7 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_none
+    location: boston
     gender_concept_id: male
     birth_year: 1970
     birth_month: 1
@@ -628,6 +668,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: bmi_adult_met_29
+    location: boston
     gender_concept_id: male
     birth_year: 1980
     birth_month: 1
@@ -640,6 +681,7 @@ patients:
         value_as_number: 29.0
 
   - person_source_value: bmi_adult_notmet_30
+    location: boston
     gender_concept_id: female
     birth_year: 1981
     birth_month: 1
@@ -652,6 +694,7 @@ patients:
         value_as_number: 30.0
 
   - person_source_value: bmi_adult_last_met
+    location: boston
     gender_concept_id: male
     birth_year: 1982
     birth_month: 1
@@ -667,6 +710,7 @@ patients:
         value_as_number: 29.0
 
   - person_source_value: bmi_adult_last_notmet
+    location: boston
     gender_concept_id: female
     birth_year: 1983
     birth_month: 1
@@ -682,6 +726,7 @@ patients:
         value_as_number: 31.0
 
   - person_source_value: bmi_peds_met_94
+    location: boston
     gender_concept_id: male
     birth_year: 2010
     birth_month: 1
@@ -694,6 +739,7 @@ patients:
         value_as_number: 94.0
 
   - person_source_value: bmi_peds_notmet_95
+    location: boston
     gender_concept_id: female
     birth_year: 2010
     birth_month: 1
@@ -706,6 +752,7 @@ patients:
         value_as_number: 95.0
 
   - person_source_value: bmi_peds_last_notmet
+    location: boston
     gender_concept_id: male
     birth_year: 2010
     birth_month: 1
@@ -721,6 +768,7 @@ patients:
         value_as_number: 95.0
 
   - person_source_value: bmi_peds_age18_excluded
+    location: boston
     gender_concept_id: female
     birth_year: 2005
     birth_month: 1
@@ -737,6 +785,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: food_secure
+    location: boston
     gender_concept_id: female
     birth_year: 1985
     birth_month: 1
@@ -750,6 +799,7 @@ patients:
         value_as_concept_id: never_true
 
   - person_source_value: food_insecure
+    location: boston
     gender_concept_id: male
     birth_year: 1985
     birth_month: 1
@@ -763,6 +813,7 @@ patients:
         value_as_concept_id: sometimes_true
 
   - person_source_value: housing_secure
+    location: boston
     gender_concept_id: female
     birth_year: 1986
     birth_month: 1
@@ -776,6 +827,7 @@ patients:
         value_as_concept_id: steady_place
 
   - person_source_value: housing_insecure
+    location: boston
     gender_concept_id: male
     birth_year: 1986
     birth_month: 1
@@ -789,6 +841,7 @@ patients:
         value_as_concept_id: worried_about_losing
 
   - person_source_value: housing_homeless
+    location: boston
     gender_concept_id: male
     birth_year: 1986
     birth_month: 1
@@ -806,6 +859,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: covid_adult_met_2023
+    location: boston
     gender_concept_id: male
     birth_year: 1980
     birth_month: 1
@@ -821,6 +875,7 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_adult_notmet_none
+    location: boston
     gender_concept_id: male
     birth_year: 1980
     birth_month: 1
@@ -832,6 +887,7 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_peds_met_2023
+    location: boston
     gender_concept_id: female
     birth_year: 2010
     birth_month: 1
@@ -847,6 +903,7 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_peds_notmet_none
+    location: boston
     gender_concept_id: female
     birth_year: 2010
     birth_month: 1
@@ -862,6 +919,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: psc_all_met
+    location: boston
     gender_concept_id: male
     birth_year: 2014
     birth_month: 1
@@ -883,6 +941,7 @@ patients:
         value_as_number: 14
 
   - person_source_value: psc_internal_notmet
+    location: boston
     gender_concept_id: female
     birth_year: 2014
     birth_month: 1
@@ -895,6 +954,7 @@ patients:
         value_as_number: 5
 
   - person_source_value: psc_external_notmet
+    location: boston
     gender_concept_id: male
     birth_year: 2014
     birth_month: 1
@@ -907,6 +967,7 @@ patients:
         value_as_number: 7
 
   - person_source_value: psc_attention_notmet
+    location: boston
     gender_concept_id: female
     birth_year: 2014
     birth_month: 1
@@ -919,6 +980,7 @@ patients:
         value_as_number: 7
 
   - person_source_value: psc_total_notmet
+    location: boston
     gender_concept_id: male
     birth_year: 2014
     birth_month: 1
@@ -931,6 +993,7 @@ patients:
         value_as_number: 15
 
   - person_source_value: psc_age12_excluded
+    location: boston
     gender_concept_id: female
     birth_year: 2011
     birth_month: 1
@@ -947,6 +1010,7 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: phq_both_met
+    location: boston
     gender_concept_id: female
     birth_year: 2000
     birth_month: 1
@@ -962,6 +1026,7 @@ patients:
         value_as_number: 9
 
   - person_source_value: phq_avg_notmet_any_notmet
+    location: boston
     gender_concept_id: male
     birth_year: 2000
     birth_month: 1
@@ -977,6 +1042,7 @@ patients:
         value_as_number: 12
 
   - person_source_value: phq_any_notmet_avg_met
+    location: boston
     gender_concept_id: female
     birth_year: 2000
     birth_month: 1
