@@ -1,6 +1,6 @@
-.PHONY: all test deps update-expected phx
+.PHONY: all test deps update-expected boston
 
-all: phx
+all: boston
 
 deps:
 	julia --project -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
@@ -8,8 +8,8 @@ deps:
 test:
 	julia --project test/runtests.jl
 
-phx:
-	julia --project generate.jl assets/phx.yml
+boston:
+	julia --project generate.jl assets/boston.yml
 
 update-expected:
 	julia --project test/update_expected.jl
