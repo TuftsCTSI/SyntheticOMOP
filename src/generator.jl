@@ -551,8 +551,8 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         end
 
         state = BuildState(concepts)
-        _process_locations!(state, cfg)
-        state.location_map = state.location_map
+        location_map = _process_locations!(state, cfg)
+        state.location_map = location_map
         _process_concept_ancestors!(state, cfg)
         for (merged, pid) in entries
             process_patient!(state, merged, pid)
@@ -570,3 +570,4 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String,Dict{String,DataFrame}},D
         DataFrame(linkage_rows)
     (site_tables, linkage_df)
 end
+
