@@ -1,3 +1,9 @@
+cdm_source:
+  name: "Basic Synthetic Test Dataset"
+  abbreviation: "BASIC-SYNTH"
+  holder: "TuftsCTSI"
+  description: "Synthetic dataset for basic testing"
+
 concepts:
   male: 8507
   female: 8532
@@ -21,12 +27,6 @@ concepts:
   peak_flow_meter: 4116536
   percent: 8554
   mmHg: 8876
-
-cdm_source:
-  name: "Basic Synthetic Test Dataset"
-  abbreviation: "BASIC-SYNTH"
-  holder: "TuftsCTSI"
-  description: "Synthetic dataset for basic testing"
 
 patients:
 

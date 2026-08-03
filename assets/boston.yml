@@ -1,3 +1,9 @@
+cdm_source:
+  name: "Boston Synthetic Dataset"
+  abbreviation: "BOSTON"
+  holder: "TuftsCTSI"
+  description: "Draft Boston-area regression-test dataset spanning 2023-2025"
+
 concepts:
   # Demographics
   male: 8507
@@ -52,12 +58,6 @@ locations:
     city: "Boston"
     state: "MA"
     zip: "02118"
-
-cdm_source:
-  name: "PHX CI Synthetic Dataset"
-  abbreviation: "PHX-CI"
-  holder: "TuftsCTSI"
-  description: "Draft PHX_data regression-test dataset spanning 2023-2025"
 
 patients:
 

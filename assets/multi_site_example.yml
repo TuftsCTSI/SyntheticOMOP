@@ -1,3 +1,9 @@
+cdm_source:
+  name: "PHX Multi-Site Synthetic Test Dataset"
+  abbreviation: "PHX-MULTI"
+  holder: "TuftsCTSI"
+  description: "Synthetic OMOP CDM 5.4 multi-site dataset for PPRL linkage testing"
+
 concepts:
   male: 8507
   female: 8532
@@ -23,12 +29,6 @@ concepts:
 sites:
   - id: hospital_a
   - id: hospital_b
-
-cdm_source:
-  name: "PHX Multi-Site Synthetic Test Dataset"
-  abbreviation: "PHX-MULTI"
-  holder: "TuftsCTSI"
-  description: "Synthetic OMOP CDM 5.4 multi-site dataset for PPRL linkage testing"
 
 patients:
 
