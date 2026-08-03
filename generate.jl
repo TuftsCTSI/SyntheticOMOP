@@ -19,6 +19,8 @@ function _read_version()::String
         m = match(r"^version\s*=\s*\"(.+)\"$", line)
         m !== nothing && return String(m.captures[1])
     end
+    # Reached when running under Pkg.test() where Project.toml exists but
+    # the version line has already been stripped by the test environment.
     "test"
 end
 
@@ -45,7 +47,7 @@ function warn_empty_obs(output_dir::String)
     for line in eachline(obs_path)
         if first_line
             cols = split(line, ',')
-            date_col = findfirst(==( "observation_period_start_date"), cols)
+            date_col = findfirst(==("observation_period_start_date"), cols)
             first_line = false
             continue
         end
@@ -80,3 +82,4 @@ function main(args = ARGS)
 end
 
 main()
+
