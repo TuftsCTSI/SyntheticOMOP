@@ -231,6 +231,14 @@ tables = SyntheticOMOP.build("assets/example.yml")
 tables["person"]  # DataFrame
 ```
 
+In multi-site mode, both functions return a tuple instead of a flat dictionary:
+
+```julia
+site_tables, linkage_df = SyntheticOMOP.build("assets/multi_site_example.yml")
+site_tables["hospital_a"]["person"]  # DataFrame for one site
+linkage_df                           # ground-truth cross-site linkage
+```
+
 ## Data governance
 
 This tool is designed so that its output is provably synthetic:
@@ -240,3 +248,4 @@ This tool is designed so that its output is provably synthetic:
 * All medical concept codes are declared as named aliases, making them more readily reviewable.
 * Each output directory contains a `_provenance.yml` file recording the generator version and source config, providing an audit trail.
 * The generator has no database connections, no file readers beyond the config, and no network access.
+
