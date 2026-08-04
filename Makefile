@@ -1,9 +1,4 @@
-.PHONY: all test deps update-expected boston format lint analyze tools-deps
-
-all: test
-
-deps:
-	julia --project -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
+.PHONY: test boston update-expected format
 
 test:
 	julia --project test/runtests.jl
