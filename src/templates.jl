@@ -76,7 +76,7 @@ function expand_templates(cfg::Dict)::Vector{Dict{String, Any}}
             if !haskey(patient, "person_source_value")
                 patient["person_source_value"] = "$(name)_$idx"
             elseif patient["person_source_value"] isa Vector
-                error("Template '$name': person_source_value must not remain a list after expansion")
+                throw(ConfigError("Template '$name': person_source_value must not remain a list after expansion"))
             end
             push!(patients, patient)
         end
