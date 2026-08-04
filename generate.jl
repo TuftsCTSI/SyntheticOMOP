@@ -53,7 +53,7 @@ function warn_empty_obs(output_dir::String)
         end
         date_col === nothing && return
         fields = split(line, ',')
-        if fields[date_col] == "1970-01-01"
+        if length(fields) >= date_col && fields[date_col] == "1970-01-01"
             push!(empty_obs, "person_id=$(fields[1])")
         end
     end
