@@ -1,0 +1,2 @@
+cdm_source_name,cdm_source_abbreviation,cdm_holder,source_description,source_documentation_reference,cdm_etl_reference,source_release_date,cdm_release_date,cdm_version,cdm_version_concept_id,vocabulary_version
+Test Synthetic Source,TSS,Test Organization,Synthetic data for unit testing,,SyntheticOMOP/generate.jl,2026-08-03,2026-08-03,v5.4,756265,none (synthetic)

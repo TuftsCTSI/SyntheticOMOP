@@ -1,0 +1,30 @@
+concepts:
+  male: 8507
+  hypertension: 320128
+
+locations:
+  - id: boston
+    city: Boston
+    state: MA
+    zip: "02111"
+  - id: cambridge
+    city: Cambridge
+    state: MA
+    zip: "02139"
+
+patients:
+  - person_source_value: boston_patient
+    gender_concept_id: male
+    birth_year: 1985
+    location: boston
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-01"
+  - person_source_value: cambridge_patient
+    gender_concept_id: male
+    birth_year: 1972
+    location: cambridge
+    conditions:
+      - concept_id: hypertension
+        date: "2023-03-15"
+

@@ -1,0 +1,16 @@
+concepts:
+  male: 8507
+  hypertension: 320128
+
+always_write_tables:
+  - device_exposure
+  - note
+
+patients:
+  - person_source_value: always_write_test
+    gender_concept_id: male
+    birth_year: 1980
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-01"
+

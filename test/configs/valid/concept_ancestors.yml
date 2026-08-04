@@ -1,0 +1,19 @@
+concepts:
+  male: 8507
+  cardiovascular: 134057
+  hypertension: 320128
+
+concept_ancestors:
+  - ancestor: cardiovascular
+    descendant: hypertension
+    min_levels: 1
+    max_levels: 2
+
+patients:
+  - person_source_value: ancestor_test
+    gender_concept_id: male
+    birth_year: 1970
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-01"
+

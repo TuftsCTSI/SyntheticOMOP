@@ -1,0 +1,17 @@
+concepts:
+  female: 8532
+  heart_failure: 316139
+
+patients:
+  - person_source_value: deceased_patient
+    gender_concept_id: female
+    birth_year: 1950
+    birth_month: 4
+    birth_day: 10
+    conditions:
+      - concept_id: heart_failure
+        date: "2023-06-01"
+    death:
+      date: "2024-01-15"
+      cause_concept_id: heart_failure
+
