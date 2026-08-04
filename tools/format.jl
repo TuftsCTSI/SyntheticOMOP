@@ -1,6 +1,6 @@
 using Runic
 
-FILE_LIST = [
+const FILE_LIST = [
     "generate.jl",
     "src/config.jl",
     "src/generator.jl",
@@ -13,4 +13,6 @@ FILE_LIST = [
     "tools/format.jl",
 ]
 
-[ Runic.format_file(FILE, inplace = true) for FILE in FILE_LIST ]
+foreach(FILE_LIST) do file
+    Runic.format_file(file, inplace = true)
+end
