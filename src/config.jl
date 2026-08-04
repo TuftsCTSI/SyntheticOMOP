@@ -7,12 +7,12 @@ Base.showerror(io::IO, e::ConfigError) = print(io, "ConfigError: ", e.msg)
 function load_config(path::String)::Dict
     isfile(path) || throw(ConfigError("File not found: $path"))
     raw = try
-        YAML.load_file(path; dicttype = Dict{String,Any})
+        YAML.load_file(path; dicttype = Dict{String, Any})
     catch e
         throw(ConfigError("YAML parse error: $(sprint(showerror, e))"))
     end
     _validate(raw)
-    raw
+    return raw
 end
 
 function _validate(cfg::Dict)
@@ -23,12 +23,12 @@ function _validate(cfg::Dict)
     if haskey(cfg, "sites")
         _validate_multi(cfg)
     end
-    has_patients  = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
+    has_patients = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
     has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
     has_patients || has_templates ||
         throw(ConfigError("Config must have at least one of 'patients' or 'templates'"))
     has_patients && _validate_patients(cfg)
-    has_templates && _validate_templates(cfg)
+    return has_templates && _validate_templates(cfg)
 end
 
 function _validate_concepts(cfg::Dict)
@@ -41,6 +41,7 @@ function _validate_concepts(cfg::Dict)
         id isa Integer ||
             throw(ConfigError("Concept '$name' must map to an integer, got: $(typeof(id))"))
     end
+    return
 end
 
 function _validate_always_write_tables(cfg::Dict)
@@ -53,6 +54,7 @@ function _validate_always_write_tables(cfg::Dict)
         haskey(TABLE_SCHEMAS, Symbol(name)) ||
             throw(ConfigError("always_write_tables[$i] references unknown table: '$name'"))
     end
+    return
 end
 
 function _validate_locations(cfg::Dict)
@@ -68,6 +70,7 @@ function _validate_locations(cfg::Dict)
         id ∉ seen || throw(ConfigError("Duplicate location id: '$id'"))
         push!(seen, id)
     end
+    return
 end
 
 function _validate_concept_ancestors(cfg::Dict)
@@ -84,6 +87,7 @@ function _validate_concept_ancestors(cfg::Dict)
         _validate_single_concept_ref(entry["ancestor"], "concept_ancestors[$i].ancestor", concepts)
         _validate_single_concept_ref(entry["descendant"], "concept_ancestors[$i].descendant", concepts)
     end
+    return
 end
 
 function _validate_patients(cfg::Dict)
@@ -125,6 +129,7 @@ function _validate_patients(cfg::Dict)
             _validate_events(p, "patients[$i]", concepts)
         end
     end
+    return
 end
 
 function _validate_templates(cfg::Dict)
@@ -158,6 +163,7 @@ function _validate_templates(cfg::Dict)
         end
         _validate_template_concepts(tmpl, "templates.$name", concepts)
     end
+    return
 end
 
 function _validate_template_concepts(node::Dict, path::String, concepts::Dict)
@@ -172,10 +178,11 @@ function _validate_template_concepts(node::Dict, path::String, concepts::Dict)
             _validate_concept_ref(value, "$path.$key", concepts)
         end
     end
+    return
 end
 
 function _validate_concept_ref(value, path::String, concepts::Dict)
-    if value isa Vector
+    return if value isa Vector
         for (i, v) in enumerate(value)
             _validate_single_concept_ref(v, "$path[$i]", concepts)
         end
@@ -188,7 +195,7 @@ function _validate_single_concept_ref(value, path::String, concepts::Dict)
     value isa Integer &&
         throw(ConfigError("$path: raw integers not allowed; use a concept alias"))
     value isa String || throw(ConfigError("$path must be a string alias"))
-    haskey(concepts, value) ||
+    return haskey(concepts, value) ||
         throw(ConfigError("$path references unknown concept: '$value'"))
 end
 
@@ -219,7 +226,7 @@ function _validate_events(node::Dict, path::String, concepts::Dict)
         end
     end
     death = get(node, "death", nothing)
-    if death !== nothing
+    return if death !== nothing
         death isa Dict || throw(ConfigError("$path.death must be a mapping"))
         haskey(death, "date") || throw(ConfigError("$path.death missing 'date'"))
         for (k, v) in death
@@ -243,18 +250,19 @@ function _validate_multi(cfg::Dict)
         id ∉ site_ids || throw(ConfigError("Duplicate site id: '$id'"))
         push!(site_ids, id)
     end
+    return
 end
 
 function _location_ids(cfg::Dict)::Set{String}
     locations = get(cfg, "locations", nothing)
     locations === nothing && return Set{String}()
-    Set{String}(string(loc["id"]) for loc in locations)
+    return Set{String}(string(loc["id"]) for loc in locations)
 end
 
 function _validate_location_ref(node::Dict, path::String, location_ids::Set{String})
     loc = get(node, "location", nothing)
     loc === nothing && return
     loc isa String || throw(ConfigError("$path.location must be a string"))
-    loc ∈ location_ids ||
+    return loc ∈ location_ids ||
         throw(ConfigError("$path.location references unknown location: '$loc'"))
 end

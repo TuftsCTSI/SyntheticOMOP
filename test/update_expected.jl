@@ -10,10 +10,9 @@ for filename in readdir(VALID_DIR)
     name = splitext(filename)[1]
     config_path = joinpath(VALID_DIR, filename)
     expected = joinpath(EXPECTED_DIR, name)
-    rm(expected; recursive=true, force=true)
+    rm(expected; recursive = true, force = true)
     println("Generating: $name...")
     SyntheticOMOP.generate(config_path, expected)
 end
 
 println("Expected output files updated in $EXPECTED_DIR")
-

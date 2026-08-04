@@ -21,7 +21,7 @@ function _read_version()::String
     end
     # Reached when running under Pkg.test() where Project.toml exists but
     # the version line has already been stripped by the test environment.
-    "test"
+    return "test"
 end
 
 function write_provenance(output_dir::String, config_path::String)
@@ -33,7 +33,7 @@ function write_provenance(output_dir::String, config_path::String)
         "generated_at: ", timestamp, "\n",
         "notice: All data in this directory is synthetic. No real patient data was used. Records are not guaranteed to be coherent.\n",
     )
-    open(joinpath(output_dir, "_provenance.yml"), "w") do io
+    return open(joinpath(output_dir, "_provenance.yml"), "w") do io
         write(io, content)
     end
 end
@@ -61,7 +61,7 @@ function warn_empty_obs(output_dir::String)
     n = length(empty_obs)
     names = join(empty_obs[1:min(n, 5)], ", ")
     suffix = n > 5 ? " and $(n - 5) more" : ""
-    @warn "$n patient(s) have no events; observation_period uses fallback date $DEFAULT_OBSERVATION_DATE: $names$suffix"
+    return @warn "$n patient(s) have no events; observation_period uses fallback date $DEFAULT_OBSERVATION_DATE: $names$suffix"
 end
 
 function main(args = ARGS)
@@ -70,8 +70,8 @@ function main(args = ARGS)
         exit(1)
     end
     config_path = args[1]
-    output_dir  = length(args) == 2 ? args[2] : joinpath("out", splitext(basename(config_path))[1])
-    try
+    output_dir = length(args) == 2 ? args[2] : joinpath("out", splitext(basename(config_path))[1])
+    return try
         SyntheticOMOP.generate(config_path, output_dir)
         warn_empty_obs(output_dir)
         write_provenance(output_dir, config_path)
@@ -82,4 +82,3 @@ function main(args = ARGS)
 end
 
 main()
-

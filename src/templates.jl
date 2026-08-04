@@ -18,25 +18,25 @@ function _find_axes(node, path::Vector{Any} = Any[])::Vector{Axis}
             end
         end
     end
-    axes
+    return axes
 end
 
 function _get_at_path(node, path::Vector{Any})
     for key in path
         node = node[key]
     end
-    node
+    return node
 end
 
 function _set_at_path!(node, path::Vector{Any}, value)
-    for key in path[1:end-1]
+    for key in path[1:(end - 1)]
         node = node[key]
     end
-    node[path[end]] = value
+    return node[path[end]] = value
 end
 
-function _deepcopy_template(tmpl::Dict)::Dict{String,Any}
-    result = Dict{String,Any}()
+function _deepcopy_template(tmpl::Dict)::Dict{String, Any}
+    result = Dict{String, Any}()
     for (k, v) in tmpl
         if v isa Dict
             result[k] = _deepcopy_template(v)
@@ -46,13 +46,13 @@ function _deepcopy_template(tmpl::Dict)::Dict{String,Any}
             result[k] = v
         end
     end
-    result
+    return result
 end
 
-function expand_templates(cfg::Dict)::Vector{Dict{String,Any}}
+function expand_templates(cfg::Dict)::Vector{Dict{String, Any}}
     templates = get(cfg, "templates", nothing)
-    templates === nothing && return Dict{String,Any}[]
-    patients = Dict{String,Any}[]
+    templates === nothing && return Dict{String, Any}[]
+    patients = Dict{String, Any}[]
 
     for (name, tmpl) in templates
         axes = _find_axes(tmpl)
@@ -82,6 +82,5 @@ function expand_templates(cfg::Dict)::Vector{Dict{String,Any}}
         end
     end
 
-    patients
+    return patients
 end
-

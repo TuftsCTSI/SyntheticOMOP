@@ -13,20 +13,20 @@ function collect_files(dir::String)::Vector{String}
             push!(files, relpath(joinpath(root, f), dir))
         end
     end
-    sort(files)
+    return sort(files)
 end
 
 function parse_expected_error(config_path::String)::String
     first_line = readline(config_path)
     m = match(r"^# expect: (.+)$", first_line)
     m === nothing && error("Invalid test config: missing '# expect:' on line 1 of $config_path")
-    m.captures[1]
+    return m.captures[1]
 end
 
 function table_to_string(df)::String
     buf = IOBuffer()
     CSV.write(buf, df; missingstring = "")
-    String(take!(buf))
+    return String(take!(buf))
 end
 
 struct ValidResult
@@ -97,7 +97,7 @@ function run_valid_config(filename::String)
     end
 
     expected_files = collect_files(expected_dir)
-    ValidResult(name, exit_code, err, actual_files, expected_files, mismatches)
+    return ValidResult(name, exit_code, err, actual_files, expected_files, mismatches)
 end
 
 function run_invalid_config(filename::String)
@@ -112,7 +112,7 @@ function run_invalid_config(filename::String)
         exit_code = 1
         err = sprint(showerror, e)
     end
-    InvalidResult(name, exit_code, err, expected_msg)
+    return InvalidResult(name, exit_code, err, expected_msg)
 end
 
 t0 = time()
@@ -155,7 +155,7 @@ t3 = time()
                 @test r.exit_code != 0
                 @test contains(r.stderr, r.expected_msg)
                 if !contains(r.stderr, r.expected_msg)
-                    @info "Expected: $(r.expected_msg)" actual=r.stderr
+                    @info "Expected: $(r.expected_msg)" actual = r.stderr
                 end
             end
         end
@@ -163,8 +163,7 @@ t3 = time()
 end
 t4 = time()
 
-@info "Valid generation ($(length(valid_configs)) configs): $(round(t2 - t1; digits=2))s"
-@info "Invalid validation ($(length(invalid_configs)) configs): $(round(t3 - t2; digits=2))s"
-@info "Assertions: $(round(t4 - t3; digits=2))s"
-@info "Total (post-import): $(round(t4 - t0; digits=2))s"
-
+@info "Valid generation ($(length(valid_configs)) configs): $(round(t2 - t1; digits = 2))s"
+@info "Invalid validation ($(length(invalid_configs)) configs): $(round(t3 - t2; digits = 2))s"
+@info "Assertions: $(round(t4 - t3; digits = 2))s"
+@info "Total (post-import): $(round(t4 - t0; digits = 2))s"
