@@ -42,6 +42,7 @@ function BuildState(concepts::Dict, location_map::Dict{String, Int} = Dict{Strin
         :note => [],
         :death => [],
         :location => [],
+        :concept => [],
         :concept_ancestor => [],
     )
     return BuildState(counters, accum, concepts, location_map)
@@ -529,6 +530,26 @@ function _process_concept_ancestors!(state::BuildState, cfg::Dict)
     return
 end
 
+function _process_concepts!(state::BuildState, cfg::Dict)
+    concepts = cfg["concepts"]
+    for (alias, cid) in concepts
+        push!(
+            state.accum[:concept], (
+                concept_id = cid,
+                concept_name = replace(string(alias), "_" => " "),
+                domain_id = "Synthetic",
+                vocabulary_id = "None",
+                concept_class_id = "Synthetic",
+                standard_concept = "S",
+                concept_code = string(cid),
+                valid_start_date = Date(1970, 1, 1),
+                valid_end_date = Date(2099, 12, 31),
+                invalid_reason = missing,
+            )
+        )
+    end
+end
+
 function build_all(cfg::Dict)::Dict{String, DataFrame}
     concepts = cfg["concepts"]
     state = BuildState(concepts)
@@ -536,6 +557,7 @@ function build_all(cfg::Dict)::Dict{String, DataFrame}
     location_map = _process_locations!(state, cfg)
     state.location_map = location_map
     _process_concept_ancestors!(state, cfg)
+    _process_concepts!(state, cfg)
 
     hand_crafted = get(cfg, "patients", Dict{String, Any}[])
     templated = expand_templates(cfg)
@@ -579,6 +601,7 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String, Dict{String, DataFrame}}
         location_map = _process_locations!(state, cfg)
         state.location_map = location_map
         _process_concept_ancestors!(state, cfg)
+        _process_concepts!(state, cfg)
         for (merged, pid) in entries
             process_patient!(state, merged, pid)
             push!(
@@ -597,3 +620,4 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String, Dict{String, DataFrame}}
         DataFrame(linkage_rows)
     return (site_tables, linkage_df)
 end
+

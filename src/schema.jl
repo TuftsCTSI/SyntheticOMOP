@@ -285,6 +285,7 @@ const ROW_TABLES = Dict{Symbol, Vector{Symbol}}(
     :death => DEATH,
     :note => NOTE,
     :location => LOCATION,
+    :concept => CONCEPT,
     :concept_ancestor => CONCEPT_ANCESTOR,
 )
 
@@ -302,3 +303,4 @@ const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[
 ]
 
 const EVENT_KEYS = Set(["conditions", "drugs", "procedures", "devices", "measurements", "observations", "notes"])
+
