@@ -13,6 +13,7 @@ concepts:
   not_hispanic: 38003564
   # Visits
   outpatient: 9202
+  inpatient: 9201
   # Conditions
   hypertension: 320128
   type_2_diabetes: 201826
@@ -1261,3 +1262,425 @@ patients:
       - concept_id: phq9
         date: "2023-10-01"
         value_as_number: 10
+
+  # ---------------------------------------------------------------------------
+  # Anxiety / Depression (BH_01)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bh01_depression_active
+    location: boston
+    gender_concept_id: female
+    birth_year: 1985
+    birth_month: 4
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: depression
+        date: "2023-03-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh01_anxiety_active
+    location: boston
+    gender_concept_id: male
+    birth_year: 1990
+    birth_month: 7
+    birth_day: 20
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: anxiety
+        date: "2023-05-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh01_expired
+    location: boston
+    gender_concept_id: female
+    birth_year: 1978
+    birth_month: 1
+    birth_day: 5
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: depression
+        date: "2019-02-01"
+        end_date: "2019-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Schizophrenia / Bipolar (BH_02)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bh02_schizophrenia
+    location: boston
+    gender_concept_id: male
+    birth_year: 1975
+    birth_month: 9
+    birth_day: 12
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: schizophrenia
+        date: "2022-01-10"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh02_bipolar
+    location: boston
+    gender_concept_id: female
+    birth_year: 1982
+    birth_month: 11
+    birth_day: 3
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: bipolar
+        date: "2023-04-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Substance Use Disorder (BH_09)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bh09_sud_active
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 6
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: sud_alcohol
+        date: "2023-02-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh09_sud_expired
+    location: boston
+    gender_concept_id: female
+    birth_year: 1979
+    birth_month: 3
+    birth_day: 22
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: sud_alcohol
+        date: "2019-01-10"
+        end_date: "2019-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Vision Disability (DIS_01)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis01_vision
+    location: boston
+    gender_concept_id: female
+    birth_year: 1960
+    birth_month: 2
+    birth_day: 14
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: vision_disability
+        date: "2020-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Hearing Disability (DIS_02)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis02_hearing
+    location: boston
+    gender_concept_id: male
+    birth_year: 1955
+    birth_month: 8
+    birth_day: 30
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hearing_disability
+        date: "2021-03-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Autism Spectrum (DIS_03)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis03_autism
+    location: boston
+    gender_concept_id: male
+    birth_year: 2010
+    birth_month: 5
+    birth_day: 20
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: autism_spectrum
+        date: "2015-09-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Intellectual Disability (DIS_04)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis04_intellectual
+    location: boston
+    gender_concept_id: female
+    birth_year: 2008
+    birth_month: 12
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: intellectual_disability
+        date: "2016-04-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # Smoking Status (PS_01)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: smoke_current_smoker
+    location: boston
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 4
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: tobacco_status
+        date: "2023-03-15"
+        value_as_concept_id: tobacco_user
+      - concept_id: routine_exam
+        date: "2023-03-15"
+
+  - person_source_value: smoke_non_smoker
+    location: boston
+    gender_concept_id: female
+    birth_year: 1968
+    birth_month: 10
+    birth_day: 12
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: tobacco_status
+        date: "2023-05-20"
+        value_as_concept_id: tobacco_nonuser
+      - concept_id: routine_exam
+        date: "2023-05-20"
+
+  - person_source_value: smoke_latest_wins
+    location: boston
+    gender_concept_id: male
+    birth_year: 1965
+    birth_month: 2
+    birth_day: 28
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: tobacco_status
+        date: "2023-02-01"
+        value_as_concept_id: tobacco_user
+      - concept_id: tobacco_status
+        date: "2023-09-01"
+        value_as_concept_id: tobacco_nonuser
+      - concept_id: routine_exam
+        date: "2023-09-01"
+
+  # ---------------------------------------------------------------------------
+  # MMR Vaccination (PS_04)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: mmr_met_before_18mo
+    location: boston
+    gender_concept_id: female
+    birth_year: 2022
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: mmr_vaccine
+        date: "2023-06-01"
+        lot_number: "LOT001"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: mmr_notmet_after_18mo
+    location: boston
+    gender_concept_id: male
+    birth_year: 2022
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: mmr_vaccine
+        date: "2023-12-01"
+        lot_number: "LOT002"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-12-01"
+
+  - person_source_value: mmr_notmet_none
+    location: boston
+    gender_concept_id: female
+    birth_year: 2022
+    birth_month: 6
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-12-15"
+
+  # ---------------------------------------------------------------------------
+  # NQF Exclusions
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: nqf_dm_excluded_frailty
+    location: boston
+    gender_concept_id: male
+    birth_year: 1955
+    birth_month: 1
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2020-01-15"
+      - concept_id: advanced_illness
+        date: "2023-03-01"
+      - concept_id: frailty_dx
+        date: "2023-03-01"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-06-15"
+        value_as_number: 8.5
+        unit_concept_id: percent
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+        visit_concept_id: inpatient
+
+  - person_source_value: nqf_hospice_excluded
+    location: boston
+    gender_concept_id: female
+    birth_year: 1950
+    birth_month: 6
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2019-05-01"
+      - concept_id: hospice_enc
+        date: "2023-04-01"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-07-01"
+        value_as_number: 7.5
+        unit_concept_id: percent
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-01"
+
+  # ---------------------------------------------------------------------------
+  # Renal Exclusions
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: renal_esrd_excluded
+    location: boston
+    gender_concept_id: male
+    birth_year: 1960
+    birth_month: 3
+    birth_day: 5
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2020-02-01"
+      - concept_id: esrd
+        date: "2022-08-01"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-05-01"
+        value_as_number: 8.0
+        unit_concept_id: percent
+    observations:
+      - concept_id: routine_exam
+        date: "2023-05-01"
+
+  - person_source_value: renal_transplant_excluded
+    location: boston
+    gender_concept_id: female
+    birth_year: 1958
+    birth_month: 9
+    birth_day: 20
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2018-01-15"
+    procedures:
+      - concept_id: kidney_transplant_proc
+        date: "2021-11-01"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-04-01"
+        value_as_number: 7.2
+        unit_concept_id: percent
+    observations:
+      - concept_id: routine_exam
+        date: "2023-04-01"
+
+  # ---------------------------------------------------------------------------
+  # Pregnancy Exclusions
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: pregnancy_htn_excluded
+    location: boston
+    gender_concept_id: female
+    birth_year: 1992
+    birth_month: 7
+    birth_day: 14
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: hypertension
+        date: "2023-01-10"
+      - concept_id: pregnancy
+        date: "2023-03-01"
+        end_date: "2023-11-15"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2023-08-01"
+        value_as_number: 145
+      - concept_id: diastolic_bp
+        date: "2023-08-01"
+        value_as_number: 92
+
