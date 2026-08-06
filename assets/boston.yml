@@ -53,6 +53,31 @@ concepts:
   steady_place: 1
   worried_about_losing: 2
   yes_homeless: 3
+  # Behavioral Health conditions
+  depression: 4102973
+  anxiety: 4217945
+  schizophrenia: 432598
+  bipolar: 4031928
+  sud_alcohol: 433753
+  # Disabilities
+  vision_disability: 372906
+  hearing_disability: 377889
+  autism_spectrum: 43020503
+  intellectual_disability: 35207238
+  # Smoking
+  tobacco_status: 4275495
+  tobacco_user: 4005823
+  tobacco_nonuser: 4022662
+  # MMR
+  mmr_vaccine: 40213183
+  # NQF Exclusions
+  advanced_illness: 4245975
+  frailty_dx: 4141845
+  hospice_enc: 4143507
+  # Renal / Pregnancy
+  esrd: 193782
+  kidney_transplant_proc: 4324887
+  pregnancy: 4299535
 
 locations:
   - id: boston
