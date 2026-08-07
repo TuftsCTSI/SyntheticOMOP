@@ -20,7 +20,7 @@ concepts:
   # Measurements
   systolic_bp: 3004249
   diastolic_bp: 3012888
-  hba1c: 3004501
+  hba1c: 3004410
   bmi: 3038553
   bmi_percentile: 40490382
   fobt: 3027299
@@ -58,10 +58,11 @@ concepts:
   anxiety: 4217945
   schizophrenia: 432598
   bipolar: 4031928
+  substance_abuse: 4279309
   sud_alcohol: 433753
   # Disabilities
   vision_disability: 372906
-  hearing_disability: 377889
+  hearing_disability: 443608
   autism_spectrum: 43020503
   intellectual_disability: 35207238
   # Smoking
@@ -73,11 +74,15 @@ concepts:
   # NQF Exclusions
   advanced_illness: 4245975
   frailty_dx: 4141845
-  hospice_enc: 4143507
+  hospice_enc: 4140947
   # Renal / Pregnancy
   esrd: 193782
   kidney_transplant_proc: 4324887
   pregnancy: 4299535
+
+concept_ancestors:
+  - ancestor: substance_abuse
+    descendant: sud_alcohol
 
 locations:
   - id: boston
@@ -310,7 +315,14 @@ patients:
     ethnicity_concept_id: not_hispanic
     conditions:
       - concept_id: hypertension
-        date: "2022-12-15"
+        date: "2021-06-01"
+    measurements:
+      - concept_id: systolic_bp
+        date: "2022-03-15"
+        value_as_number: 135
+      - concept_id: diastolic_bp
+        date: "2022-03-15"
+        value_as_number: 85
     observations:
       - concept_id: routine_exam
         date: "2023-09-01"
@@ -1622,15 +1634,15 @@ patients:
     ethnicity_concept_id: not_hispanic
     conditions:
       - concept_id: type_2_diabetes
-        date: "2019-05-01"
-      - concept_id: hospice_enc
-        date: "2023-04-01"
+        date: "2023-01-01"
     measurements:
       - concept_id: hba1c
         date: "2023-07-01"
         value_as_number: 7.5
         unit_concept_id: percent
     observations:
+      - concept_id: hospice_enc
+        date: "2023-04-01"
       - concept_id: routine_exam
         date: "2023-07-01"
 
