@@ -139,7 +139,8 @@ t3 = time()
                 end
                 @test r.exit_code == 0
                 r.exit_code != 0 && @info r.stderr
-                @test r.actual_files == r.expected_files
+                @test setdiff(r.actual_files, r.expected_files) == []
+                @test setdiff(r.expected_files, r.actual_files) == []
                 @test isempty(r.mismatches)
                 for f in r.mismatches
                     @info "Mismatch: $(r.name)/$f"
