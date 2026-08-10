@@ -75,9 +75,10 @@ concepts:
   advanced_illness: 4245975
   frailty_dx: 4141845
   hospice_enc: 4140947
+  acute_inpatient_admission: 4138051
   # Renal / Pregnancy
   esrd: 193782
-  kidney_transplant_proc: 4324887
+  kidney_transplant_proc: 4322471
   pregnancy: 4299535
 
   # Additional test concepts
@@ -1916,7 +1917,8 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2023-06-15"
-        visit_concept_id: inpatient
+      - concept_id: acute_inpatient_admission
+        date: "2023-03-01"
 
   - person_source_value: nqf_hospice_excluded
     test_status: ""
@@ -2390,6 +2392,7 @@ patients:
       - concept_id: bmi
         date: "2023-08-01"
         value_as_number: 28.0
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
         date: "2020-06-01"
