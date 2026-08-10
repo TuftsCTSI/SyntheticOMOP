@@ -98,6 +98,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: htn_age17_excluded
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Age 17 hypertension patient excluded from denominator"
     location: boston
     gender_concept_id: male
     birth_year: 2006
@@ -117,6 +120,9 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_age18_met
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Age 18 hypertension patient with controlled blood pressure"
     location: boston
     gender_concept_id: male
     birth_year: 2005
@@ -136,6 +142,9 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_age84_met
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Age 84 hypertension patient with controlled blood pressure"
     location: boston
     gender_concept_id: female
     birth_year: 1939
@@ -155,6 +164,9 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_age85_excluded
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Age 85 hypertension patient excluded from denominator"
     location: boston
     gender_concept_id: female
     birth_year: 1938
@@ -174,6 +186,9 @@ patients:
         value_as_number: 89
 
   - person_source_value: htn_notmet_dia
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Hypertension patient with elevated diastolic pressure only"
     location: boston
     gender_concept_id: male
     birth_year: 1970
@@ -193,6 +208,9 @@ patients:
         value_as_number: 91
 
   - person_source_value: htn_notmet_sys
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Hypertension patient with elevated systolic pressure only"
     location: boston
     gender_concept_id: male
     birth_year: 1971
@@ -212,6 +230,9 @@ patients:
         value_as_number: 90
 
   - person_source_value: htn_notmet_both
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Hypertension patient with both systolic and diastolic pressure elevated"
     location: boston
     gender_concept_id: female
     birth_year: 1972
@@ -231,6 +252,9 @@ patients:
         value_as_number: 91
 
   - person_source_value: htn_last_reading_met_sep
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Earlier high blood pressure but latest reading is controlled"
     location: boston
     gender_concept_id: female
     birth_year: 1965
@@ -256,6 +280,9 @@ patients:
         value_as_number: 88
 
   - person_source_value: htn_last_reading_notmet_sep
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Earlier controlled blood pressure but latest reading is uncontrolled"
     location: boston
     gender_concept_id: male
     birth_year: 1966
@@ -281,6 +308,9 @@ patients:
         value_as_number: 91
 
   - person_source_value: htn_same_day_low_high_sql_met
+    test_status: "✨"
+    test_suite: CVR_03
+    test_description: "Same-day duplicate BP resolved to controlled minimum values"
     location: boston
     gender_concept_id: female
     birth_year: 1967
@@ -306,6 +336,9 @@ patients:
         value_as_number: 88
 
   - person_source_value: htn_not_measured
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Hypertension diagnosis without qualifying BP pressure measurement in year"
     location: boston
     gender_concept_id: male
     birth_year: 1968
@@ -328,6 +361,9 @@ patients:
         date: "2023-09-01"
 
   - person_source_value: htn_multi_year
+    test_status: "✨"
+    test_suite: CVR_03
+    test_description: "Multi-year hypertension patient with changing annual control status"
     location: boston
     gender_concept_id: female
     birth_year: 1970
@@ -363,6 +399,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: dm_age17_excluded
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Age 17 diabetes patient excluded from denominator"
     location: boston
     gender_concept_id: male
     birth_year: 2006
@@ -380,6 +419,9 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_age18_met_9
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Age 18 diabetes patient with A1c exactly at 9.0 threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2005
@@ -397,6 +439,9 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_age75_met_9
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Age 75 diabetes patient with A1c exactly at 9.0 threshold"
     location: boston
     gender_concept_id: female
     birth_year: 1948
@@ -414,6 +459,9 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_age76_excluded
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Age 76 diabetes patient excluded from denominator"
     location: boston
     gender_concept_id: female
     birth_year: 1947
@@ -431,6 +479,9 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_notmet_10
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient with A1c 10.0 above threshold"
     location: boston
     gender_concept_id: male
     birth_year: 1969
@@ -448,6 +499,9 @@ patients:
         unit_concept_id: percent
 
   - person_source_value: dm_missing
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes diagnosis without qualifying A1c measurement in year"
     location: boston
     gender_concept_id: female
     birth_year: 1970
@@ -463,6 +517,9 @@ patients:
         date: "2023-09-10"
 
   - person_source_value: dm_multi_year
+    test_status: "✨"
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Multi-year diabetes patient with met, not met, then met A1c trajectory"
     location: boston
     gender_concept_id: female
     birth_year: 1965
@@ -492,6 +549,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: breast_met_recent_mammo
+    test_status: ""
+    test_suite: PS_03
+    test_description: "Recent mammogram within breast screening window"
     location: boston
     gender_concept_id: female
     birth_year: 1973
@@ -506,7 +566,25 @@ patients:
       - concept_id: routine_exam
         date: "2023-06-15"
 
+  - person_source_value: breast_met_25mo_mammo
+    test_status: "🔴"
+    test_suite: PS_03
+    test_description: "Mammogram 25 months ago (SQL uses 27-month window, PDF has 24 month)"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 6
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: mammography
+        date: "2021-11-01"
+
   - person_source_value: breast_notmet_old_mammo
+    test_status: ""
+    test_suite: PS_03
+    test_description: "Mammogram outside the breast screening window"
     location: boston
     gender_concept_id: female
     birth_year: 1973
@@ -522,6 +600,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_notmet_none
+    test_status: ""
+    test_suite: PS_03
+    test_description: "No mammogram on record"
     location: boston
     gender_concept_id: female
     birth_year: 1973
@@ -534,6 +615,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_excluded_mastectomy
+    test_status: "✨"
+    test_suite: PS_03
+    test_description: "Breast screening exclusion due to mastectomy history"
     location: boston
     gender_concept_id: female
     birth_year: 1973
@@ -549,6 +633,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_age49_excluded
+    test_status: ""
+    test_suite: PS_03
+    test_description: "Age 49 patient excluded from breast screening"
     location: boston
     gender_concept_id: female
     birth_year: 1974
@@ -564,6 +651,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_age74_included
+    test_status: ""
+    test_suite: PS_03
+    test_description: "Age 74 patient included with recent mammogram"
     location: boston
     gender_concept_id: female
     birth_year: 1949
@@ -579,6 +669,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: breast_age75_excluded
+    test_status: ""
+    test_suite: PS_03
+    test_description: "Age 75 patient excluded from breast screening"
     location: boston
     gender_concept_id: female
     birth_year: 1948
@@ -598,6 +691,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: crc_met_fobt
+    test_status: ""
+    test_suite: PS_02
+    test_description: "FOBT completed in the measurement year"
     location: boston
     gender_concept_id: male
     birth_year: 1970
@@ -614,6 +710,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_colonoscopy_window
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Colonoscopy within the valid colorectal screening window"
     location: boston
     gender_concept_id: male
     birth_year: 1970
@@ -629,6 +728,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_colonoscopy_old
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Colonoscopy just outside the valid colorectal screening window"
     location: boston
     gender_concept_id: male
     birth_year: 1970
@@ -644,6 +746,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_sigmoid_window
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Sigmoidoscopy within the valid colorectal screening window"
     location: boston
     gender_concept_id: female
     birth_year: 1970
@@ -659,6 +764,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_sigmoid_old
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Sigmoidoscopy just outside the valid colorectal screening window"
     location: boston
     gender_concept_id: female
     birth_year: 1970
@@ -674,6 +782,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_ct_window
+    test_status: "✨"
+    test_suite: PS_02
+    test_description: "CT colonography within the valid colorectal screening window"
     location: boston
     gender_concept_id: male
     birth_year: 1971
@@ -689,6 +800,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_ct_old
+    test_status: "✨"
+    test_suite: PS_02
+    test_description: "CT colonography just outside the valid colorectal screening window"
     location: boston
     gender_concept_id: male
     birth_year: 1971
@@ -704,6 +818,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_met_fitdna_window
+    test_status: ""
+    test_suite: PS_02
+    test_description: "FIT-DNA within the valid colorectal screening window"
     location: boston
     gender_concept_id: female
     birth_year: 1970
@@ -720,6 +837,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_fitdna_old
+    test_status: ""
+    test_suite: PS_02
+    test_description: "FIT-DNA just outside the valid colorectal screening window"
     location: boston
     gender_concept_id: female
     birth_year: 1970
@@ -736,6 +856,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_notmet_none
+    test_status: ""
+    test_suite: PS_02
+    test_description: "No colorectal screening on record"
     location: boston
     gender_concept_id: male
     birth_year: 1970
@@ -748,6 +871,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_age49_excluded
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Age 49 patient excluded from colorectal screening"
     location: boston
     gender_concept_id: male
     birth_year: 1974
@@ -764,6 +890,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_age75_included
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Age 75 patient included with current FOBT"
     location: boston
     gender_concept_id: male
     birth_year: 1948
@@ -780,6 +909,9 @@ patients:
         date: "2023-06-15"
 
   - person_source_value: crc_age76_excluded
+    test_status: ""
+    test_suite: PS_02
+    test_description: "Age 76 patient excluded from colorectal screening"
     location: boston
     gender_concept_id: male
     birth_year: 1947
@@ -800,6 +932,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: bmi_adult_met_29
+    test_status: ""
+    test_suite: CVR_01
+    test_description: "Adult BMI 29.0 meets control threshold"
     location: boston
     gender_concept_id: male
     birth_year: 1980
@@ -813,6 +948,9 @@ patients:
         value_as_number: 29.0
 
   - person_source_value: bmi_adult_notmet_30
+    test_status: ""
+    test_suite: CVR_01
+    test_description: "Adult BMI 30.0 fails control threshold"
     location: boston
     gender_concept_id: female
     birth_year: 1981
@@ -826,6 +964,9 @@ patients:
         value_as_number: 30.0
 
   - person_source_value: bmi_adult_last_met
+    test_status: ""
+    test_suite: CVR_01
+    test_description: "Adult latest BMI improves from 31 to 29 and meets threshold"
     location: boston
     gender_concept_id: male
     birth_year: 1982
@@ -842,6 +983,9 @@ patients:
         value_as_number: 29.0
 
   - person_source_value: bmi_adult_last_notmet
+    test_status: ""
+    test_suite: CVR_01
+    test_description: "Adult latest BMI worsens from 29 to 31 and fails threshold"
     location: boston
     gender_concept_id: female
     birth_year: 1983
@@ -858,6 +1002,9 @@ patients:
         value_as_number: 31.0
 
   - person_source_value: bmi_adult_age17_excluded
+    test_status: "🔴"
+    test_suite: CVR_01
+    test_description: "Age 17 (plan: 18) patient excluded from adult BMI measure"
     location: boston
     gender_concept_id: male
     birth_year: 2006
@@ -871,6 +1018,9 @@ patients:
         value_as_number: 29.0
 
   - person_source_value: bmi_peds_met_94
+    test_status: ""
+    test_suite: CVR_02
+    test_description: "Pediatric BMI percentile 94 meets threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2010
@@ -884,6 +1034,9 @@ patients:
         value_as_number: 94.0
 
   - person_source_value: bmi_peds_notmet_95
+    test_status: ""
+    test_suite: CVR_02
+    test_description: "Pediatric BMI percentile 95 fails threshold"
     location: boston
     gender_concept_id: female
     birth_year: 2010
@@ -897,6 +1050,9 @@ patients:
         value_as_number: 95.0
 
   - person_source_value: bmi_peds_last_met
+    test_status: ""
+    test_suite: CVR_02
+    test_description: "Pediatric latest percentile improves from 95 to 94 and meets threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2010
@@ -913,6 +1069,9 @@ patients:
         value_as_number: 94.0
 
   - person_source_value: bmi_peds_last_notmet
+    test_status: ""
+    test_suite: CVR_02
+    test_description: "Pediatric latest percentile worsens from 94 to 95 and fails threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2010
@@ -929,6 +1088,9 @@ patients:
         value_as_number: 95.0
 
   - person_source_value: bmi_peds_age18_excluded
+    test_status: ""
+    test_suite: CVR_02
+    test_description: "Age 18 patient excluded from pediatric BMI measure"
     location: boston
     gender_concept_id: female
     birth_year: 2005
@@ -946,6 +1108,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: food_secure
+    test_status: ""
+    test_suite: SDOH_01
+    test_description: "Negative food insecurity screen"
     location: boston
     gender_concept_id: female
     birth_year: 1985
@@ -960,6 +1125,9 @@ patients:
         value_as_concept_id: never_true
 
   - person_source_value: food_insecure
+    test_status: ""
+    test_suite: SDOH_01
+    test_description: "Positive food insecurity screen"
     location: boston
     gender_concept_id: male
     birth_year: 1985
@@ -974,6 +1142,9 @@ patients:
         value_as_concept_id: sometimes_true
 
   - person_source_value: food_secure_overridden
+    test_status: "✨"
+    test_suite: SDOH_01
+    test_description: "Earlier positive food screen overrides a later secure response"
     location: boston
     gender_concept_id: female
     birth_year: 1984
@@ -992,6 +1163,9 @@ patients:
         value_as_concept_id: never_true
 
   - person_source_value: housing_secure
+    test_status: ""
+    test_suite: SDOH_02
+    test_description: "Stable housing response"
     location: boston
     gender_concept_id: female
     birth_year: 1986
@@ -1006,6 +1180,9 @@ patients:
         value_as_concept_id: steady_place
 
   - person_source_value: housing_insecure
+    test_status: ""
+    test_suite: SDOH_02
+    test_description: "Worried about losing housing response"
     location: boston
     gender_concept_id: male
     birth_year: 1986
@@ -1020,6 +1197,9 @@ patients:
         value_as_concept_id: worried_about_losing
 
   - person_source_value: housing_homeless
+    test_status: "✨"
+    test_suite: SDOH_02
+    test_description: "Positive housing insecurity via homelessness response"
     location: boston
     gender_concept_id: male
     birth_year: 1986
@@ -1034,6 +1214,9 @@ patients:
         value_as_concept_id: yes_homeless
 
   - person_source_value: housing_lack_homeless
+    test_status: "✨"
+    test_suite: SDOH_02
+    test_description: "Positive housing insecurity via housing lack response"
     location: boston
     gender_concept_id: female
     birth_year: 1987
@@ -1048,6 +1231,9 @@ patients:
         value_as_concept_id: yes_homeless
 
   - person_source_value: housing_secure_overridden
+    test_status: "✨"
+    test_suite: SDOH_02
+    test_description: "Earlier positive housing screen overrides a later secure response"
     location: boston
     gender_concept_id: male
     birth_year: 1987
@@ -1070,6 +1256,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: covid_adult_met_2023
+    test_status: ""
+    test_suite: COVID_01
+    test_description: "Adult with qualifying COVID vaccination in 2023"
     location: boston
     gender_concept_id: male
     birth_year: 1980
@@ -1086,6 +1275,9 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_adult_notmet_none
+    test_status: ""
+    test_suite: COVID_01
+    test_description: "Adult with no COVID vaccination on record"
     location: boston
     gender_concept_id: male
     birth_year: 1980
@@ -1098,6 +1290,9 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_peds_met_2023
+    test_status: ""
+    test_suite: COVID_02
+    test_description: "Pediatric patient with qualifying COVID vaccination in 2023"
     location: boston
     gender_concept_id: female
     birth_year: 2010
@@ -1114,6 +1309,9 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_peds_notmet_none
+    test_status: ""
+    test_suite: COVID_02
+    test_description: "Pediatric patient with no COVID vaccination on record"
     location: boston
     gender_concept_id: female
     birth_year: 2010
@@ -1126,6 +1324,9 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_adult_age17_peds_only
+    test_status: ""
+    test_suite: COVID_02
+    test_description: "Age 17 patient counted only in the pediatric COVID measure"
     location: boston
     gender_concept_id: male
     birth_year: 2006
@@ -1142,6 +1343,9 @@ patients:
         date: "2023-07-01"
 
   - person_source_value: covid_peds_age18_adult_only
+    test_status: ""
+    test_suite: COVID_01
+    test_description: "Age 18 patient counted only in the adult COVID measure"
     location: boston
     gender_concept_id: female
     birth_year: 2005
@@ -1162,6 +1366,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: psc_all_met
+    test_status: ""
+    test_suite: [BH_05, BH_06, BH_07, BH_08]
+    test_description: "All PSC-17 subscales are below threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2014
@@ -1184,6 +1391,9 @@ patients:
         value_as_number: 14
 
   - person_source_value: psc_internal_notmet
+    test_status: ""
+    test_suite: BH_07
+    test_description: "PSC-17 internalization score exactly at the failure threshold"
     location: boston
     gender_concept_id: female
     birth_year: 2014
@@ -1197,6 +1407,9 @@ patients:
         value_as_number: 5
 
   - person_source_value: psc_external_notmet
+    test_status: ""
+    test_suite: BH_06
+    test_description: "PSC-17 externalization score exactly at the failure threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2014
@@ -1210,6 +1423,9 @@ patients:
         value_as_number: 7
 
   - person_source_value: psc_attention_notmet
+    test_status: ""
+    test_suite: BH_05
+    test_description: "PSC-17 attention score exactly at the failure threshold"
     location: boston
     gender_concept_id: female
     birth_year: 2014
@@ -1223,6 +1439,9 @@ patients:
         value_as_number: 7
 
   - person_source_value: psc_total_notmet
+    test_status: ""
+    test_suite: BH_08
+    test_description: "PSC-17 total score exactly at the failure threshold"
     location: boston
     gender_concept_id: male
     birth_year: 2014
@@ -1236,6 +1455,9 @@ patients:
         value_as_number: 15
 
   - person_source_value: psc_age12_excluded
+    test_status: ""
+    test_suite: [BH_05, BH_06, BH_07, BH_08]
+    test_description: "Age 12 patient excluded from PSC-17 measures"
     location: boston
     gender_concept_id: female
     birth_year: 2011
@@ -1253,6 +1475,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: phq_both_met
+    test_status: ""
+    test_suite: [BH_03, BH_04]
+    test_description: "PHQ scores 8 and 9 meet both any-positive and average rules"
     location: boston
     gender_concept_id: female
     birth_year: 2000
@@ -1269,6 +1494,9 @@ patients:
         value_as_number: 9
 
   - person_source_value: phq_avg_notmet_any_notmet
+    test_status: ""
+    test_suite: [BH_03, BH_04]
+    test_description: "PHQ scores 8 and 12 fail both any-positive and average rules"
     location: boston
     gender_concept_id: male
     birth_year: 2000
@@ -1285,6 +1513,9 @@ patients:
         value_as_number: 12
 
   - person_source_value: phq_any_notmet_avg_met
+    test_status: ""
+    test_suite: [BH_03, BH_04]
+    test_description: "PHQ scores 9 and 10 fail the any-positive rule but pass the average rule"
     location: boston
     gender_concept_id: female
     birth_year: 2000
@@ -1305,6 +1536,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: bh01_depression_active
+    test_status: "✨"
+    test_suite: BH_01
+    test_description: "Active depression diagnosis in the active population"
     location: boston
     gender_concept_id: female
     birth_year: 1985
@@ -1320,6 +1554,9 @@ patients:
         date: "2023-06-01"
 
   - person_source_value: bh01_anxiety_active
+    test_status: "✨"
+    test_suite: BH_01
+    test_description: "Active anxiety diagnosis in the active population"
     location: boston
     gender_concept_id: male
     birth_year: 1990
@@ -1335,6 +1572,9 @@ patients:
         date: "2023-06-01"
 
   - person_source_value: bh01_expired
+    test_status: "✨"
+    test_suite: BH_01
+    test_description: "Depression diagnosis ended before the measurement year"
     location: boston
     gender_concept_id: female
     birth_year: 1978
@@ -1355,6 +1595,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: bh02_schizophrenia
+    test_status: "✨"
+    test_suite: BH_02
+    test_description: "Active schizophrenia diagnosis"
     location: boston
     gender_concept_id: male
     birth_year: 1975
@@ -1370,6 +1613,9 @@ patients:
         date: "2023-06-01"
 
   - person_source_value: bh02_bipolar
+    test_status: "✨"
+    test_suite: BH_02
+    test_description: "Active bipolar diagnosis"
     location: boston
     gender_concept_id: female
     birth_year: 1982
@@ -1389,6 +1635,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: bh09_sud_active
+    test_status: "✨"
+    test_suite: BH_09
+    test_description: "Active substance use disorder diagnosis"
     location: boston
     gender_concept_id: male
     birth_year: 1980
@@ -1404,6 +1653,9 @@ patients:
         date: "2023-06-01"
 
   - person_source_value: bh09_sud_expired
+    test_status: "✨"
+    test_suite: BH_09
+    test_description: "Substance use disorder diagnosis ended before the measurement year"
     location: boston
     gender_concept_id: female
     birth_year: 1979
@@ -1424,6 +1676,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: dis01_vision
+    test_status: "✨"
+    test_suite: DIS_01
+    test_description: "Active visual disability diagnosis"
     location: boston
     gender_concept_id: female
     birth_year: 1960
@@ -1443,6 +1698,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: dis02_hearing
+    test_status: "✨"
+    test_suite: DIS_02
+    test_description: "Active hearing disability diagnosis"
     location: boston
     gender_concept_id: male
     birth_year: 1955
@@ -1462,6 +1720,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: dis03_autism
+    test_status: "✨"
+    test_suite: DIS_03
+    test_description: "Active autism spectrum diagnosis"
     location: boston
     gender_concept_id: male
     birth_year: 2010
@@ -1481,6 +1742,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: dis04_intellectual
+    test_status: "✨"
+    test_suite: DIS_04
+    test_description: "Active intellectual disability diagnosis"
     location: boston
     gender_concept_id: female
     birth_year: 2008
@@ -1500,6 +1764,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: smoke_current_smoker
+    test_status: "✨"
+    test_suite: PS_01
+    test_description: "Current smoker response"
     location: boston
     gender_concept_id: male
     birth_year: 1970
@@ -1515,6 +1782,9 @@ patients:
         date: "2023-03-15"
 
   - person_source_value: smoke_non_smoker
+    test_status: "✨"
+    test_suite: PS_01
+    test_description: "Current non-smoker response"
     location: boston
     gender_concept_id: female
     birth_year: 1968
@@ -1530,6 +1800,9 @@ patients:
         date: "2023-05-20"
 
   - person_source_value: smoke_latest_wins
+    test_status: "✨"
+    test_suite: PS_01
+    test_description: "Latest smoking status overrides an earlier response"
     location: boston
     gender_concept_id: male
     birth_year: 1965
@@ -1552,6 +1825,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: mmr_met_before_18mo
+    test_status: "✨"
+    test_suite: PS_04
+    test_description: "MMR vaccination before the 18-month boundary"
     location: boston
     gender_concept_id: female
     birth_year: 2022
@@ -1568,6 +1844,9 @@ patients:
         date: "2023-06-01"
 
   - person_source_value: mmr_notmet_after_18mo
+    test_status: "✨"
+    test_suite: PS_04
+    test_description: "MMR vaccination after the 18-month boundary"
     location: boston
     gender_concept_id: male
     birth_year: 2022
@@ -1584,6 +1863,9 @@ patients:
         date: "2023-12-01"
 
   - person_source_value: mmr_notmet_none
+    test_status: "✨"
+    test_suite: PS_04
+    test_description: "No MMR vaccination on record"
     location: boston
     gender_concept_id: female
     birth_year: 2022
@@ -1600,6 +1882,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: nqf_dm_excluded_frailty
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient excluded by advanced illness and frailty"
     location: boston
     gender_concept_id: male
     birth_year: 1955
@@ -1625,6 +1910,9 @@ patients:
         visit_concept_id: inpatient
 
   - person_source_value: nqf_hospice_excluded
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient excluded by hospice"
     location: boston
     gender_concept_id: female
     birth_year: 1950
@@ -1651,6 +1939,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: renal_esrd_excluded
+    test_status: "✨"
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient excluded by ESRD"
     location: boston
     gender_concept_id: male
     birth_year: 1960
@@ -1673,6 +1964,9 @@ patients:
         date: "2023-05-01"
 
   - person_source_value: renal_transplant_excluded
+    test_status: "✨"
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient excluded by kidney transplant"
     location: boston
     gender_concept_id: female
     birth_year: 1958
@@ -1700,6 +1994,9 @@ patients:
   # ---------------------------------------------------------------------------
 
   - person_source_value: pregnancy_htn_excluded
+    test_status: ""
+    test_suite: CVR_03
+    test_description: "Hypertension patient excluded during pregnancy"
     location: boston
     gender_concept_id: female
     birth_year: 1992
