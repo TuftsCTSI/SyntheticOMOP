@@ -11,6 +11,7 @@ include("config.jl")
 include("templates.jl")
 include("generator.jl")
 include("writer.jl")
+include("review.jl")
 
 """
     build(config_path) -> Dict{String,DataFrame}
@@ -46,7 +47,7 @@ function generate(config_path::String, output_dir::String = joinpath("out", spli
     end
 end
 
-export build, generate
+export build, generate, review_table
 
 @setup_workload begin
     _pc_single = joinpath(tempdir(), "_syntheticomop_pc_single.yml")
