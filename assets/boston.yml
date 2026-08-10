@@ -80,9 +80,18 @@ concepts:
   kidney_transplant_proc: 4324887
   pregnancy: 4299535
 
+  # Additional test concepts
+  opioid_sud: 4032799
+  colectomy_proc: 4301351
+  tobacco_unknown_val: 45884037
+  zero_visit: 0
+
 concept_ancestors:
   - ancestor: substance_abuse
     descendant: sud_alcohol
+
+  - ancestor: substance_abuse
+    descendant: opioid_sud
 
 locations:
   - id: boston
@@ -2017,4 +2026,880 @@ patients:
       - concept_id: diastolic_bp
         date: "2023-08-01"
         value_as_number: 92
+
+
+  # ---------------------------------------------------------------------------
+  # BH_01 gap-filling: inactive, both conditions, recently expired
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bh01_depression_inactive
+    test_status: "✨"
+    test_suite: BH_01
+    test_description: "Depression diagnosis but no visit in 2-year window"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1985
+    birth_month: 3
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: depression
+        date: "2023-03-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  - person_source_value: bh01_both_anxiety_depression
+    test_status: "✨"
+    test_suite: BH_01
+    test_description: "Patient with both depression and anxiety for deduplication test"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1988
+    birth_month: 2
+    birth_day: 14
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: depression
+        date: "2023-01-15"
+      - concept_id: anxiety
+        date: "2023-02-20"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh01_recently_expired
+    test_status: "✨"
+    test_suite: BH_01
+    test_description: "Depression start 2021 with adj_end_year=2023 boundary test"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 8
+    birth_day: 5
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: depression
+        date: "2021-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+      - concept_id: routine_exam
+        date: "2024-06-01"
+
+  # ---------------------------------------------------------------------------
+  # BH_02 gap-filling: inactive, both conditions
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bh02_smh_inactive
+    test_status: "✨"
+    test_suite: BH_02
+    test_description: "SMI diagnosis but no visit in 2-year window"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1975
+    birth_month: 4
+    birth_day: 22
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: schizophrenia
+        date: "2022-01-10"
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  - person_source_value: bh02_both_schiz_bipolar
+    test_status: "✨"
+    test_suite: BH_02
+    test_description: "Patient with both schizophrenia and bipolar for deduplication test"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 7
+    birth_day: 18
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: schizophrenia
+        date: "2022-03-01"
+      - concept_id: bipolar
+        date: "2022-09-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # BH_09 gap-filling: relapse, opioid, inactive
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bh09_sud_relapse
+    test_status: "✨"
+    test_suite: BH_09
+    test_description: "Two SUD episodes testing max_start_date logic"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 1
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: sud_alcohol
+        date: "2018-03-01"
+        end_date: "2018-09-01"
+      - concept_id: sud_alcohol
+        date: "2023-04-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh09_sud_opioid
+    test_status: "✨"
+    test_suite: BH_09
+    test_description: "Opioid SUD testing ancestor concept expansion"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1982
+    birth_month: 11
+    birth_day: 5
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: opioid_sud
+        date: "2023-01-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: bh09_sud_inactive
+    test_status: "✨"
+    test_suite: BH_09
+    test_description: "SUD diagnosis but no visit in 2-year window"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1979
+    birth_month: 5
+    birth_day: 14
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: sud_alcohol
+        date: "2023-01-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  # ---------------------------------------------------------------------------
+  # PHQ-9 gap-filling: age exclusion, boundary, null
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: phq_age11_excluded
+    test_status: "✨"
+    test_suite: [BH_03, BH_04]
+    test_description: "PHQ-9 score at age 11 excluded from both measures"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2012
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: phq9
+        date: "2023-06-01"
+        value_as_number: 8
+
+  - person_source_value: phq_single_score_10
+    test_status: "✨"
+    test_suite: [BH_03, BH_04]
+    test_description: "Single PHQ-9 score of exactly 10 fails both measures"
+    location: boston
+    gender_concept_id: female
+    birth_year: 2000
+    birth_month: 6
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: phq9
+        date: "2023-06-01"
+        value_as_number: 10
+
+  - person_source_value: phq_null_value
+    test_status: "✨"
+    test_suite: [BH_03, BH_04]
+    test_description: "PHQ-9 observation with NULL value excluded from both measures"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2000
+    birth_month: 3
+    birth_day: 20
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: phq9
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # PSC-17 gap-filling: age 5 exclusion, latest-wins temporal
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: psc_age5_excluded
+    test_status: "✨"
+    test_suite: [BH_05, BH_06, BH_07, BH_08]
+    test_description: "Age 5 patient excluded from PSC-17 measures (below age 6)"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2018
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_attention
+        date: "2023-09-01"
+        value_as_number: 4
+
+  - person_source_value: psc_latest_wins
+    test_status: "✨"
+    test_suite: BH_05
+    test_description: "Two attention scores in year with latest below threshold"
+    location: boston
+    gender_concept_id: female
+    birth_year: 2014
+    birth_month: 6
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: psc17_attention
+        date: "2023-03-01"
+        value_as_number: 7
+      - concept_id: psc17_attention
+        date: "2023-09-01"
+        value_as_number: 6
+
+  # ---------------------------------------------------------------------------
+  # COVID gap-filling: 2021 single-dose, null lot number
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: covid_adult_1dose_2021
+    test_status: "✨"
+    test_suite: COVID_01
+    test_description: "Single COVID dose in 2021 fails 2-dose requirement"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 5
+    birth_day: 10
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: covid_pfizer
+        date: "2021-04-15"
+        lot_number: "LOT-2021-X"
+    observations:
+      - concept_id: routine_exam
+        date: "2021-07-01"
+
+  - person_source_value: covid_adult_no_lot
+    test_status: "✨"
+    test_suite: COVID_01
+    test_description: "COVID vaccine record without lot_number excluded"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 8
+    birth_day: 20
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: covid_pfizer
+        date: "2023-03-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-01"
+
+  # ---------------------------------------------------------------------------
+  # BMI gap-filling: null value, age-18 exact, age-2 excluded, inactive
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: bmi_adult_null
+    test_status: "✨"
+    test_suite: CVR_01
+    test_description: "Adult BMI measurement with NULL value"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-08-01"
+
+  - person_source_value: bmi_adult_age18_exact
+    test_status: "✨"
+    test_suite: CVR_01
+    test_description: "Exactly age 18 at end of year tests gt-18 vs gte-18 boundary"
+    location: boston
+    gender_concept_id: female
+    birth_year: 2005
+    birth_month: 6
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-08-01"
+        value_as_number: 28.0
+
+  - person_source_value: bmi_peds_age2_excluded
+    test_status: "✨"
+    test_suite: CVR_02
+    test_description: "Age 2 patient excluded from pediatric BMI (below lower bound)"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2021
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi_percentile
+        date: "2023-08-01"
+        value_as_number: 85.0
+
+  - person_source_value: bmi_adult_inactive
+    test_status: "✨"
+    test_suite: CVR_01
+    test_description: "Adult BMI measurement but not in active population"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 9
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: bmi
+        date: "2023-08-01"
+        value_as_number: 28.0
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  # ---------------------------------------------------------------------------
+  # DIS_01 gap-filling: inactive, future dx, resolved
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis01_vision_inactive
+    test_status: "✨"
+    test_suite: DIS_01
+    test_description: "Vision disability but no visit in 2-year window"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1960
+    birth_month: 5
+    birth_day: 20
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: vision_disability
+        date: "2020-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  - person_source_value: dis01_vision_future_dx
+    test_status: "✨"
+    test_suite: DIS_01
+    test_description: "Vision disability diagnosed after measurement year"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1960
+    birth_month: 10
+    birth_day: 5
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: vision_disability
+        date: "2025-03-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: dis01_vision_resolved
+    test_status: "✨"
+    test_suite: DIS_01
+    test_description: "Vision disability with condition_end_date set"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1962
+    birth_month: 3
+    birth_day: 12
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: vision_disability
+        date: "2020-06-01"
+        end_date: "2021-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # DIS_03 gap-filling: inactive, future dx
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis03_autism_inactive
+    test_status: "✨"
+    test_suite: DIS_03
+    test_description: "Autism spectrum but no visit in 2-year window"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2010
+    birth_month: 8
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: autism_spectrum
+        date: "2015-09-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  - person_source_value: dis03_autism_future_dx
+    test_status: "✨"
+    test_suite: DIS_03
+    test_description: "Autism spectrum diagnosed after measurement year"
+    location: boston
+    gender_concept_id: female
+    birth_year: 2012
+    birth_month: 4
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: autism_spectrum
+        date: "2025-01-15"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # DIS_04 gap-filling: inactive, future dx
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: dis04_intellectual_inactive
+    test_status: "✨"
+    test_suite: DIS_04
+    test_description: "Intellectual disability but no visit in 2-year window"
+    location: boston
+    gender_concept_id: female
+    birth_year: 2008
+    birth_month: 6
+    birth_day: 20
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: intellectual_disability
+        date: "2016-04-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+
+  - person_source_value: dis04_intellectual_future_dx
+    test_status: "✨"
+    test_suite: DIS_04
+    test_description: "Intellectual disability diagnosed after measurement year"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2009
+    birth_month: 2
+    birth_day: 10
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: intellectual_disability
+        date: "2025-05-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # PS_01 gap-filling: unknown concept, cross-year independence
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: smoke_unknown_concept
+    test_status: "✨"
+    test_suite: PS_01
+    test_description: "Tobacco status with unrecognized value_as_concept_id"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1975
+    birth_month: 6
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: tobacco_status
+        date: "2023-05-01"
+        value_as_concept_id: tobacco_unknown_val
+      - concept_id: routine_exam
+        date: "2023-05-01"
+
+  - person_source_value: smoke_changed_year
+    test_status: "✨"
+    test_suite: PS_01
+    test_description: "Smoker in 2022 then non-smoker in 2023 for cross-year test"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 11
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: tobacco_status
+        date: "2022-09-01"
+        value_as_concept_id: tobacco_user
+      - concept_id: tobacco_status
+        date: "2023-03-01"
+        value_as_concept_id: tobacco_nonuser
+      - concept_id: routine_exam
+        date: "2022-09-01"
+      - concept_id: routine_exam
+        date: "2023-03-01"
+
+  # ---------------------------------------------------------------------------
+  # Breast/CRC gap-filling: hospice exclusions, colectomy exclusion
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: breast_excluded_hospice
+    test_status: "✨"
+    test_suite: PS_03
+    test_description: "Breast screening patient excluded by hospice"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1970
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    procedures:
+      - concept_id: mammography
+        date: "2022-06-15"
+    observations:
+      - concept_id: hospice_enc
+        date: "2023-04-01"
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_excluded_hospice
+    test_status: "✨"
+    test_suite: PS_02
+    test_description: "Colorectal screening patient excluded by hospice"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1970
+    birth_month: 4
+    birth_day: 10
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: fobt
+        date: "2023-05-15"
+        value_as_number: 1.0
+    observations:
+      - concept_id: hospice_enc
+        date: "2023-04-01"
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  - person_source_value: crc_excluded_colectomy
+    test_status: "✨"
+    test_suite: PS_02
+    test_description: "Colorectal screening patient excluded by colectomy history"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1968
+    birth_month: 7
+    birth_day: 22
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    measurements:
+      - concept_id: fobt
+        date: "2023-05-15"
+        value_as_number: 1.0
+    procedures:
+      - concept_id: colectomy_proc
+        date: "2019-11-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-15"
+
+  # ---------------------------------------------------------------------------
+  # MMR gap-filling: exact boundary, two doses, no lot
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: mmr_met_boundary
+    test_status: "✨"
+    test_suite: PS_04
+    test_description: "MMR vaccination on exact 18-month boundary date"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2022
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: mmr_vaccine
+        date: "2023-07-15"
+        lot_number: "LOT003"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-07-15"
+
+  - person_source_value: mmr_met_two_doses
+    test_status: "✨"
+    test_suite: PS_04
+    test_description: "Two MMR doses with first before 18mo testing ordinal logic"
+    location: boston
+    gender_concept_id: female
+    birth_year: 2022
+    birth_month: 1
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: mmr_vaccine
+        date: "2023-06-01"
+        lot_number: "LOT004A"
+      - concept_id: mmr_vaccine
+        date: "2023-12-01"
+        lot_number: "LOT004B"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: mmr_no_lot
+    test_status: "✨"
+    test_suite: PS_04
+    test_description: "MMR drug record without lot_number excluded"
+    location: boston
+    gender_concept_id: male
+    birth_year: 2022
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    drugs:
+      - concept_id: mmr_vaccine
+        date: "2023-06-01"
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  # ---------------------------------------------------------------------------
+  # SDOH gap-filling: declined, unknown
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: food_declined
+    test_status: "✨"
+    test_suite: SDOH_01
+    test_description: "Patient declined to answer food security question"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1985
+    birth_month: 9
+    birth_day: 5
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: food_security_q1
+        date: "2023-07-01"
+        value_as_string: "Patient declined to answer"
+
+  - person_source_value: housing_unknown
+    test_status: "✨"
+    test_suite: SDOH_02
+    test_description: "Housing response with unrecognized string value"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1986
+    birth_month: 4
+    birth_day: 12
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: housing_stability
+        date: "2023-07-01"
+        value_as_string: "Prefer not to say"
+
+  # ---------------------------------------------------------------------------
+  # PTYPE gap-filling: visit-based population types
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: ptype04_current_yr
+    test_status: "✨"
+    test_suite: PTYPE_04
+    test_description: "Visit in 2023 qualifies for active current year"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 1
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: ptype04_no_visit_current
+    test_status: "✨"
+    test_suite: PTYPE_04
+    test_description: "Visit in 2022 only, absent from active current year"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 2
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2022-06-01"
+
+  - person_source_value: ptype03_1yr_lookback
+    test_status: "✨"
+    test_suite: PTYPE_03
+    test_description: "Visit in 2022 qualifies for 1-year lookback in 2023"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 5
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2022-09-01"
+
+  - person_source_value: ptype05_2yr_lookback
+    test_status: "✨"
+    test_suite: PTYPE_05
+    test_description: "Visit in 2021 qualifies for 2-year lookback in 2023"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 7
+    birth_day: 20
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2021-11-01"
+
+  - person_source_value: ptype05_3yr_ago
+    test_status: "✨"
+    test_suite: PTYPE_05
+    test_description: "Visit in 2020 only, outside 2-year lookback for 2023"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1980
+    birth_month: 10
+    birth_day: 5
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2020-04-01"
+
+  - person_source_value: ptype04_zero_concept
+    test_status: "✨"
+    test_suite: PTYPE_04
+    test_description: "Visit with concept_id=0 filtered out from active population"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1980
+    birth_month: 12
+    birth_day: 1
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+        visit_concept_id: zero_visit
+
+  # ---------------------------------------------------------------------------
+  # Primary Care / CHC gap-filling (depend on list table population)
+  # ---------------------------------------------------------------------------
+
+  - person_source_value: ptype08_pcp_current
+    test_status: "✨"
+    test_suite: PTYPE_08
+    test_description: "Primary care visit in 2023 (requires primary_care_list population)"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1978
+    birth_month: 3
+    birth_day: 15
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-04-01"
+
+  - person_source_value: ptype08_pcp_prior_yr
+    test_status: "✨"
+    test_suite: PTYPE_08
+    test_description: "PCP visit in 2022 only, absent from PTYPE_08 current year"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1978
+    birth_month: 6
+    birth_day: 20
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2022-04-01"
+
+  - person_source_value: ptype02_chc_current
+    test_status: "✨"
+    test_suite: PTYPE_02
+    test_description: "CHC visit in 2023 (requires chc_list population)"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1976
+    birth_month: 9
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-05-01"
+
+  - person_source_value: ptype08_not_pcp
+    test_status: "✨"
+    test_suite: PTYPE_08
+    test_description: "Visit in 2023 but not in primary_care_list, absent from PTYPE_08"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1977
+    birth_month: 11
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
 
