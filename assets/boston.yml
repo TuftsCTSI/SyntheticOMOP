@@ -748,6 +748,7 @@ patients:
     expected:
       PS_03:
         present: true
+        status: 1
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1948
@@ -767,7 +768,7 @@ patients:
     expected:
       PS_02:
         present: true
-        status: 1
+        status: 0
     location: boston
     gender_concept_id: MALE
     birth_year: 1970
@@ -788,7 +789,7 @@ patients:
     expected:
       PS_02:
         present: true
-        status: 1
+        status: 0
     location: boston
     gender_concept_id: MALE
     birth_year: 1970
@@ -828,7 +829,7 @@ patients:
     expected:
       PS_02:
         present: true
-        status: 1
+        status: 0
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1970
@@ -868,7 +869,7 @@ patients:
     expected:
       PS_02:
         present: true
-        status: 1
+        status: 0
     location: boston
     gender_concept_id: MALE
     birth_year: 1971
@@ -908,7 +909,7 @@ patients:
     expected:
       PS_02:
         present: true
-        status: 1
+        status: 0
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1970
@@ -987,7 +988,7 @@ patients:
     expected:
       PS_02:
         present: true
-        status: 1
+        status: 0
     location: boston
     gender_concept_id: MALE
     birth_year: 1948
@@ -1748,6 +1749,7 @@ patients:
     expected:
       BH_09:
         present: true
+        status: 1
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1979
@@ -1969,8 +1971,10 @@ patients:
     expected:
       CVR_04:
         present: true
+        status: "*"
       CVR_05:
         present: true
+        status: "*"
     location: boston
     gender_concept_id: MALE
     birth_year: 1955
@@ -2001,8 +2005,10 @@ patients:
     expected:
       CVR_04:
         present: true
+        status: "*"
       CVR_05:
         present: true
+        status: "*"
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1954
@@ -2033,8 +2039,10 @@ patients:
     expected:
       CVR_04:
         present: true
+        status: "*"
       CVR_05:
         present: true
+        status: "*"
     location: boston
     gender_concept_id: MALE
     birth_year: 1953
@@ -2325,6 +2333,7 @@ patients:
     expected:
       BH_09:
         present: true
+        status: 1
     location: boston
     gender_concept_id: MALE
     birth_year: 1979
@@ -2521,6 +2530,7 @@ patients:
     expected:
       DIS_01:
         present: true
+        status: 1
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1960
@@ -2561,6 +2571,7 @@ patients:
     expected:
       DIS_03:
         present: true
+        status: 1
     location: boston
     gender_concept_id: MALE
     birth_year: 2010
@@ -2580,6 +2591,7 @@ patients:
     expected:
       DIS_03:
         present: true
+        status: 1
     location: boston
     gender_concept_id: FEMALE
     birth_year: 2012
@@ -2620,6 +2632,7 @@ patients:
     expected:
       DIS_04:
         present: true
+        status: 1
     location: boston
     gender_concept_id: MALE
     birth_year: 2009
@@ -2684,6 +2697,7 @@ patients:
     expected:
       PS_03:
         present: true
+        status: 1
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1970
@@ -2814,6 +2828,7 @@ patients:
     expected:
       SDOH_01:
         present: true
+        status: -1
     location: boston
     gender_concept_id: MALE
     birth_year: 1985
@@ -2968,6 +2983,7 @@ patients:
     expected:
       PTYPE_08:
         present: true
+        status: 1
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1978
@@ -3002,7 +3018,7 @@ patients:
     description: "Visit in 2023 but not in primary_care_list, absent from PTYPE_08"
     expected:
       PTYPE_08:
-        present: true
+        present: false
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1977
