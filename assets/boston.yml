@@ -90,2999 +90,2894 @@ concepts:
   zero_visit: 0
 
 concept_ancestors:
-  - ancestor: substance_abuse
-    descendant: sud_alcohol
+- ancestor: substance_abuse
+  descendant: sud_alcohol
 
-  - ancestor: substance_abuse
-    descendant: opioid_sud
+- ancestor: substance_abuse
+  descendant: opioid_sud
 
 care_sites:
-  - id: boston_chc
-    care_site_name: "Boston CHC"
-    place_of_service_concept_id: 8761
-    location: boston
-  - id: pcp_office
-    care_site_name: "Primary Care Office"
-    place_of_service_concept_id: 8940
-    location: boston
+- id: boston_chc
+  care_site_name: "Boston CHC"
+  place_of_service_concept_id: 8761
+  location: boston
+- id: pcp_office
+  care_site_name: "Primary Care Office"
+  place_of_service_concept_id: 8940
+  location: boston
 
 locations:
-  - id: boston
-    address_1: "123 Main St"
-    city: "Boston"
-    state: "MA"
-    zip: "02118"
+- id: boston
+  address_1: "123 Main St"
+  city: "Boston"
+  state: "MA"
+  zip: "02118"
 
 patients:
 
-  - person_source_value: htn_age17_excluded
-    description: "Age 17 hypertension patient excluded from denominator"
-    expected:
-      CVR_03:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2006
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-10"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-06-15"
-        value_as_number: 139
-      - concept_id: diastolic_bp
-        date: "2023-06-15"
-        value_as_number: 89
-
-  - person_source_value: htn_age18_met
-    description: "Age 18 hypertension patient with controlled blood pressure"
-    expected:
-      CVR_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2005
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-05"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-07-15"
-        value_as_number: 139
-      - concept_id: diastolic_bp
-        date: "2023-07-15"
-        value_as_number: 89
-
-  - person_source_value: htn_age84_met
-    description: "Age 84 hypertension patient with controlled blood pressure"
-    expected:
-      CVR_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1939
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-05"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-07-15"
-        value_as_number: 139
-      - concept_id: diastolic_bp
-        date: "2023-07-15"
-        value_as_number: 89
-
-  - person_source_value: htn_age85_excluded
-    description: "Age 85 hypertension patient excluded from denominator"
-    expected:
-      CVR_03:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1938
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-05"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-07-15"
-        value_as_number: 139
-      - concept_id: diastolic_bp
-        date: "2023-07-15"
-        value_as_number: 89
-
-  - person_source_value: htn_notmet_dia
-    description: "Hypertension patient with elevated diastolic pressure only"
-    expected:
-      CVR_03:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 2
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-10"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-08-01"
-        value_as_number: 138
-      - concept_id: diastolic_bp
-        date: "2023-08-01"
-        value_as_number: 91
-
-  - person_source_value: htn_notmet_sys
-    description: "Hypertension patient with elevated systolic pressure only"
-    expected:
-      CVR_03:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1971
-    birth_month: 2
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-10"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-08-02"
-        value_as_number: 141
-      - concept_id: diastolic_bp
-        date: "2023-08-02"
-        value_as_number: 90
-
-  - person_source_value: htn_notmet_both
-    description: "Hypertension patient with both systolic and diastolic pressure elevated"
-    expected:
-      CVR_03:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1972
-    birth_month: 2
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-10"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-08-03"
-        value_as_number: 141
-      - concept_id: diastolic_bp
-        date: "2023-08-03"
-        value_as_number: 91
-
-  - person_source_value: htn_last_reading_met_sep
-    description: "Earlier high blood pressure but latest reading is controlled"
-    expected:
-      CVR_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1965
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2022-12-15"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-04-01"
-        value_as_number: 145
-      - concept_id: diastolic_bp
-        date: "2023-04-01"
-        value_as_number: 91
-      - concept_id: systolic_bp
-        date: "2023-10-01"
-        value_as_number: 138
-      - concept_id: diastolic_bp
-        date: "2023-10-01"
-        value_as_number: 88
-
-  - person_source_value: htn_last_reading_notmet_sep
-    description: "Earlier controlled blood pressure but latest reading is uncontrolled"
-    expected:
-      CVR_03:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1966
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2022-12-15"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-04-01"
-        value_as_number: 138
-      - concept_id: diastolic_bp
-        date: "2023-04-01"
-        value_as_number: 88
-      - concept_id: systolic_bp
-        date: "2023-10-01"
-        value_as_number: 145
-      - concept_id: diastolic_bp
-        date: "2023-10-01"
-        value_as_number: 91
-
-  - person_source_value: htn_same_day_low_high_sql_met
-    description: "Same-day duplicate BP resolved to controlled minimum values"
-    expected:
-      CVR_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1967
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2022-12-15"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-10-01"
-        value_as_number: 145
-      - concept_id: systolic_bp
-        date: "2023-10-01"
-        value_as_number: 138
-      - concept_id: diastolic_bp
-        date: "2023-10-01"
-        value_as_number: 91
-      - concept_id: diastolic_bp
-        date: "2023-10-01"
-        value_as_number: 88
-
-  - person_source_value: htn_not_measured
-    description: "Hypertension diagnosis without qualifying BP pressure measurement in year"
-    expected:
-      CVR_03:
-        present: true
-        status: -1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1968
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2021-06-01"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2022-03-15"
-        value_as_number: 135
-      - concept_id: diastolic_bp
-        date: "2022-03-15"
-        value_as_number: 85
-    observations:
-      - concept_id: routine_exam
-        date: "2023-09-01"
-
-  - person_source_value: htn_multi_year
-    description: "Multi-year hypertension patient with changing annual control status"
-    expected:
-      CVR_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 5
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2022-12-01"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-06-15"
-        value_as_number: 139
-      - concept_id: diastolic_bp
-        date: "2023-06-15"
-        value_as_number: 89
-      - concept_id: systolic_bp
-        date: "2024-06-15"
-        value_as_number: 145
-      - concept_id: diastolic_bp
-        date: "2024-06-15"
-        value_as_number: 91
-      - concept_id: systolic_bp
-        date: "2025-06-15"
-        value_as_number: 138
-      - concept_id: diastolic_bp
-        date: "2025-06-15"
-        value_as_number: 88
-
-  - person_source_value: dm_age17_excluded
-    description: "Age 17 diabetes patient excluded from denominator"
-    expected:
-      CVR_04:
-        present: false
-      CVR_05:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2006
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2023-01-10"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-06-10"
-        value_as_number: 9.0
-        unit_concept_id: percent
-
-  - person_source_value: dm_age18_met_9
-    description: "Age 18 diabetes patient with A1c exactly at 9.0 threshold"
-    expected:
-      CVR_04:
-        present: true
-        status: 1
-      CVR_05:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2005
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2023-01-10"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-06-10"
-        value_as_number: 9.0
-        unit_concept_id: percent
-
-  - person_source_value: dm_age75_met_9
-    description: "Age 75 diabetes patient with A1c exactly at 9.0 threshold"
-    expected:
-      CVR_04:
-        present: true
-        status: 1
-      CVR_05:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1948
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2023-01-10"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-06-10"
-        value_as_number: 9.0
-        unit_concept_id: percent
-
-  - person_source_value: dm_age76_excluded
-    description: "Age 76 diabetes patient excluded from denominator"
-    expected:
-      CVR_04:
-        present: false
-      CVR_05:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1947
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2023-01-10"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-06-10"
-        value_as_number: 9.0
-        unit_concept_id: percent
-
-  - person_source_value: dm_notmet_10
-    description: "Diabetes patient with A1c 10.0 above threshold"
-    expected:
-      CVR_04:
-        present: true
-        status: 0
-      CVR_05:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1969
-    birth_month: 4
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2022-12-15"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-09-10"
-        value_as_number: 10.0
-        unit_concept_id: percent
-
-  - person_source_value: dm_missing
-    description: "Diabetes diagnosis without qualifying A1c measurement in year"
-    expected:
-      CVR_04:
-        present: true
-        status: -1
-      CVR_05:
-        present: true
-        status: -1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 4
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2022-12-15"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-09-10"
-
-  - person_source_value: dm_multi_year
-    description: "Multi-year diabetes patient with met, not met, then met A1c trajectory"
-    expected:
-      CVR_04:
-        present: true
-        status: 1
-      CVR_05:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1965
-    birth_month: 4
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2022-12-15"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-05-10"
-        value_as_number: 8.9
-        unit_concept_id: percent
-      - concept_id: hba1c
-        date: "2024-05-10"
-        value_as_number: 10.1
-        unit_concept_id: percent
-      - concept_id: hba1c
-        date: "2025-05-10"
-        value_as_number: 8.5
-        unit_concept_id: percent
-
-  - person_source_value: breast_met_recent_mammo
-    description: "Recent mammogram within breast screening window"
-    expected:
-      PS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1973
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mammography
-        date: "2022-06-15"
-
-  - person_source_value: breast_met_25mo_mammo
-    description: "Mammogram 25 months ago (SQL uses 27-month window, PDF has 24 month)"
-    expected:
-      PS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 6
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    procedures:
-      - concept_id: mammography
-        date: "2021-11-01"
-
-  - person_source_value: breast_notmet_old_mammo
-    description: "Mammogram outside the breast screening window"
-    expected:
-      PS_03:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1973
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mammography
-        date: "2020-12-15"
-
-  - person_source_value: breast_notmet_none
-    description: "No mammogram on record"
-    expected:
-      PS_03:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1973
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: breast_excluded_mastectomy
-    description: "Breast screening exclusion due to mastectomy history"
-    expected:
-      PS_03:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1973
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mastectomy
-        date: "2022-03-15"
-
-  - person_source_value: breast_age49_excluded
-    description: "Age 49 patient excluded from breast screening"
-    expected:
-      PS_03:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1974
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mammography
-        date: "2022-06-15"
-
-  - person_source_value: breast_age74_included
-    description: "Age 74 patient included with recent mammogram"
-    expected:
-      PS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1949
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mammography
-        date: "2022-06-15"
-
-  - person_source_value: breast_age75_excluded
-    description: "Age 75 patient excluded from breast screening"
-    expected:
-      PS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1948
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mammography
-        date: "2022-06-15"
-
-  - person_source_value: crc_met_fobt
-    description: "FOBT completed in the measurement year"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: fobt
-        date: "2023-05-15"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_met_colonoscopy_window
-    description: "Colonoscopy within the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: colonoscopy
-        date: "2014-07-01"
-
-  - person_source_value: crc_notmet_colonoscopy_old
-    description: "Colonoscopy just outside the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: colonoscopy
-        date: "2013-07-01"
-
-  - person_source_value: crc_met_sigmoid_window
-    description: "Sigmoidoscopy within the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: sigmoidoscopy
-        date: "2020-07-01"
-
-  - person_source_value: crc_notmet_sigmoid_old
-    description: "Sigmoidoscopy just outside the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: sigmoidoscopy
-        date: "2018-07-01"
-
-  - person_source_value: crc_met_ct_window
-    description: "CT colonography within the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1971
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: ct_colonography
-        date: "2020-07-01"
-
-  - person_source_value: crc_notmet_ct_old
-    description: "CT colonography just outside the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1971
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: ct_colonography
-        date: "2018-07-01"
-
-  - person_source_value: crc_met_fitdna_window
-    description: "FIT-DNA within the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: sdna_fit
-        date: "2022-06-01"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_notmet_fitdna_old
-    description: "FIT-DNA just outside the valid colorectal screening window"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: sdna_fit
-        date: "2020-06-01"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_notmet_none
-    description: "No colorectal screening on record"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_age49_excluded
-    description: "Age 49 patient excluded from colorectal screening"
-    expected:
-      PS_02:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1974
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: fobt
-        date: "2023-05-15"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_age75_included
-    description: "Age 75 patient included with current FOBT"
-    expected:
-      PS_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1948
-    birth_month: 6
-    birth_day: 20
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: fobt
-        date: "2023-05-15"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_age76_excluded
-    description: "Age 76 patient excluded from colorectal screening"
-    expected:
-      PS_02:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1947
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: fobt
-        date: "2023-05-15"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: bmi_adult_met_29
-    description: "Adult BMI 29.0 meets control threshold"
-    expected:
-      CVR_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-08-01"
-        value_as_number: 29.0
-
-  - person_source_value: bmi_adult_notmet_30
-    description: "Adult BMI 30.0 fails control threshold"
-    expected:
-      CVR_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1981
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-08-01"
-        value_as_number: 30.0
-
-  - person_source_value: bmi_adult_last_met
-    description: "Adult latest BMI improves from 31 to 29 and meets threshold"
-    expected:
-      CVR_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1982
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-05-01"
-        value_as_number: 31.0
-      - concept_id: bmi
-        date: "2023-10-01"
-        value_as_number: 29.0
-
-  - person_source_value: bmi_adult_last_notmet
-    description: "Adult latest BMI worsens from 29 to 31 and fails threshold"
-    expected:
-      CVR_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1983
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-05-01"
-        value_as_number: 29.0
-      - concept_id: bmi
-        date: "2023-10-01"
-        value_as_number: 31.0
-
-  - person_source_value: bmi_adult_age17_excluded
-    description: "Age 17 (plan: 18) patient excluded from adult BMI measure"
-    expected:
-      CVR_01:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2006
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-08-01"
-        value_as_number: 29.0
-
-  - person_source_value: bmi_peds_met_94
-    description: "Pediatric BMI percentile 94 meets threshold"
-    expected:
-      CVR_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2010
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi_percentile
-        date: "2023-08-01"
-        value_as_number: 94.0
-
-  - person_source_value: bmi_peds_notmet_95
-    description: "Pediatric BMI percentile 95 fails threshold"
-    expected:
-      CVR_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2010
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi_percentile
-        date: "2023-08-01"
-        value_as_number: 95.0
-
-  - person_source_value: bmi_peds_last_met
-    description: "Pediatric latest percentile improves from 95 to 94 and meets threshold"
-    expected:
-      CVR_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2010
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi_percentile
-        date: "2023-05-01"
-        value_as_number: 95.0
-      - concept_id: bmi_percentile
-        date: "2023-10-01"
-        value_as_number: 94.0
-
-  - person_source_value: bmi_peds_last_notmet
-    description: "Pediatric latest percentile worsens from 94 to 95 and fails threshold"
-    expected:
-      CVR_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2010
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi_percentile
-        date: "2023-05-01"
-        value_as_number: 94.0
-      - concept_id: bmi_percentile
-        date: "2023-10-01"
-        value_as_number: 95.0
-
-  - person_source_value: bmi_peds_age18_excluded
-    description: "Age 18 patient excluded from pediatric BMI measure"
-    expected:
-      CVR_02:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2005
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi_percentile
-        date: "2023-08-01"
-        value_as_number: 94.0
-
-  - person_source_value: food_secure
-    description: "Negative food insecurity screen"
-    expected:
-      SDOH_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1985
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: food_security_q1
-        date: "2023-07-01"
-        value_as_string: "Never true"
-        value_as_concept_id: never_true
-
-  - person_source_value: food_insecure
-    description: "Positive food insecurity screen"
-    expected:
-      SDOH_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1985
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: food_security_q2
-        date: "2023-07-01"
-        value_as_string: "Sometimes true"
-        value_as_concept_id: sometimes_true
-
-  - person_source_value: food_secure_overridden
-    description: "Earlier positive food screen overrides a later secure response"
-    expected:
-      SDOH_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1984
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: food_security_q1
-        date: "2023-03-01"
-        value_as_string: "Sometimes true"
-        value_as_concept_id: sometimes_true
-      - concept_id: food_security_q1
-        date: "2023-09-01"
-        value_as_string: "Never true"
-        value_as_concept_id: never_true
-
-  - person_source_value: housing_secure
-    description: "Stable housing response"
-    expected:
-      SDOH_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1986
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: housing_stability
-        date: "2023-07-01"
-        value_as_string: "I have a steady place to live"
-        value_as_concept_id: steady_place
-
-  - person_source_value: housing_insecure
-    description: "Worried about losing housing response"
-    expected:
-      SDOH_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1986
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: housing_stability
-        date: "2023-07-01"
-        value_as_string: "I have a place to live today, but I am worried about losing"
-        value_as_concept_id: worried_about_losing
-
-  - person_source_value: housing_homeless
-    description: "Positive housing insecurity via homelessness response"
-    expected:
-      SDOH_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1986
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: homelessness
-        date: "2023-07-01"
-        value_as_string: true
-        value_as_concept_id: yes_homeless
-
-  - person_source_value: housing_lack_homeless
-    description: "Positive housing insecurity via housing lack response"
-    expected:
-      SDOH_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1987
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: housing_lack
-        date: "2023-07-01"
-        value_as_string: true
-        value_as_concept_id: yes_homeless
-
-  - person_source_value: housing_secure_overridden
-    description: "Earlier positive housing screen overrides a later secure response"
-    expected:
-      SDOH_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1987
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: housing_stability
-        date: "2023-03-01"
-        value_as_string: "I have a place to live today, but I am worried about losing"
-        value_as_concept_id: worried_about_losing
-      - concept_id: housing_stability
-        date: "2023-09-01"
-        value_as_string: "I have a steady place to live"
-        value_as_concept_id: steady_place
-
-  - person_source_value: covid_adult_met_2023
-    description: "Adult with qualifying COVID vaccination in 2023"
-    expected:
-      COVID_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-    drugs:
-      - concept_id: covid_pfizer
-        date: "2023-03-01"
-        lot_number: LOT-2023-A
-
-  - person_source_value: covid_adult_notmet_none
-    description: "Adult with no COVID vaccination on record"
-    expected:
-      COVID_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-
-  - person_source_value: covid_peds_met_2023
-    description: "Pediatric patient with qualifying COVID vaccination in 2023"
-    expected:
-      COVID_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2010
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-    drugs:
-      - concept_id: covid_pfizer
-        date: "2023-03-01"
-        lot_number: LOT-2023-P
-
-  - person_source_value: covid_peds_notmet_none
-    description: "Pediatric patient with no COVID vaccination on record"
-    expected:
-      COVID_02:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2010
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-
-  - person_source_value: covid_adult_age17_peds_only
-    description: "Age 17 patient counted only in the pediatric COVID measure"
-    expected:
-      COVID_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2006
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-    drugs:
-      - concept_id: covid_pfizer
-        date: "2023-03-01"
-        lot_number: LOT-2023-B
-
-  - person_source_value: covid_peds_age18_adult_only
-    description: "Age 18 patient counted only in the adult COVID measure"
-    expected:
-      COVID_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2005
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-    drugs:
-      - concept_id: covid_pfizer
-        date: "2023-03-01"
-        lot_number: LOT-2023-C
-
-  - person_source_value: psc_all_met
-    description: "All PSC-17 subscales are below threshold"
-    expected:
-      BH_05:
-        present: true
-        status: 1
-      BH_06:
-        present: true
-        status: 1
-      BH_07:
-        present: true
-        status: 1
-      BH_08:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2014
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_internalization
-        date: "2023-09-01"
-        value_as_number: 4
-      - concept_id: psc17_externalization
-        date: "2023-09-01"
-        value_as_number: 6
-      - concept_id: psc17_attention
-        date: "2023-09-01"
-        value_as_number: 6
-      - concept_id: psc17_total
-        date: "2023-09-01"
-        value_as_number: 14
-
-  - person_source_value: psc_internal_notmet
-    description: "PSC-17 internalization score exactly at the failure threshold"
-    expected:
-      BH_07:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2014
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_internalization
-        date: "2023-09-01"
-        value_as_number: 5
-
-  - person_source_value: psc_external_notmet
-    description: "PSC-17 externalization score exactly at the failure threshold"
-    expected:
-      BH_06:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2014
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_externalization
-        date: "2023-09-01"
-        value_as_number: 7
-
-  - person_source_value: psc_attention_notmet
-    description: "PSC-17 attention score exactly at the failure threshold"
-    expected:
-      BH_05:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2014
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_attention
-        date: "2023-09-01"
-        value_as_number: 7
-
-  - person_source_value: psc_total_notmet
-    description: "PSC-17 total score exactly at the failure threshold"
-    expected:
-      BH_08:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2014
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_total
-        date: "2023-09-01"
-        value_as_number: 15
-
-  - person_source_value: psc_age12_excluded
-    description: "Age 12 patient excluded from PSC-17 measures"
-    expected:
-      BH_05:
-        present: false
-      BH_06:
-        present: false
-      BH_07:
-        present: false
-      BH_08:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2011
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_internalization
-        date: "2023-09-01"
-        value_as_number: 4
-
-  - person_source_value: bh01_depression_active
-    description: "Active depression diagnosis in the active population"
-    expected:
-      BH_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1985
-    birth_month: 4
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: depression
-        date: "2023-03-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh01_anxiety_active
-    description: "Active anxiety diagnosis in the active population"
-    expected:
-      BH_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1990
-    birth_month: 7
-    birth_day: 20
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: anxiety
-        date: "2023-05-15"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh01_expired
-    description: "Depression diagnosis ended before the measurement year"
-    expected:
-      BH_01:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1978
-    birth_month: 1
-    birth_day: 5
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: depression
-        date: "2019-02-01"
-        end_date: "2019-06-01"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh02_schizophrenia
-    description: "Active schizophrenia diagnosis"
-    expected:
-      BH_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1975
-    birth_month: 9
-    birth_day: 12
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: schizophrenia
-        date: "2022-01-10"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh02_bipolar
-    description: "Active bipolar diagnosis"
-    expected:
-      BH_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1982
-    birth_month: 11
-    birth_day: 3
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: bipolar
-        date: "2023-04-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh09_sud_active
-    description: "Active substance use disorder diagnosis"
-    expected:
-      BH_09:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 6
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: sud_alcohol
-        date: "2023-02-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh09_sud_expired
-    description: "Substance use disorder diagnosis ended before the measurement year"
-    expected:
-      BH_09:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1979
-    birth_month: 3
-    birth_day: 22
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: sud_alcohol
-        date: "2019-01-10"
-        end_date: "2019-06-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis01_vision
-    description: "Active visual disability diagnosis"
-    expected:
-      DIS_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1960
-    birth_month: 2
-    birth_day: 14
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: vision_disability
-        date: "2020-06-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis02_hearing
-    description: "Active hearing disability diagnosis"
-    expected:
-      DIS_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1955
-    birth_month: 8
-    birth_day: 30
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hearing_disability
-        date: "2021-03-15"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis03_autism
-    description: "Active autism spectrum diagnosis"
-    expected:
-      DIS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2010
-    birth_month: 5
-    birth_day: 20
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: autism_spectrum
-        date: "2015-09-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis04_intellectual
-    description: "Active intellectual disability diagnosis"
-    expected:
-      DIS_04:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2008
-    birth_month: 12
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: intellectual_disability
-        date: "2016-04-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: smoke_current_smoker
-    description: "Current smoker response"
-    expected:
-      PS_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 4
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: tobacco_status
-        date: "2023-03-15"
-        value_as_concept_id: tobacco_user
-      - concept_id: routine_exam
-        date: "2023-03-15"
-
-  - person_source_value: smoke_non_smoker
-    description: "Current non-smoker response"
-    expected:
-      PS_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1968
-    birth_month: 10
-    birth_day: 12
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: tobacco_status
-        date: "2023-05-20"
-        value_as_concept_id: tobacco_nonuser
-      - concept_id: routine_exam
-        date: "2023-05-20"
-
-  - person_source_value: smoke_latest_wins
-    description: "Latest smoking status overrides an earlier response"
-    expected:
-      PS_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1965
-    birth_month: 2
-    birth_day: 28
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: tobacco_status
-        date: "2023-02-01"
-        value_as_concept_id: tobacco_user
-      - concept_id: tobacco_status
-        date: "2023-09-01"
-        value_as_concept_id: tobacco_nonuser
-      - concept_id: routine_exam
-        date: "2023-09-01"
-
-  - person_source_value: mmr_met_before_18mo
-    description: "MMR vaccination before the 18-month boundary"
-    expected:
-      PS_04:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2022
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-    drugs:
-      - concept_id: mmr_vaccine
-        date: "2023-06-01"
-        lot_number: LOT001
-
-  - person_source_value: mmr_notmet_after_18mo
-    description: "MMR vaccination after the 18-month boundary"
-    expected:
-      PS_04:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2022
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-12-01"
-    drugs:
-      - concept_id: mmr_vaccine
-        date: "2023-12-01"
-        lot_number: LOT002
-
-  - person_source_value: mmr_notmet_none
-    description: "No MMR vaccination on record"
-    expected:
-      PS_04:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2022
-    birth_month: 6
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-12-15"
-
-  - person_source_value: nqf_dm_excluded_frailty
-    description: "Diabetes patient excluded by advanced illness and frailty"
-    expected:
-      CVR_04:
-        present: true
-        status: "*"
-      CVR_05:
-        present: true
-        status: "*"
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1955
-    birth_month: 1
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2020-01-15"
-      - concept_id: advanced_illness
-        date: "2023-03-01"
-      - concept_id: frailty_dx
-        date: "2023-03-01"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-06-15"
-        value_as_number: 8.5
-        unit_concept_id: percent
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-      - concept_id: acute_inpatient_admission
-        date: "2023-03-01"
-
-  - person_source_value: nqf_dm_excluded_frailty_encounter
-    description: "Diabetes patient excluded by advanced illness and frailty encounter"
-    expected:
-      CVR_04:
-        present: true
-        status: "*"
-      CVR_05:
-        present: true
-        status: "*"
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1954
-    birth_month: 5
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2020-03-01"
-      - concept_id: advanced_illness
-        date: "2023-04-01"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-07-01"
-        value_as_number: 8.0
-        unit_concept_id: percent
-    observations:
-      - concept_id: frailty_encounter
-        date: "2023-04-01"
-      - concept_id: routine_exam
-        date: "2023-07-01"
-      - concept_id: acute_inpatient_admission
-        date: "2023-04-01"
-
-  - person_source_value: nqf_dm_excluded_frailty_symptom
-    description: "Diabetes patient excluded by advanced illness and frailty symptom"
-    expected:
-      CVR_04:
-        present: true
-        status: "*"
-      CVR_05:
-        present: true
-        status: "*"
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1953
-    birth_month: 8
-    birth_day: 20
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2019-06-01"
-      - concept_id: advanced_illness
-        date: "2023-05-01"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-08-01"
-        value_as_number: 7.8
-        unit_concept_id: percent
-    observations:
-      - concept_id: frailty_symptom
-        date: "2023-05-01"
-      - concept_id: routine_exam
-        date: "2023-08-01"
-      - concept_id: acute_inpatient_admission
-        date: "2023-05-01"
-
-  - person_source_value: nqf_hospice_excluded
-    description: "Diabetes patient excluded by hospice"
-    expected:
-      CVR_04:
-        present: false
-      CVR_05:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1950
-    birth_month: 6
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2023-01-01"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-07-01"
-        value_as_number: 7.5
-        unit_concept_id: percent
-    observations:
-      - concept_id: hospice_enc
-        date: "2023-04-01"
-      - concept_id: routine_exam
-        date: "2023-07-01"
-
-  - person_source_value: renal_esrd_excluded
-    description: "Diabetes patient excluded by ESRD"
-    expected:
-      CVR_04:
-        present: false
-      CVR_05:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1960
-    birth_month: 3
-    birth_day: 5
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2020-02-01"
-      - concept_id: esrd
-        date: "2022-08-01"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-05-01"
-        value_as_number: 8.0
-        unit_concept_id: percent
-    observations:
-      - concept_id: routine_exam
-        date: "2023-05-01"
-
-  - person_source_value: renal_transplant_excluded
-    description: "Diabetes patient excluded by kidney transplant"
-    expected:
-      CVR_04:
-        present: false
-      CVR_05:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1958
-    birth_month: 9
-    birth_day: 20
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: type_2_diabetes
-        date: "2018-01-15"
-    measurements:
-      - concept_id: hba1c
-        date: "2023-04-01"
-        value_as_number: 7.2
-        unit_concept_id: percent
-    observations:
-      - concept_id: routine_exam
-        date: "2023-04-01"
-    procedures:
-      - concept_id: kidney_transplant_proc
-        date: "2021-11-01"
-
-  - person_source_value: pregnancy_htn_excluded
-    description: "Hypertension patient excluded during pregnancy"
-    expected:
-      CVR_03:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1992
-    birth_month: 7
-    birth_day: 14
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: hypertension
-        date: "2023-01-10"
-      - concept_id: pregnancy
-        date: "2023-03-01"
-        end_date: "2023-11-15"
-    measurements:
-      - concept_id: systolic_bp
-        date: "2023-08-01"
-        value_as_number: 145
-      - concept_id: diastolic_bp
-        date: "2023-08-01"
-        value_as_number: 92
-
-  - person_source_value: bh01_depression_inactive
-    description: "Depression diagnosis but no visit in 2-year window"
-    expected:
-      BH_01:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1985
-    birth_month: 3
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: depression
-        date: "2023-03-01"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2020-06-01"
-
-  - person_source_value: bh01_both_anxiety_depression
-    description: "Patient with both depression and anxiety for deduplication test"
-    expected:
-      BH_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1988
-    birth_month: 2
-    birth_day: 14
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: depression
-        date: "2023-01-15"
-      - concept_id: anxiety
-        date: "2023-02-20"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh01_recently_expired
-    description: "Depression start 2021 with adj_end_year=2023 boundary test"
-    expected:
-      BH_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 8
-    birth_day: 5
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: depression
-        date: "2021-06-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-      - concept_id: routine_exam
-        date: "2024-06-01"
-
-  - person_source_value: bh02_smh_inactive
-    description: "SMI diagnosis but no visit in 2-year window"
-    expected:
-      BH_02:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1975
-    birth_month: 4
-    birth_day: 22
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: schizophrenia
-        date: "2022-01-10"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2019-06-01"
-
-  - person_source_value: bh02_both_schiz_bipolar
-    description: "Patient with both schizophrenia and bipolar for deduplication test"
-    expected:
-      BH_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 7
-    birth_day: 18
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: schizophrenia
-        date: "2022-03-01"
-      - concept_id: bipolar
-        date: "2022-09-15"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh09_sud_relapse
-    description: "Two SUD episodes testing max_start_date logic"
-    expected:
-      BH_09:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 1
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: sud_alcohol
-        date: "2018-03-01"
-        end_date: "2018-09-01"
-      - concept_id: sud_alcohol
-        date: "2023-04-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh09_sud_opioid
-    description: "Opioid SUD testing ancestor concept expansion"
-    expected:
-      BH_09:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1982
-    birth_month: 11
-    birth_day: 5
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: opioid_sud
-        date: "2023-01-15"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: bh09_sud_inactive
-    description: "SUD diagnosis but no visit in 2-year window"
-    expected:
-      BH_09:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1979
-    birth_month: 5
-    birth_day: 14
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: sud_alcohol
-        date: "2023-01-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2020-06-01"
-
-  - person_source_value: psc_age5_excluded
-    description: "Age 5 patient excluded from PSC-17 measures (below age 6)"
-    expected:
-      BH_05:
-        present: false
-      BH_06:
-        present: false
-      BH_07:
-        present: false
-      BH_08:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2018
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_attention
-        date: "2023-09-01"
-        value_as_number: 4
-
-  - person_source_value: psc_latest_wins
-    description: "Two attention scores in year with latest below threshold"
-    expected:
-      BH_05:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2014
-    birth_month: 6
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: psc17_attention
-        date: "2023-03-01"
-        value_as_number: 7
-      - concept_id: psc17_attention
-        date: "2023-09-01"
-        value_as_number: 6
-
-  - person_source_value: covid_adult_1dose_2021
-    description: "Single COVID dose in 2021 fails 2-dose requirement"
-    expected:
-      COVID_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 5
-    birth_day: 10
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2021-07-01"
-    drugs:
-      - concept_id: covid_pfizer
-        date: "2021-04-15"
-        lot_number: LOT-2021-X
-
-  - person_source_value: covid_adult_no_lot
-    description: "COVID vaccine record without lot_number excluded"
-    expected:
-      COVID_01:
-        present: true
-        status: 0
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 8
-    birth_day: 20
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-01"
-    drugs:
-      - concept_id: covid_pfizer
-        date: "2023-03-01"
-
-  - person_source_value: bmi_adult_null
-    description: "Adult BMI measurement with NULL value"
-    expected:
-      CVR_01:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-08-01"
-
-  - person_source_value: bmi_adult_age18_exact
-    description: "Exactly age 18 at end of year tests gt-18 vs gte-18 boundary"
-    expected:
-      CVR_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2005
-    birth_month: 6
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-08-01"
-        value_as_number: 28.0
-
-  - person_source_value: bmi_peds_age2_excluded
-    description: "Age 2 patient excluded from pediatric BMI (below lower bound)"
-    expected:
-      CVR_02:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2021
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi_percentile
-        date: "2023-08-01"
-        value_as_number: 85.0
-
-  - person_source_value: bmi_adult_inactive
-    description: "Adult BMI measurement but not in active population"
-    expected:
-      CVR_01:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 9
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: bmi
-        date: "2023-08-01"
-        value_as_number: 28.0
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2020-06-01"
-
-  - person_source_value: dis01_vision_inactive
-    description: "Vision disability but no visit in 2-year window"
-    expected:
-      DIS_01:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1960
-    birth_month: 5
-    birth_day: 20
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: vision_disability
-        date: "2020-06-01"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2017-06-01"
-
-  - person_source_value: dis01_vision_future_dx
-    description: "Vision disability diagnosed after measurement year"
-    expected:
-      DIS_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1960
-    birth_month: 10
-    birth_day: 5
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: vision_disability
-        date: "2025-03-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis01_vision_resolved
-    description: "Vision disability with condition_end_date set"
-    expected:
-      DIS_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1962
-    birth_month: 3
-    birth_day: 12
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: vision_disability
-        date: "2020-06-01"
-        end_date: "2021-06-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis03_autism_inactive
-    description: "Autism spectrum but no visit in 2-year window"
-    expected:
-      DIS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2010
-    birth_month: 8
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: autism_spectrum
-        date: "2015-09-01"
-    observations:
-      - concept_id: routine_exam
-        date: "2020-06-01"
-
-  - person_source_value: dis03_autism_future_dx
-    description: "Autism spectrum diagnosed after measurement year"
-    expected:
-      DIS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2012
-    birth_month: 4
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: autism_spectrum
-        date: "2025-01-15"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: dis04_intellectual_inactive
-    description: "Intellectual disability but no visit in 2-year window"
-    expected:
-      DIS_04:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2008
-    birth_month: 6
-    birth_day: 20
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: intellectual_disability
-        date: "2016-04-01"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2013-06-01"
-
-  - person_source_value: dis04_intellectual_future_dx
-    description: "Intellectual disability diagnosed after measurement year"
-    expected:
-      DIS_04:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2009
-    birth_month: 2
-    birth_day: 10
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: intellectual_disability
-        date: "2025-05-01"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: smoke_unknown_concept
-    description: "Tobacco status with unrecognized value_as_concept_id"
-    expected:
-      PS_01:
-        present: true
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1975
-    birth_month: 6
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: tobacco_status
-        date: "2023-05-01"
-        value_as_concept_id: tobacco_unknown_val
-      - concept_id: routine_exam
-        date: "2023-05-01"
-
-  - person_source_value: smoke_changed_year
-    description: "Smoker in 2022 then non-smoker in 2023 for cross-year test"
-    expected:
-      PS_01:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 11
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: tobacco_status
-        date: "2022-09-01"
-        value_as_concept_id: tobacco_user
-      - concept_id: tobacco_status
-        date: "2023-03-01"
-        value_as_concept_id: tobacco_nonuser
-      - concept_id: routine_exam
-        date: "2022-09-01"
-      - concept_id: routine_exam
-        date: "2023-03-01"
-
-  - person_source_value: breast_excluded_hospice
-    description: "Breast screening patient excluded by hospice"
-    expected:
-      PS_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1970
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: hospice_enc
-        date: "2023-04-01"
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: mammography
-        date: "2022-06-15"
-
-  - person_source_value: crc_excluded_hospice
-    description: "Colorectal screening patient excluded by hospice"
-    expected:
-      PS_02:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1970
-    birth_month: 4
-    birth_day: 10
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: fobt
-        date: "2023-05-15"
-        value_as_number: 1.0
-    observations:
-      - concept_id: hospice_enc
-        date: "2023-04-01"
-      - concept_id: routine_exam
-        date: "2023-06-15"
-
-  - person_source_value: crc_excluded_colectomy
-    description: "Colorectal screening patient excluded by colectomy history"
-    expected:
-      PS_02:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1968
-    birth_month: 7
-    birth_day: 22
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: fobt
-        date: "2023-05-15"
-        value_as_number: 1.0
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-15"
-    procedures:
-      - concept_id: colectomy_proc
-        date: "2019-11-01"
-
-  - person_source_value: mmr_met_boundary
-    description: "MMR vaccination on exact 18-month boundary date"
-    expected:
-      PS_04:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2022
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-07-15"
-    drugs:
-      - concept_id: mmr_vaccine
-        date: "2023-07-15"
-        lot_number: LOT003
-
-  - person_source_value: mmr_met_two_doses
-    description: "Two MMR doses with first before 18mo testing ordinal logic"
-    expected:
-      PS_04:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 2022
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-    drugs:
-      - concept_id: mmr_vaccine
-        date: "2023-06-01"
-        lot_number: LOT004A
-      - concept_id: mmr_vaccine
-        date: "2023-12-01"
-        lot_number: LOT004B
-
-  - person_source_value: mmr_no_lot
-    description: "MMR drug record without lot_number excluded"
-    expected:
-      PS_04:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 2022
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-    drugs:
-      - concept_id: mmr_vaccine
-        date: "2023-06-01"
-
-  - person_source_value: food_declined
-    description: "Patient declined to answer food security question"
-    expected:
-      SDOH_01:
-        present: true
-        status: -1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1985
-    birth_month: 9
-    birth_day: 5
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: food_security_q1
-        date: "2023-07-01"
-        value_as_string: "Patient declined to answer"
-
-  - person_source_value: housing_unknown
-    description: "Housing response with unrecognized string value"
-    expected:
-      SDOH_02:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1986
-    birth_month: 4
-    birth_day: 12
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: housing_stability
-        date: "2023-07-01"
-        value_as_string: "Prefer not to say"
-
-  - person_source_value: ptype04_current_yr
-    description: "Visit in 2023 qualifies for active current year"
-    expected:
-      PTYPE_04:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 1
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-
-  - person_source_value: ptype04_no_visit_current
-    description: "Visit in 2022 only, absent from active current year"
-    expected:
-      PTYPE_04:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 2
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2022-06-01"
-        visit_concept_id: zero_visit
-
-  - person_source_value: ptype03_1yr_lookback
-    description: "Visit in 2022 qualifies for 1-year lookback in 2023"
-    expected:
-      PTYPE_03:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 5
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2022-09-01"
-
-  - person_source_value: ptype05_2yr_lookback
-    description: "Visit in 2021 qualifies for 2-year lookback in 2023"
-    expected:
-      PTYPE_05:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 7
-    birth_day: 20
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2021-11-01"
-
-  - person_source_value: ptype05_3yr_ago
-    description: "Visit in 2020 only, outside 2-year lookback for 2023"
-    expected:
-      PTYPE_05:
-        present: false
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1980
-    birth_month: 10
-    birth_day: 5
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2020-04-01"
-        visit_concept_id: zero_visit
-
-  - person_source_value: ptype04_zero_concept
-    description: "Visit with concept_id=0 filtered out from active population"
-    expected:
-      PTYPE_04:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1980
-    birth_month: 12
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-        visit_concept_id: zero_visit
-
-  - person_source_value: ptype08_pcp_current
-    description: "Primary care visit in 2023 (requires primary_care_list population)"
-    expected:
-      PTYPE_08:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1978
-    birth_month: 3
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-04-01"
-        care_site_id: pcp_office
-
-  - person_source_value: ptype08_pcp_prior_yr
-    description: "PCP visit in 2022 only, absent from PTYPE_08 current year"
-    expected:
-      PTYPE_08:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1978
-    birth_month: 6
-    birth_day: 20
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2022-04-01"
-        care_site_id: pcp_office
-
-  - person_source_value: ptype02_chc_current
-    description: "CHC visit in 2023 (requires chc_list population)"
-    expected:
-      PTYPE_02:
-        present: true
-        status: 1
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1976
-    birth_month: 9
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-05-01"
-        care_site_id: boston_chc
-
-  - person_source_value: ptype08_not_pcp
-    description: "Visit in 2023 but not in primary_care_list, absent from PTYPE_08"
-    expected:
-      PTYPE_08:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1977
-    birth_month: 11
-    birth_day: 10
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-        care_site_id: boston_chc
-
-  - person_source_value: null_patient
-    description: "Patient with visit but no qualifying health dimension data"
-    expected: {}
-    location: boston
-    gender_concept_id: MALE
-    birth_year: 1985
-    birth_month: 5
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    observations:
-      - concept_id: routine_exam
-        date: "2023-06-01"
-        visit_concept_id: zero_visit
-
-  - person_source_value: inactive_shared
-    description: "Patient with conditions but only a zero-concept visit (inactive across all measures)"
-    expected:
-      BH_01:
-        present: false
-      BH_09:
-        present: false
-      DIS_01:
-        present: false
-      DIS_03:
-        present: false
-      DIS_04:
-        present: false
-    location: boston
-    gender_concept_id: FEMALE
-    birth_year: 1975
-    birth_month: 3
-    birth_day: 1
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    conditions:
-      - concept_id: depression
-        date: "2023-03-01"
-        visit_concept_id: zero_visit
-      - concept_id: sud_alcohol
-        date: "2023-02-01"
-        visit_concept_id: zero_visit
-      - concept_id: vision_disability
-        date: "2023-01-15"
-        visit_concept_id: zero_visit
-      - concept_id: autism_spectrum
-        date: "2023-04-01"
-        visit_concept_id: zero_visit
-      - concept_id: intellectual_disability
-        date: "2023-05-01"
-        visit_concept_id: zero_visit
-    observations:
-      - concept_id: routine_exam
-        date: "2020-06-01"
-        visit_concept_id: zero_visit
+- person_source_value: htn_age17_excluded
+  description: "Age 17 hypertension patient excluded from denominator"
+  expected:
+    CVR_03:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2006
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-10"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-06-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-06-15"
+    value_as_number: 89
+
+- person_source_value: htn_age18_met
+  description: "Age 18 hypertension patient with controlled blood pressure"
+  expected:
+    CVR_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2005
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-05"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-07-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-07-15"
+    value_as_number: 89
+
+- person_source_value: htn_age84_met
+  description: "Age 84 hypertension patient with controlled blood pressure"
+  expected:
+    CVR_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1939
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-05"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-07-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-07-15"
+    value_as_number: 89
+
+- person_source_value: htn_age85_excluded
+  description: "Age 85 hypertension patient excluded from denominator"
+  expected:
+    CVR_03:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1938
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-05"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-07-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-07-15"
+    value_as_number: 89
+
+- person_source_value: htn_notmet_dia
+  description: "Hypertension patient with elevated diastolic pressure only"
+  expected:
+    CVR_03:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 2
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-10"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-08-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-08-01"
+    value_as_number: 91
+
+- person_source_value: htn_notmet_sys
+  description: "Hypertension patient with elevated systolic pressure only"
+  expected:
+    CVR_03:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1971
+  birth_month: 2
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-10"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-08-02"
+    value_as_number: 141
+  - concept_id: diastolic_bp
+    date: "2023-08-02"
+    value_as_number: 90
+
+- person_source_value: htn_notmet_both
+  description: "Hypertension patient with both systolic and diastolic pressure elevated"
+  expected:
+    CVR_03:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1972
+  birth_month: 2
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-10"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-08-03"
+    value_as_number: 141
+  - concept_id: diastolic_bp
+    date: "2023-08-03"
+    value_as_number: 91
+
+- person_source_value: htn_last_reading_met_sep
+  description: "Earlier high blood pressure but latest reading is controlled"
+  expected:
+    CVR_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1965
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2022-12-15"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-04-01"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2023-04-01"
+    value_as_number: 91
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 88
+
+- person_source_value: htn_last_reading_notmet_sep
+  description: "Earlier controlled blood pressure but latest reading is uncontrolled"
+  expected:
+    CVR_03:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1966
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2022-12-15"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-04-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-04-01"
+    value_as_number: 88
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 91
+
+- person_source_value: htn_same_day_low_high_sql_met
+  description: "Same-day duplicate BP resolved to controlled minimum values"
+  expected:
+    CVR_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1967
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2022-12-15"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 145
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 91
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 88
+
+- person_source_value: htn_not_measured
+  description: "Hypertension diagnosis without qualifying BP pressure measurement in year"
+  expected:
+    CVR_03:
+      '2021': -1
+      '2022': 1
+      '2023': -1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1968
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2021-06-01"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2022-03-15"
+    value_as_number: 135
+  - concept_id: diastolic_bp
+    date: "2022-03-15"
+    value_as_number: 85
+  observations:
+  - concept_id: routine_exam
+    date: "2023-09-01"
+
+- person_source_value: htn_multi_year
+  description: "Multi-year hypertension patient with changing annual control status"
+  expected:
+    CVR_03:
+      '2023': 1
+      '2024': 0
+      '2025': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 5
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2022-12-01"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-06-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-06-15"
+    value_as_number: 89
+  - concept_id: systolic_bp
+    date: "2024-06-15"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2024-06-15"
+    value_as_number: 91
+  - concept_id: systolic_bp
+    date: "2025-06-15"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2025-06-15"
+    value_as_number: 88
+
+- person_source_value: dm_age17_excluded
+  description: "Age 17 diabetes patient excluded from denominator"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2006
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2023-01-10"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- person_source_value: dm_age18_met_9
+  description: "Age 18 diabetes patient with A1c exactly at 9.0 threshold"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2005
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2023-01-10"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- person_source_value: dm_age75_met_9
+  description: "Age 75 diabetes patient with A1c exactly at 9.0 threshold"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1948
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2023-01-10"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- person_source_value: dm_age76_excluded
+  description: "Age 76 diabetes patient excluded from denominator"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1947
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2023-01-10"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- person_source_value: dm_notmet_10
+  description: "Diabetes patient with A1c 10.0 above threshold"
+  expected:
+    CVR_04:
+      '2023': 0
+    CVR_05:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1969
+  birth_month: 4
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2022-12-15"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-09-10"
+    value_as_number: 10.0
+    unit_concept_id: percent
+
+- person_source_value: dm_missing
+  description: "Diabetes diagnosis without qualifying A1c measurement in year"
+  expected:
+    CVR_04:
+      '2023': -1
+    CVR_05:
+      '2023': -1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 4
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2022-12-15"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-09-10"
+
+- person_source_value: dm_multi_year
+  description: "Multi-year diabetes patient with met, not met, then met A1c trajectory"
+  expected:
+    CVR_04:
+      '2023': 1
+      '2024': 0
+      '2025': 1
+    CVR_05:
+      '2023': 1
+      '2024': 0
+      '2025': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1965
+  birth_month: 4
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2022-12-15"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-05-10"
+    value_as_number: 8.9
+    unit_concept_id: percent
+  - concept_id: hba1c
+    date: "2024-05-10"
+    value_as_number: 10.1
+    unit_concept_id: percent
+  - concept_id: hba1c
+    date: "2025-05-10"
+    value_as_number: 8.5
+    unit_concept_id: percent
+
+- person_source_value: breast_met_recent_mammo
+  description: "Recent mammogram within breast screening window"
+  expected:
+    PS_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1973
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- person_source_value: breast_met_25mo_mammo
+  description: "Mammogram 25 months ago (SQL uses 27-month window, PDF has 24 month)"
+  expected:
+    PS_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 6
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  procedures:
+  - concept_id: mammography
+    date: "2021-11-01"
+
+- person_source_value: breast_notmet_old_mammo
+  description: "Mammogram outside the breast screening window"
+  expected:
+    PS_03:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1973
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mammography
+    date: "2020-12-15"
+
+- person_source_value: breast_notmet_none
+  description: "No mammogram on record"
+  expected:
+    PS_03:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1973
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: breast_excluded_mastectomy
+  description: "Breast screening exclusion due to mastectomy history"
+  expected:
+    PS_03:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1973
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mastectomy
+    date: "2022-03-15"
+
+- person_source_value: breast_age49_excluded
+  description: "Age 49 patient excluded from breast screening"
+  expected:
+    PS_03:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1974
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- person_source_value: breast_age74_included
+  description: "Age 74 patient included with recent mammogram"
+  expected:
+    PS_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1949
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- person_source_value: breast_age75_excluded
+  description: "Age 75 patient excluded from breast screening"
+  expected:
+    PS_03:
+      '2022': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1948
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- person_source_value: crc_met_fobt
+  description: "FOBT completed in the measurement year"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_met_colonoscopy_window
+  description: "Colonoscopy within the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: colonoscopy
+    date: "2014-07-01"
+
+- person_source_value: crc_notmet_colonoscopy_old
+  description: "Colonoscopy just outside the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: colonoscopy
+    date: "2013-07-01"
+
+- person_source_value: crc_met_sigmoid_window
+  description: "Sigmoidoscopy within the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: sigmoidoscopy
+    date: "2020-07-01"
+
+- person_source_value: crc_notmet_sigmoid_old
+  description: "Sigmoidoscopy just outside the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: sigmoidoscopy
+    date: "2018-07-01"
+
+- person_source_value: crc_met_ct_window
+  description: "CT colonography within the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1971
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: ct_colonography
+    date: "2020-07-01"
+
+- person_source_value: crc_notmet_ct_old
+  description: "CT colonography just outside the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1971
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: ct_colonography
+    date: "2018-07-01"
+
+- person_source_value: crc_met_fitdna_window
+  description: "FIT-DNA within the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: sdna_fit
+    date: "2022-06-01"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_notmet_fitdna_old
+  description: "FIT-DNA just outside the valid colorectal screening window"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: sdna_fit
+    date: "2020-06-01"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_notmet_none
+  description: "No colorectal screening on record"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_age49_excluded
+  description: "Age 49 patient excluded from colorectal screening"
+  expected:
+    PS_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1974
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_age75_included
+  description: "Age 75 patient included with current FOBT"
+  expected:
+    PS_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1948
+  birth_month: 6
+  birth_day: 20
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_age76_excluded
+  description: "Age 76 patient excluded from colorectal screening"
+  expected:
+    PS_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1947
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: bmi_adult_met_29
+  description: "Adult BMI 29.0 meets control threshold"
+  expected:
+    CVR_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 29.0
+
+- person_source_value: bmi_adult_notmet_30
+  description: "Adult BMI 30.0 fails control threshold"
+  expected:
+    CVR_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1981
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 30.0
+
+- person_source_value: bmi_adult_last_met
+  description: "Adult latest BMI improves from 31 to 29 and meets threshold"
+  expected:
+    CVR_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1982
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-05-01"
+    value_as_number: 31.0
+  - concept_id: bmi
+    date: "2023-10-01"
+    value_as_number: 29.0
+
+- person_source_value: bmi_adult_last_notmet
+  description: "Adult latest BMI worsens from 29 to 31 and fails threshold"
+  expected:
+    CVR_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1983
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-05-01"
+    value_as_number: 29.0
+  - concept_id: bmi
+    date: "2023-10-01"
+    value_as_number: 31.0
+
+- person_source_value: bmi_adult_age17_excluded
+  description: "Age 17 (plan: 18) patient excluded from adult BMI measure"
+  expected:
+    CVR_01:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2006
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 29.0
+
+- person_source_value: bmi_peds_met_94
+  description: "Pediatric BMI percentile 94 meets threshold"
+  expected:
+    CVR_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2010
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 94.0
+
+- person_source_value: bmi_peds_notmet_95
+  description: "Pediatric BMI percentile 95 fails threshold"
+  expected:
+    CVR_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2010
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 95.0
+
+- person_source_value: bmi_peds_last_met
+  description: "Pediatric latest percentile improves from 95 to 94 and meets threshold"
+  expected:
+    CVR_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2010
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi_percentile
+    date: "2023-05-01"
+    value_as_number: 95.0
+  - concept_id: bmi_percentile
+    date: "2023-10-01"
+    value_as_number: 94.0
+
+- person_source_value: bmi_peds_last_notmet
+  description: "Pediatric latest percentile worsens from 94 to 95 and fails threshold"
+  expected:
+    CVR_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2010
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi_percentile
+    date: "2023-05-01"
+    value_as_number: 94.0
+  - concept_id: bmi_percentile
+    date: "2023-10-01"
+    value_as_number: 95.0
+
+- person_source_value: bmi_peds_age18_excluded
+  description: "Age 18 patient excluded from pediatric BMI measure"
+  expected:
+    CVR_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2005
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 94.0
+
+- person_source_value: food_secure
+  description: "Negative food insecurity screen"
+  expected:
+    SDOH_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1985
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: food_security_q1
+    date: "2023-07-01"
+    value_as_string: "Never true"
+    value_as_concept_id: never_true
+
+- person_source_value: food_insecure
+  description: "Positive food insecurity screen"
+  expected:
+    SDOH_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1985
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: food_security_q2
+    date: "2023-07-01"
+    value_as_string: "Sometimes true"
+    value_as_concept_id: sometimes_true
+
+- person_source_value: food_secure_overridden
+  description: "Earlier positive food screen overrides a later secure response"
+  expected:
+    SDOH_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1984
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: food_security_q1
+    date: "2023-03-01"
+    value_as_string: "Sometimes true"
+    value_as_concept_id: sometimes_true
+  - concept_id: food_security_q1
+    date: "2023-09-01"
+    value_as_string: "Never true"
+    value_as_concept_id: never_true
+
+- person_source_value: housing_secure
+  description: "Stable housing response"
+  expected:
+    SDOH_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1986
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: housing_stability
+    date: "2023-07-01"
+    value_as_string: "I have a steady place to live"
+    value_as_concept_id: steady_place
+
+- person_source_value: housing_insecure
+  description: "Worried about losing housing response"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1986
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: housing_stability
+    date: "2023-07-01"
+    value_as_string: "I have a place to live today, but I am worried about losing"
+    value_as_concept_id: worried_about_losing
+
+- person_source_value: housing_homeless
+  description: "Positive housing insecurity via homelessness response"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1986
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: homelessness
+    date: "2023-07-01"
+    value_as_string: true
+    value_as_concept_id: yes_homeless
+
+- person_source_value: housing_lack_homeless
+  description: "Positive housing insecurity via housing lack response"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1987
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: housing_lack
+    date: "2023-07-01"
+    value_as_string: true
+    value_as_concept_id: yes_homeless
+
+- person_source_value: housing_secure_overridden
+  description: "Earlier positive housing screen overrides a later secure response"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1987
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: housing_stability
+    date: "2023-03-01"
+    value_as_string: "I have a place to live today, but I am worried about losing"
+    value_as_concept_id: worried_about_losing
+  - concept_id: housing_stability
+    date: "2023-09-01"
+    value_as_string: "I have a steady place to live"
+    value_as_concept_id: steady_place
+
+- person_source_value: covid_adult_met_2023
+  description: "Adult with qualifying COVID vaccination in 2023"
+  expected:
+    COVID_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drugs:
+  - concept_id: covid_pfizer
+    date: "2023-03-01"
+    lot_number: LOT-2023-A
+
+- person_source_value: covid_adult_notmet_none
+  description: "Adult with no COVID vaccination on record"
+  expected:
+    COVID_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+
+- person_source_value: covid_peds_met_2023
+  description: "Pediatric patient with qualifying COVID vaccination in 2023"
+  expected:
+    COVID_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2010
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drugs:
+  - concept_id: covid_pfizer
+    date: "2023-03-01"
+    lot_number: LOT-2023-P
+
+- person_source_value: covid_peds_notmet_none
+  description: "Pediatric patient with no COVID vaccination on record"
+  expected:
+    COVID_02:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2010
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+
+- person_source_value: covid_adult_age17_peds_only
+  description: "Age 17 patient counted only in the pediatric COVID measure"
+  expected:
+    COVID_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2006
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drugs:
+  - concept_id: covid_pfizer
+    date: "2023-03-01"
+    lot_number: LOT-2023-B
+
+- person_source_value: covid_peds_age18_adult_only
+  description: "Age 18 patient counted only in the adult COVID measure"
+  expected:
+    COVID_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2005
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drugs:
+  - concept_id: covid_pfizer
+    date: "2023-03-01"
+    lot_number: LOT-2023-C
+
+- person_source_value: psc_all_met
+  description: "All PSC-17 subscales are below threshold"
+  expected:
+    BH_05:
+      '2023': 1
+    BH_06:
+      '2023': 1
+    BH_07:
+      '2023': 1
+    BH_08:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2014
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_internalization
+    date: "2023-09-01"
+    value_as_number: 4
+  - concept_id: psc17_externalization
+    date: "2023-09-01"
+    value_as_number: 6
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 6
+  - concept_id: psc17_total
+    date: "2023-09-01"
+    value_as_number: 14
+
+- person_source_value: psc_internal_notmet
+  description: "PSC-17 internalization score exactly at the failure threshold"
+  expected:
+    BH_07:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2014
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_internalization
+    date: "2023-09-01"
+    value_as_number: 5
+
+- person_source_value: psc_external_notmet
+  description: "PSC-17 externalization score exactly at the failure threshold"
+  expected:
+    BH_06:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2014
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_externalization
+    date: "2023-09-01"
+    value_as_number: 7
+
+- person_source_value: psc_attention_notmet
+  description: "PSC-17 attention score exactly at the failure threshold"
+  expected:
+    BH_05:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2014
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 7
+
+- person_source_value: psc_total_notmet
+  description: "PSC-17 total score exactly at the failure threshold"
+  expected:
+    BH_08:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2014
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_total
+    date: "2023-09-01"
+    value_as_number: 15
+
+- person_source_value: psc_age12_excluded
+  description: "Age 12 patient excluded from PSC-17 measures"
+  expected:
+    BH_05:
+      '2023': absent
+    BH_06:
+      '2023': absent
+    BH_07:
+      '2023': absent
+    BH_08:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2011
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_internalization
+    date: "2023-09-01"
+    value_as_number: 4
+
+- person_source_value: bh01_depression_active
+  description: "Active depression diagnosis in the active population"
+  expected:
+    BH_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1985
+  birth_month: 4
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: depression
+    date: "2023-03-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh01_anxiety_active
+  description: "Active anxiety diagnosis in the active population"
+  expected:
+    BH_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1990
+  birth_month: 7
+  birth_day: 20
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: anxiety
+    date: "2023-05-15"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh01_expired
+  description: "Depression diagnosis ended before the measurement year"
+  expected:
+    BH_01:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1978
+  birth_month: 1
+  birth_day: 5
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: depression
+    date: "2019-02-01"
+    end_date: "2019-06-01"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh02_schizophrenia
+  description: "Active schizophrenia diagnosis"
+  expected:
+    BH_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1975
+  birth_month: 9
+  birth_day: 12
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: schizophrenia
+    date: "2022-01-10"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh02_bipolar
+  description: "Active bipolar diagnosis"
+  expected:
+    BH_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1982
+  birth_month: 11
+  birth_day: 3
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: bipolar
+    date: "2023-04-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh09_sud_active
+  description: "Active substance use disorder diagnosis"
+  expected:
+    BH_09:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 6
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: sud_alcohol
+    date: "2023-02-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh09_sud_expired
+  description: "Substance use disorder diagnosis ended before the measurement year"
+  expected:
+    BH_09:
+      '2019': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1979
+  birth_month: 3
+  birth_day: 22
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: sud_alcohol
+    date: "2019-01-10"
+    end_date: "2019-06-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis01_vision
+  description: "Active visual disability diagnosis"
+  expected:
+    DIS_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1960
+  birth_month: 2
+  birth_day: 14
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: vision_disability
+    date: "2020-06-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis02_hearing
+  description: "Active hearing disability diagnosis"
+  expected:
+    DIS_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1955
+  birth_month: 8
+  birth_day: 30
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hearing_disability
+    date: "2021-03-15"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis03_autism
+  description: "Active autism spectrum diagnosis"
+  expected:
+    DIS_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2010
+  birth_month: 5
+  birth_day: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: autism_spectrum
+    date: "2015-09-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis04_intellectual
+  description: "Active intellectual disability diagnosis"
+  expected:
+    DIS_04:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2008
+  birth_month: 12
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: intellectual_disability
+    date: "2016-04-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: smoke_current_smoker
+  description: "Current smoker response"
+  expected:
+    PS_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 4
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: tobacco_status
+    date: "2023-03-15"
+    value_as_concept_id: tobacco_user
+  - concept_id: routine_exam
+    date: "2023-03-15"
+
+- person_source_value: smoke_non_smoker
+  description: "Current non-smoker response"
+  expected:
+    PS_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1968
+  birth_month: 10
+  birth_day: 12
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: tobacco_status
+    date: "2023-05-20"
+    value_as_concept_id: tobacco_nonuser
+  - concept_id: routine_exam
+    date: "2023-05-20"
+
+- person_source_value: smoke_latest_wins
+  description: "Latest smoking status overrides an earlier response"
+  expected:
+    PS_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1965
+  birth_month: 2
+  birth_day: 28
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: tobacco_status
+    date: "2023-02-01"
+    value_as_concept_id: tobacco_user
+  - concept_id: tobacco_status
+    date: "2023-09-01"
+    value_as_concept_id: tobacco_nonuser
+  - concept_id: routine_exam
+    date: "2023-09-01"
+
+- person_source_value: mmr_met_before_18mo
+  description: "MMR vaccination before the 18-month boundary"
+  expected:
+    PS_04:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2022
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  drugs:
+  - concept_id: mmr_vaccine
+    date: "2023-06-01"
+    lot_number: LOT001
+
+- person_source_value: mmr_notmet_after_18mo
+  description: "MMR vaccination after the 18-month boundary"
+  expected:
+    PS_04:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2022
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-12-01"
+  drugs:
+  - concept_id: mmr_vaccine
+    date: "2023-12-01"
+    lot_number: LOT002
+
+- person_source_value: mmr_notmet_none
+  description: "No MMR vaccination on record"
+  expected:
+    PS_04:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2022
+  birth_month: 6
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-12-15"
+
+- person_source_value: nqf_dm_excluded_frailty
+  description: "Diabetes patient excluded by advanced illness and frailty"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1955
+  birth_month: 1
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2020-01-15"
+  - concept_id: advanced_illness
+    date: "2023-03-01"
+  - concept_id: frailty_dx
+    date: "2023-03-01"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-06-15"
+    value_as_number: 8.5
+    unit_concept_id: percent
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  - concept_id: acute_inpatient_admission
+    date: "2023-03-01"
+
+- person_source_value: nqf_dm_excluded_frailty_encounter
+  description: "Diabetes patient excluded by advanced illness and frailty encounter"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1954
+  birth_month: 5
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2020-03-01"
+  - concept_id: advanced_illness
+    date: "2023-04-01"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-07-01"
+    value_as_number: 8.0
+    unit_concept_id: percent
+  observations:
+  - concept_id: frailty_encounter
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  - concept_id: acute_inpatient_admission
+    date: "2023-04-01"
+
+- person_source_value: nqf_dm_excluded_frailty_symptom
+  description: "Diabetes patient excluded by advanced illness and frailty symptom"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1953
+  birth_month: 8
+  birth_day: 20
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2019-06-01"
+  - concept_id: advanced_illness
+    date: "2023-05-01"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-08-01"
+    value_as_number: 7.8
+    unit_concept_id: percent
+  observations:
+  - concept_id: frailty_symptom
+    date: "2023-05-01"
+  - concept_id: routine_exam
+    date: "2023-08-01"
+  - concept_id: acute_inpatient_admission
+    date: "2023-05-01"
+
+- person_source_value: nqf_hospice_excluded
+  description: "Diabetes patient excluded by hospice"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1950
+  birth_month: 6
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2023-01-01"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-07-01"
+    value_as_number: 7.5
+    unit_concept_id: percent
+  observations:
+  - concept_id: hospice_enc
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-07-01"
+
+- person_source_value: renal_esrd_excluded
+  description: "Diabetes patient excluded by ESRD"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1960
+  birth_month: 3
+  birth_day: 5
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2020-02-01"
+  - concept_id: esrd
+    date: "2022-08-01"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-05-01"
+    value_as_number: 8.0
+    unit_concept_id: percent
+  observations:
+  - concept_id: routine_exam
+    date: "2023-05-01"
+
+- person_source_value: renal_transplant_excluded
+  description: "Diabetes patient excluded by kidney transplant"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1958
+  birth_month: 9
+  birth_day: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: type_2_diabetes
+    date: "2018-01-15"
+  measurements:
+  - concept_id: hba1c
+    date: "2023-04-01"
+    value_as_number: 7.2
+    unit_concept_id: percent
+  observations:
+  - concept_id: routine_exam
+    date: "2023-04-01"
+  procedures:
+  - concept_id: kidney_transplant_proc
+    date: "2021-11-01"
+
+- person_source_value: pregnancy_htn_excluded
+  description: "Hypertension patient excluded during pregnancy"
+  expected:
+    CVR_03:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1992
+  birth_month: 7
+  birth_day: 14
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: hypertension
+    date: "2023-01-10"
+  - concept_id: pregnancy
+    date: "2023-03-01"
+    end_date: "2023-11-15"
+  measurements:
+  - concept_id: systolic_bp
+    date: "2023-08-01"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2023-08-01"
+    value_as_number: 92
+
+- person_source_value: bh01_depression_inactive
+  description: "Depression diagnosis but no visit in 2-year window"
+  expected:
+    BH_01:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1985
+  birth_month: 3
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: depression
+    date: "2023-03-01"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- person_source_value: bh01_both_anxiety_depression
+  description: "Patient with both depression and anxiety for deduplication test"
+  expected:
+    BH_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1988
+  birth_month: 2
+  birth_day: 14
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: depression
+    date: "2023-01-15"
+  - concept_id: anxiety
+    date: "2023-02-20"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh01_recently_expired
+  description: "Depression start 2021 with adj_end_year=2023 boundary test"
+  expected:
+    BH_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 8
+  birth_day: 5
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: depression
+    date: "2021-06-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  - concept_id: routine_exam
+    date: "2024-06-01"
+
+- person_source_value: bh02_smh_inactive
+  description: "SMI diagnosis but no visit in 2-year window"
+  expected:
+    BH_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1975
+  birth_month: 4
+  birth_day: 22
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: schizophrenia
+    date: "2022-01-10"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2019-06-01"
+
+- person_source_value: bh02_both_schiz_bipolar
+  description: "Patient with both schizophrenia and bipolar for deduplication test"
+  expected:
+    BH_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 7
+  birth_day: 18
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: schizophrenia
+    date: "2022-03-01"
+  - concept_id: bipolar
+    date: "2022-09-15"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh09_sud_relapse
+  description: "Two SUD episodes testing max_start_date logic"
+  expected:
+    BH_09:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 1
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: sud_alcohol
+    date: "2018-03-01"
+    end_date: "2018-09-01"
+  - concept_id: sud_alcohol
+    date: "2023-04-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh09_sud_opioid
+  description: "Opioid SUD testing ancestor concept expansion"
+  expected:
+    BH_09:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1982
+  birth_month: 11
+  birth_day: 5
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: opioid_sud
+    date: "2023-01-15"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: bh09_sud_inactive
+  description: "SUD diagnosis but no visit in 2-year window"
+  expected:
+    BH_09:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1979
+  birth_month: 5
+  birth_day: 14
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: sud_alcohol
+    date: "2023-01-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- person_source_value: psc_age5_excluded
+  description: "Age 5 patient excluded from PSC-17 measures (below age 6)"
+  expected:
+    BH_05:
+      '2023': absent
+    BH_06:
+      '2023': absent
+    BH_07:
+      '2023': absent
+    BH_08:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2018
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 4
+
+- person_source_value: psc_latest_wins
+  description: "Two attention scores in year with latest below threshold"
+  expected:
+    BH_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2014
+  birth_month: 6
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: psc17_attention
+    date: "2023-03-01"
+    value_as_number: 7
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 6
+
+- person_source_value: covid_adult_1dose_2021
+  description: "Single COVID dose in 2021 fails 2-dose requirement"
+  expected:
+    COVID_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 5
+  birth_day: 10
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2021-07-01"
+  drugs:
+  - concept_id: covid_pfizer
+    date: "2021-04-15"
+    lot_number: LOT-2021-X
+
+- person_source_value: covid_adult_no_lot
+  description: "COVID vaccine record without lot_number excluded"
+  expected:
+    COVID_01:
+      '2023': 0
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 8
+  birth_day: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drugs:
+  - concept_id: covid_pfizer
+    date: "2023-03-01"
+
+- person_source_value: bmi_adult_null
+  description: "Adult BMI measurement with NULL value"
+  expected:
+    CVR_01:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-08-01"
+
+- person_source_value: bmi_adult_age18_exact
+  description: "Exactly age 18 at end of year tests gt-18 vs gte-18 boundary"
+  expected:
+    CVR_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2005
+  birth_month: 6
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 28.0
+
+- person_source_value: bmi_peds_age2_excluded
+  description: "Age 2 patient excluded from pediatric BMI (below lower bound)"
+  expected:
+    CVR_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2021
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 85.0
+
+- person_source_value: bmi_adult_inactive
+  description: "Adult BMI measurement but not in active population"
+  expected:
+    CVR_01:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 9
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 28.0
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- person_source_value: dis01_vision_inactive
+  description: "Vision disability but no visit in 2-year window"
+  expected:
+    DIS_01:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1960
+  birth_month: 5
+  birth_day: 20
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: vision_disability
+    date: "2020-06-01"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2017-06-01"
+
+- person_source_value: dis01_vision_future_dx
+  description: "Vision disability diagnosed after measurement year"
+  expected:
+    DIS_01:
+      '2025': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1960
+  birth_month: 10
+  birth_day: 5
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: vision_disability
+    date: "2025-03-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis01_vision_resolved
+  description: "Vision disability with condition_end_date set"
+  expected:
+    DIS_01:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1962
+  birth_month: 3
+  birth_day: 12
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: vision_disability
+    date: "2020-06-01"
+    end_date: "2021-06-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis03_autism_inactive
+  description: "Autism spectrum but no visit in 2-year window"
+  expected:
+    DIS_03:
+      '2022': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2010
+  birth_month: 8
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: autism_spectrum
+    date: "2015-09-01"
+  observations:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- person_source_value: dis03_autism_future_dx
+  description: "Autism spectrum diagnosed after measurement year"
+  expected:
+    DIS_03:
+      '2025': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2012
+  birth_month: 4
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: autism_spectrum
+    date: "2025-01-15"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: dis04_intellectual_inactive
+  description: "Intellectual disability but no visit in 2-year window"
+  expected:
+    DIS_04:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2008
+  birth_month: 6
+  birth_day: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: intellectual_disability
+    date: "2016-04-01"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2013-06-01"
+
+- person_source_value: dis04_intellectual_future_dx
+  description: "Intellectual disability diagnosed after measurement year"
+  expected:
+    DIS_04:
+      '2025': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2009
+  birth_month: 2
+  birth_day: 10
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: intellectual_disability
+    date: "2025-05-01"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: smoke_unknown_concept
+  description: "Tobacco status with unrecognized value_as_concept_id"
+  expected:
+    PS_01:
+      '2023': empty
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1975
+  birth_month: 6
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: tobacco_status
+    date: "2023-05-01"
+    value_as_concept_id: tobacco_unknown_val
+  - concept_id: routine_exam
+    date: "2023-05-01"
+
+- person_source_value: smoke_changed_year
+  description: "Smoker in 2022 then non-smoker in 2023 for cross-year test"
+  expected:
+    PS_01:
+      '2022': 0
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 11
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: tobacco_status
+    date: "2022-09-01"
+    value_as_concept_id: tobacco_user
+  - concept_id: tobacco_status
+    date: "2023-03-01"
+    value_as_concept_id: tobacco_nonuser
+  - concept_id: routine_exam
+    date: "2022-09-01"
+  - concept_id: routine_exam
+    date: "2023-03-01"
+
+- person_source_value: breast_excluded_hospice
+  description: "Breast screening patient excluded by hospice"
+  expected:
+    PS_03:
+      '2022': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1970
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: hospice_enc
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- person_source_value: crc_excluded_hospice
+  description: "Colorectal screening patient excluded by hospice"
+  expected:
+    PS_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1970
+  birth_month: 4
+  birth_day: 10
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observations:
+  - concept_id: hospice_enc
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- person_source_value: crc_excluded_colectomy
+  description: "Colorectal screening patient excluded by colectomy history"
+  expected:
+    PS_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1968
+  birth_month: 7
+  birth_day: 22
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurements:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedures:
+  - concept_id: colectomy_proc
+    date: "2019-11-01"
+
+- person_source_value: mmr_met_boundary
+  description: "MMR vaccination on exact 18-month boundary date"
+  expected:
+    PS_04:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2022
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-07-15"
+  drugs:
+  - concept_id: mmr_vaccine
+    date: "2023-07-15"
+    lot_number: LOT003
+
+- person_source_value: mmr_met_two_doses
+  description: "Two MMR doses with first before 18mo testing ordinal logic"
+  expected:
+    PS_04:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 2022
+  birth_month: 1
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  drugs:
+  - concept_id: mmr_vaccine
+    date: "2023-06-01"
+    lot_number: LOT004A
+  - concept_id: mmr_vaccine
+    date: "2023-12-01"
+    lot_number: LOT004B
+
+- person_source_value: mmr_no_lot
+  description: "MMR drug record without lot_number excluded"
+  expected:
+    PS_04:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 2022
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  drugs:
+  - concept_id: mmr_vaccine
+    date: "2023-06-01"
+
+- person_source_value: food_declined
+  description: "Patient declined to answer food security question"
+  expected:
+    SDOH_01:
+      '2023': -1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1985
+  birth_month: 9
+  birth_day: 5
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: food_security_q1
+    date: "2023-07-01"
+    value_as_string: "Patient declined to answer"
+
+- person_source_value: housing_unknown
+  description: "Housing response with unrecognized string value"
+  expected:
+    SDOH_02:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1986
+  birth_month: 4
+  birth_day: 12
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: housing_stability
+    date: "2023-07-01"
+    value_as_string: "Prefer not to say"
+
+- person_source_value: ptype04_current_yr
+  description: "Visit in 2023 qualifies for active current year"
+  expected:
+    PTYPE_04:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 1
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- person_source_value: ptype04_no_visit_current
+  description: "Visit in 2022 only, absent from active current year"
+  expected:
+    PTYPE_04:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 2
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2022-06-01"
+    visit_concept_id: zero_visit
+
+- person_source_value: ptype03_1yr_lookback
+  description: "Visit in 2022 qualifies for 1-year lookback in 2023"
+  expected:
+    PTYPE_03:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 5
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2022-09-01"
+
+- person_source_value: ptype05_2yr_lookback
+  description: "Visit in 2021 qualifies for 2-year lookback in 2023"
+  expected:
+    PTYPE_05:
+      '2023': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 7
+  birth_day: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2021-11-01"
+
+- person_source_value: ptype05_3yr_ago
+  description: "Visit in 2020 only, outside 2-year lookback for 2023"
+  expected:
+    PTYPE_05:
+      '2023': absent
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1980
+  birth_month: 10
+  birth_day: 5
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2020-04-01"
+    visit_concept_id: zero_visit
+
+- person_source_value: ptype04_zero_concept
+  description: "Visit with concept_id=0 filtered out from active population"
+  expected:
+    PTYPE_04:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1980
+  birth_month: 12
+  birth_day: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+    visit_concept_id: zero_visit
+
+- person_source_value: ptype08_pcp_current
+  description: "Primary care visit in 2023 (requires primary_care_list population)"
+  expected:
+    PTYPE_08:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1978
+  birth_month: 3
+  birth_day: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-04-01"
+    care_site_id: pcp_office
+
+- person_source_value: ptype08_pcp_prior_yr
+  description: "PCP visit in 2022 only, absent from PTYPE_08 current year"
+  expected:
+    PTYPE_08:
+      '2022': 1
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1978
+  birth_month: 6
+  birth_day: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2022-04-01"
+    care_site_id: pcp_office
+
+- person_source_value: ptype02_chc_current
+  description: "CHC visit in 2023 (requires chc_list population)"
+  expected:
+    PTYPE_02:
+      '2023': 1
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1976
+  birth_month: 9
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-05-01"
+    care_site_id: boston_chc
+
+- person_source_value: ptype08_not_pcp
+  description: "Visit in 2023 but not in primary_care_list, absent from PTYPE_08"
+  expected:
+    PTYPE_08:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1977
+  birth_month: 11
+  birth_day: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+    care_site_id: boston_chc
+
+- person_source_value: null_patient
+  description: "Patient with visit but no qualifying health dimension data"
+  expected: {}
+  location: boston
+  gender_concept_id: MALE
+  birth_year: 1985
+  birth_month: 5
+  birth_day: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observations:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+    visit_concept_id: zero_visit
+
+- person_source_value: inactive_shared
+  description: "Patient with conditions but only a zero-concept visit (inactive across all measures)"
+  expected:
+    BH_01:
+      '2023': absent
+    BH_09:
+      '2023': absent
+    DIS_01:
+      '2023': absent
+    DIS_03:
+      '2023': absent
+    DIS_04:
+      '2023': absent
+  location: boston
+  gender_concept_id: FEMALE
+  birth_year: 1975
+  birth_month: 3
+  birth_day: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  conditions:
+  - concept_id: depression
+    date: "2023-03-01"
+    visit_concept_id: zero_visit
+  - concept_id: sud_alcohol
+    date: "2023-02-01"
+    visit_concept_id: zero_visit
+  - concept_id: vision_disability
+    date: "2023-01-15"
+    visit_concept_id: zero_visit
+  - concept_id: autism_spectrum
+    date: "2023-04-01"
+    visit_concept_id: zero_visit
+  - concept_id: intellectual_disability
+    date: "2023-05-01"
+    visit_concept_id: zero_visit
+  observations:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+    visit_concept_id: zero_visit
