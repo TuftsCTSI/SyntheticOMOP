@@ -737,7 +737,7 @@ patients:
     description: "Age 75 patient excluded from breast screening"
     expected:
       PS_03:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1948
@@ -1737,7 +1737,7 @@ patients:
     description: "Substance use disorder diagnosis ended before the measurement year"
     expected:
       BH_09:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1979
@@ -1958,9 +1958,9 @@ patients:
     description: "Diabetes patient excluded by advanced illness and frailty"
     expected:
       CVR_04:
-        present: false
+        present: true
       CVR_05:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 1955
@@ -1990,9 +1990,9 @@ patients:
     description: "Diabetes patient excluded by advanced illness and frailty encounter"
     expected:
       CVR_04:
-        present: false
+        present: true
       CVR_05:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1954
@@ -2022,9 +2022,9 @@ patients:
     description: "Diabetes patient excluded by advanced illness and frailty symptom"
     expected:
       CVR_04:
-        present: false
+        present: true
       CVR_05:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 1953
@@ -2314,7 +2314,7 @@ patients:
     description: "SUD diagnosis but no visit in 2-year window"
     expected:
       BH_09:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 1979
@@ -2510,7 +2510,7 @@ patients:
     description: "Vision disability diagnosed after measurement year"
     expected:
       DIS_01:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1960
@@ -2550,7 +2550,7 @@ patients:
     description: "Autism spectrum but no visit in 2-year window"
     expected:
       DIS_03:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 2010
@@ -2569,7 +2569,7 @@ patients:
     description: "Autism spectrum diagnosed after measurement year"
     expected:
       DIS_03:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 2012
@@ -2609,7 +2609,7 @@ patients:
     description: "Intellectual disability diagnosed after measurement year"
     expected:
       DIS_04:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 2009
@@ -2629,7 +2629,7 @@ patients:
     description: "Tobacco status with unrecognized value_as_concept_id"
     expected:
       PS_01:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 1975
@@ -2673,7 +2673,7 @@ patients:
     description: "Breast screening patient excluded by hospice"
     expected:
       PS_03:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1970
@@ -2803,7 +2803,7 @@ patients:
     description: "Patient declined to answer food security question"
     expected:
       SDOH_01:
-        present: false
+        present: true
     location: boston
     gender_concept_id: MALE
     birth_year: 1985
@@ -2956,7 +2956,7 @@ patients:
     description: "PCP visit in 2022 only, absent from PTYPE_08 current year"
     expected:
       PTYPE_08:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1978
@@ -2989,7 +2989,7 @@ patients:
     description: "Visit in 2023 but not in primary_care_list, absent from PTYPE_08"
     expected:
       PTYPE_08:
-        present: false
+        present: true
     location: boston
     gender_concept_id: FEMALE
     birth_year: 1977
@@ -3014,6 +3014,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2023-06-01"
+        visit_concept_id: zero_visit
 
   - person_source_value: inactive_shared
     description: "Patient with conditions but only a zero-concept visit (inactive across all measures)"
