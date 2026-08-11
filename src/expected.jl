@@ -24,5 +24,5 @@ end
 function write_expected(cfg::Dict, output_dir::String)
     df = build_expected(cfg)
     isempty(df) && return
-    CSV.write(joinpath(output_dir, "expected.csv"), df; missingstring = "")
+    CSV.write(joinpath(output_dir, "expected.csv"), df; missingstring = "empty")
 end
