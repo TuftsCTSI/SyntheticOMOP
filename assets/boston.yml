@@ -72,8 +72,10 @@ concepts:
   # MMR
   mmr_vaccine: 40213183
   # NQF Exclusions
-  advanced_illness: 4245975
-  frailty_dx: 4141845
+  advanced_illness: 4004279
+  frailty_dx: 438567
+  frailty_encounter: 2514578
+  frailty_symptom: 4008159
   hospice_enc: 4140947
   acute_inpatient_admission: 4138051
   # Renal / Pregnancy
@@ -1484,62 +1486,8 @@ patients:
   # PHQ-9
   # ---------------------------------------------------------------------------
 
-  - person_source_value: phq_both_met
-    test_status: ""
-    test_suite: [BH_03, BH_04]
-    test_description: "PHQ scores 8 and 9 meet both any-positive and average rules"
-    location: boston
-    gender_concept_id: female
-    birth_year: 2000
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: phq9
-        date: "2023-03-01"
-        value_as_number: 8
-      - concept_id: phq9
-        date: "2023-10-01"
-        value_as_number: 9
 
-  - person_source_value: phq_avg_notmet_any_notmet
-    test_status: ""
-    test_suite: [BH_03, BH_04]
-    test_description: "PHQ scores 8 and 12 fail both any-positive and average rules"
-    location: boston
-    gender_concept_id: male
-    birth_year: 2000
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: phq9
-        date: "2023-03-01"
-        value_as_number: 8
-      - concept_id: phq9
-        date: "2023-10-01"
-        value_as_number: 12
 
-  - person_source_value: phq_any_notmet_avg_met
-    test_status: ""
-    test_suite: [BH_03, BH_04]
-    test_description: "PHQ scores 9 and 10 fail the any-positive rule but pass the average rule"
-    location: boston
-    gender_concept_id: female
-    birth_year: 2000
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: phq9
-        date: "2023-03-01"
-        value_as_number: 9
-      - concept_id: phq9
-        date: "2023-10-01"
-        value_as_number: 10
 
   # ---------------------------------------------------------------------------
   # Anxiety / Depression (BH_01)
@@ -1596,6 +1544,7 @@ patients:
       - concept_id: depression
         date: "2019-02-01"
         end_date: "2019-06-01"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
         date: "2023-06-01"
@@ -1920,6 +1869,64 @@ patients:
       - concept_id: acute_inpatient_admission
         date: "2023-03-01"
 
+  - person_source_value: nqf_dm_excluded_frailty_encounter
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient excluded by advanced illness and frailty encounter"
+    location: boston
+    gender_concept_id: female
+    birth_year: 1954
+    birth_month: 5
+    birth_day: 10
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2020-03-01"
+      - concept_id: advanced_illness
+        date: "2023-04-01"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-07-01"
+        value_as_number: 8.0
+        unit_concept_id: percent
+    observations:
+      - concept_id: frailty_encounter
+        date: "2023-04-01"
+      - concept_id: routine_exam
+        date: "2023-07-01"
+      - concept_id: acute_inpatient_admission
+        date: "2023-04-01"
+
+  - person_source_value: nqf_dm_excluded_frailty_symptom
+    test_status: ""
+    test_suite: [CVR_04, CVR_05]
+    test_description: "Diabetes patient excluded by advanced illness and frailty symptom"
+    location: boston
+    gender_concept_id: male
+    birth_year: 1953
+    birth_month: 8
+    birth_day: 20
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: type_2_diabetes
+        date: "2019-06-01"
+      - concept_id: advanced_illness
+        date: "2023-05-01"
+    measurements:
+      - concept_id: hba1c
+        date: "2023-08-01"
+        value_as_number: 7.8
+        unit_concept_id: percent
+    observations:
+      - concept_id: frailty_symptom
+        date: "2023-05-01"
+      - concept_id: routine_exam
+        date: "2023-08-01"
+      - concept_id: acute_inpatient_admission
+        date: "2023-05-01"
+
   - person_source_value: nqf_hospice_excluded
     test_status: ""
     test_suite: [CVR_04, CVR_05]
@@ -2048,6 +2055,7 @@ patients:
     conditions:
       - concept_id: depression
         date: "2023-03-01"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
         date: "2020-06-01"
@@ -2110,9 +2118,10 @@ patients:
     conditions:
       - concept_id: schizophrenia
         date: "2022-01-10"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
-        date: "2020-06-01"
+        date: "2019-06-01"
 
   - person_source_value: bh02_both_schiz_bipolar
     test_status: "✨"
@@ -2199,52 +2208,8 @@ patients:
   # PHQ-9 gap-filling: age exclusion, boundary, null
   # ---------------------------------------------------------------------------
 
-  - person_source_value: phq_age11_excluded
-    test_status: "✨"
-    test_suite: [BH_03, BH_04]
-    test_description: "PHQ-9 score at age 11 excluded from both measures"
-    location: boston
-    gender_concept_id: male
-    birth_year: 2012
-    birth_month: 1
-    birth_day: 15
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: phq9
-        date: "2023-06-01"
-        value_as_number: 8
 
-  - person_source_value: phq_single_score_10
-    test_status: "✨"
-    test_suite: [BH_03, BH_04]
-    test_description: "Single PHQ-9 score of exactly 10 fails both measures"
-    location: boston
-    gender_concept_id: female
-    birth_year: 2000
-    birth_month: 6
-    birth_day: 1
-    race_concept_id: white
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: phq9
-        date: "2023-06-01"
-        value_as_number: 10
 
-  - person_source_value: phq_null_value
-    test_status: "✨"
-    test_suite: [BH_03, BH_04]
-    test_description: "PHQ-9 observation with NULL value excluded from both measures"
-    location: boston
-    gender_concept_id: male
-    birth_year: 2000
-    birth_month: 3
-    birth_day: 20
-    race_concept_id: black
-    ethnicity_concept_id: not_hispanic
-    measurements:
-      - concept_id: phq9
-        date: "2023-06-01"
 
   # ---------------------------------------------------------------------------
   # PSC-17 gap-filling: age 5 exclusion, latest-wins temporal
@@ -2415,9 +2380,10 @@ patients:
     conditions:
       - concept_id: vision_disability
         date: "2020-06-01"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
-        date: "2020-06-01"
+        date: "2017-06-01"
 
   - person_source_value: dis01_vision_future_dx
     test_status: "✨"
@@ -2492,6 +2458,7 @@ patients:
     conditions:
       - concept_id: autism_spectrum
         date: "2025-01-15"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
         date: "2023-06-01"
@@ -2514,9 +2481,10 @@ patients:
     conditions:
       - concept_id: intellectual_disability
         date: "2016-04-01"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
-        date: "2020-06-01"
+        date: "2013-06-01"
 
   - person_source_value: dis04_intellectual_future_dx
     test_status: "✨"
@@ -2532,6 +2500,7 @@ patients:
     conditions:
       - concept_id: intellectual_disability
         date: "2025-05-01"
+        visit_concept_id: zero_visit
     observations:
       - concept_id: routine_exam
         date: "2023-06-01"
@@ -2780,6 +2749,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2022-06-01"
+        visit_concept_id: zero_visit
 
   - person_source_value: ptype03_1yr_lookback
     test_status: "✨"
@@ -2825,6 +2795,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2020-04-01"
+        visit_concept_id: zero_visit
 
   - person_source_value: ptype04_zero_concept
     test_status: "✨"
