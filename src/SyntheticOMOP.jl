@@ -12,7 +12,6 @@ include("templates.jl")
 include("generator.jl")
 include("writer.jl")
 include("expected.jl")
-include("review.jl")
 
 """
     build(config_path) -> Dict{String,DataFrame}
