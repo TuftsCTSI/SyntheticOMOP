@@ -287,6 +287,7 @@ const ROW_TABLES = Dict{Symbol, Vector{Symbol}}(
     :location => LOCATION,
     :concept => CONCEPT,
     :concept_ancestor => CONCEPT_ANCESTOR,
+    :care_site => CARE_SITE,
 )
 
 const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[

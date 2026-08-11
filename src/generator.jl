@@ -15,9 +15,10 @@ mutable struct BuildState
     accum::Dict{Symbol, Vector}
     concepts::Dict
     location_map::Dict{String, Int}
+    care_site_map::Dict{String, Int}
 end
 
-function BuildState(concepts::Dict, location_map::Dict{String, Int} = Dict{String, Int}())
+function BuildState(concepts::Dict, location_map::Dict{String, Int} = Dict{String, Int}(), care_site_map::Dict{String, Int} = Dict{String, Int}())
     counters = Dict{Symbol, Counter}(
         :observation_period => Counter(),
         :visit_occurrence => Counter(),
@@ -42,10 +43,11 @@ function BuildState(concepts::Dict, location_map::Dict{String, Int} = Dict{Strin
         :note => [],
         :death => [],
         :location => [],
+        :care_site => [],
         :concept => [],
         :concept_ancestor => [],
     )
-    return BuildState(counters, accum, concepts, location_map)
+    return BuildState(counters, accum, concepts, location_map, care_site_map)
 end
 
 function parse_date(s)::Date
@@ -176,7 +178,7 @@ function build_observation_period(pid::Int, dates::Vector{Date}, obs_id::Int)
     )
 end
 
-function build_visit(pid::Int, vid::Int, v_start::Date, v_end::Date, visit_concept_id::Int)
+function build_visit(pid::Int, vid::Int, v_start::Date, v_end::Date, visit_concept_id::Int, care_site_id::Union{Int, Missing} = missing)
     return (
         visit_occurrence_id = vid,
         person_id = pid,
@@ -187,7 +189,7 @@ function build_visit(pid::Int, vid::Int, v_start::Date, v_end::Date, visit_conce
         visit_end_datetime = missing,
         visit_type_concept_id = TYPE_EHR,
         provider_id = missing,
-        care_site_id = missing,
+        care_site_id = care_site_id,
         visit_source_value = missing,
         visit_source_concept_id = 0,
         admitted_from_concept_id = 0,
@@ -396,10 +398,24 @@ function build_location_row(loc::Dict, loc_id::Int)
     )
 end
 
+function build_care_site_row(cs::Dict, cs_id::Int, location_map::Dict{String, Int})
+    loc_ref = get(cs, "location", nothing)
+    loc_id = loc_ref !== nothing ? get(location_map, string(loc_ref), missing) : missing
+    return (
+        care_site_id = cs_id,
+        care_site_name = get(cs, "care_site_name", missing),
+        place_of_service_concept_id = get(cs, "place_of_service_concept_id", 0),
+        location_id = loc_id,
+        care_site_source_value = get(cs, "id", missing),
+        place_of_service_source_value = missing,
+    )
+end
+
 mutable struct VisitGroup
     date::Date
     end_date::Date
     concept_id::Int
+    care_site_id::Union{Int, Missing}
     conditions::Vector
     drugs::Vector
     procedures::Vector
@@ -409,7 +425,7 @@ mutable struct VisitGroup
     notes::Vector
 end
 
-function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitGroup}
+function _group_events_into_visits(patient::Dict, concepts::Dict, care_site_map::Dict{String, Int})::Vector{VisitGroup}
     groups = Dict{Date, VisitGroup}()
 
     for key in EVENT_KEYS
@@ -423,7 +439,9 @@ function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitG
                     visit_cid = VISIT_OUTPATIENT
                 end
                 visit_end = parse_date(get(spec, "visit_end_date", spec["date"]))
-                groups[d] = VisitGroup(d, visit_end, visit_cid, [], [], [], [], [], [], [])
+                cs_ref = get(spec, "care_site_id", nothing)
+                cs_id = cs_ref === nothing ? missing : get(care_site_map, string(cs_ref), missing)
+                groups[d] = VisitGroup(d, visit_end, visit_cid, cs_id, [], [], [], [], [], [], [])
             else
                 g = groups[d]
                 ve = parse_date(get(spec, "visit_end_date", spec["date"]))
@@ -433,6 +451,12 @@ function _group_events_into_visits(patient::Dict, concepts::Dict)::Vector{VisitG
                 vc = resolve_opt(concepts, spec, "visit_concept_id")
                 if vc !== missing && g.concept_id == VISIT_OUTPATIENT
                     g.concept_id = vc
+                end
+                if ismissing(g.care_site_id)
+                    cs_ref = get(spec, "care_site_id", nothing)
+                    if cs_ref !== nothing
+                        g.care_site_id = get(care_site_map, string(cs_ref), missing)
+                    end
                 end
             end
             push!(getfield(groups[d], Symbol(key)), spec)
@@ -445,7 +469,7 @@ end
 function process_patient!(state::BuildState, patient::Dict, pid::Int)
     push!(state.accum[:person], build_person(patient, pid, state.concepts, state.location_map))
 
-    visit_groups = _group_events_into_visits(patient, state.concepts)
+    visit_groups = _group_events_into_visits(patient, state.concepts, state.care_site_map)
     all_dates = [g.date for g in visit_groups]
     append!(all_dates, [g.end_date for g in visit_groups if g.end_date != g.date])
 
@@ -461,7 +485,7 @@ function process_patient!(state::BuildState, patient::Dict, pid::Int)
 
     for g in visit_groups
         vid = next!(state.counters[:visit_occurrence])
-        push!(state.accum[:visit_occurrence], build_visit(pid, vid, g.date, g.end_date, g.concept_id))
+        push!(state.accum[:visit_occurrence], build_visit(pid, vid, g.date, g.end_date, g.concept_id, g.care_site_id))
         for spec in g.conditions
             push!(state.accum[:condition_occurrence], build_condition(spec, pid, vid, state.concepts, state.counters[:condition_occurrence]))
         end
@@ -499,6 +523,19 @@ function _process_locations!(state::BuildState, cfg::Dict)::Dict{String, Int}
         push!(state.accum[:location], build_location_row(loc, loc_id))
     end
     return location_map
+end
+
+function _process_care_sites!(state::BuildState, cfg::Dict)::Dict{String, Int}
+    care_sites = get(cfg, "care_sites", nothing)
+    care_sites === nothing && return Dict{String, Int}()
+    cs_map = Dict{String, Int}()
+    for (i, cs) in enumerate(care_sites)
+        cs_id = i
+        id_key = string(cs["id"])
+        cs_map[id_key] = cs_id
+        push!(state.accum[:care_site], build_care_site_row(cs, cs_id, state.location_map))
+    end
+    return cs_map
 end
 
 function _process_concept_ancestors!(state::BuildState, cfg::Dict)
@@ -556,6 +593,8 @@ function build_all(cfg::Dict)::Dict{String, DataFrame}
 
     location_map = _process_locations!(state, cfg)
     state.location_map = location_map
+    care_site_map = _process_care_sites!(state, cfg)
+    state.care_site_map = care_site_map
     _process_concept_ancestors!(state, cfg)
     _process_concepts!(state, cfg)
 
@@ -600,6 +639,8 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String, Dict{String, DataFrame}}
         state = BuildState(concepts)
         location_map = _process_locations!(state, cfg)
         state.location_map = location_map
+        care_site_map = _process_care_sites!(state, cfg)
+        state.care_site_map = care_site_map
         _process_concept_ancestors!(state, cfg)
         _process_concepts!(state, cfg)
         for (merged, pid) in entries

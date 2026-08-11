@@ -96,6 +96,16 @@ concept_ancestors:
   - ancestor: substance_abuse
     descendant: opioid_sud
 
+care_sites:
+  - id: boston_chc
+    care_site_name: "Boston CHC"
+    place_of_service_concept_id: 8761
+    location: boston
+  - id: pcp_office
+    care_site_name: "Primary Care Office"
+    place_of_service_concept_id: 8940
+    location: boston
+
 locations:
   - id: boston
     address_1: "123 Main St"
@@ -2951,6 +2961,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2023-04-01"
+        care_site_id: pcp_office
 
   - person_source_value: ptype08_pcp_prior_yr
     description: "PCP visit in 2022 only, absent from PTYPE_08 current year"
@@ -2967,6 +2978,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2022-04-01"
+        care_site_id: pcp_office
 
   - person_source_value: ptype02_chc_current
     description: "CHC visit in 2023 (requires chc_list population)"
@@ -2984,6 +2996,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2023-05-01"
+        care_site_id: boston_chc
 
   - person_source_value: ptype08_not_pcp
     description: "Visit in 2023 but not in primary_care_list, absent from PTYPE_08"
@@ -3000,6 +3013,7 @@ patients:
     observations:
       - concept_id: routine_exam
         date: "2023-06-01"
+        care_site_id: boston_chc
 
   - person_source_value: null_patient
     description: "Patient with visit but no qualifying health dimension data"
