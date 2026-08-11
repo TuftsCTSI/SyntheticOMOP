@@ -6,8 +6,8 @@ cdm_source:
 
 concepts:
   # Demographics
-  male: 8507
-  female: 8532
+  MALE: 8507
+  FEMALE: 8532
   white: 8527
   black: 8516
   not_hispanic: 38003564
@@ -85,7 +85,7 @@ concepts:
 
   # Additional test concepts
   opioid_sud: 4032799
-  colectomy_proc: 4301351
+  colectomy_proc: 4096461
   tobacco_unknown_val: 45884037
   zero_visit: 0
 
@@ -111,7 +111,7 @@ patients:
       CVR_03:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2006
     birth_month: 1
     birth_day: 15
@@ -135,7 +135,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2005
     birth_month: 1
     birth_day: 15
@@ -159,7 +159,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1939
     birth_month: 1
     birth_day: 15
@@ -182,7 +182,7 @@ patients:
       CVR_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1938
     birth_month: 1
     birth_day: 15
@@ -206,7 +206,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 2
     birth_day: 1
@@ -230,7 +230,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1971
     birth_month: 2
     birth_day: 1
@@ -254,7 +254,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1972
     birth_month: 2
     birth_day: 1
@@ -278,7 +278,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1965
     birth_month: 3
     birth_day: 1
@@ -308,7 +308,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1966
     birth_month: 3
     birth_day: 1
@@ -338,7 +338,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1967
     birth_month: 3
     birth_day: 1
@@ -368,7 +368,7 @@ patients:
         present: true
         status: -1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1968
     birth_month: 3
     birth_day: 1
@@ -395,7 +395,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 5
     birth_day: 1
@@ -432,7 +432,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2006
     birth_month: 1
     birth_day: 15
@@ -457,7 +457,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2005
     birth_month: 1
     birth_day: 15
@@ -482,7 +482,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1948
     birth_month: 1
     birth_day: 15
@@ -505,7 +505,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1947
     birth_month: 1
     birth_day: 15
@@ -530,7 +530,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1969
     birth_month: 4
     birth_day: 1
@@ -555,7 +555,7 @@ patients:
         present: true
         status: -1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 4
     birth_day: 1
@@ -578,7 +578,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1965
     birth_month: 4
     birth_day: 1
@@ -608,7 +608,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1973
     birth_month: 1
     birth_day: 15
@@ -628,7 +628,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 6
     birth_day: 1
@@ -645,7 +645,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1973
     birth_month: 1
     birth_day: 15
@@ -665,7 +665,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1973
     birth_month: 1
     birth_day: 15
@@ -681,7 +681,7 @@ patients:
       PS_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1973
     birth_month: 1
     birth_day: 15
@@ -700,7 +700,7 @@ patients:
       PS_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1974
     birth_month: 1
     birth_day: 15
@@ -720,7 +720,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1949
     birth_month: 1
     birth_day: 15
@@ -739,7 +739,7 @@ patients:
       PS_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1948
     birth_month: 1
     birth_day: 15
@@ -759,7 +759,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -780,7 +780,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -800,7 +800,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -820,7 +820,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -840,7 +840,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -860,7 +860,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1971
     birth_month: 1
     birth_day: 15
@@ -880,7 +880,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1971
     birth_month: 1
     birth_day: 15
@@ -900,7 +900,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -921,7 +921,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -942,7 +942,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 1
     birth_day: 15
@@ -958,7 +958,7 @@ patients:
       PS_02:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1974
     birth_month: 1
     birth_day: 15
@@ -979,7 +979,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1948
     birth_month: 6
     birth_day: 20
@@ -999,7 +999,7 @@ patients:
       PS_02:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1947
     birth_month: 1
     birth_day: 15
@@ -1020,7 +1020,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 1
     birth_day: 15
@@ -1038,7 +1038,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1981
     birth_month: 1
     birth_day: 15
@@ -1056,7 +1056,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1982
     birth_month: 1
     birth_day: 15
@@ -1077,7 +1077,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1983
     birth_month: 1
     birth_day: 15
@@ -1097,7 +1097,7 @@ patients:
       CVR_01:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2006
     birth_month: 1
     birth_day: 15
@@ -1115,7 +1115,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2010
     birth_month: 1
     birth_day: 15
@@ -1133,7 +1133,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2010
     birth_month: 1
     birth_day: 15
@@ -1151,7 +1151,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2010
     birth_month: 1
     birth_day: 15
@@ -1172,7 +1172,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2010
     birth_month: 1
     birth_day: 15
@@ -1192,7 +1192,7 @@ patients:
       CVR_02:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2005
     birth_month: 1
     birth_day: 15
@@ -1210,7 +1210,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1985
     birth_month: 1
     birth_day: 15
@@ -1229,7 +1229,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1985
     birth_month: 1
     birth_day: 15
@@ -1248,7 +1248,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1984
     birth_month: 1
     birth_day: 15
@@ -1271,7 +1271,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1986
     birth_month: 1
     birth_day: 15
@@ -1290,7 +1290,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1986
     birth_month: 1
     birth_day: 15
@@ -1309,7 +1309,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1986
     birth_month: 1
     birth_day: 15
@@ -1328,7 +1328,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1987
     birth_month: 1
     birth_day: 15
@@ -1347,7 +1347,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1987
     birth_month: 1
     birth_day: 15
@@ -1370,7 +1370,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 1
     birth_day: 15
@@ -1391,7 +1391,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 1
     birth_day: 15
@@ -1408,7 +1408,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2010
     birth_month: 1
     birth_day: 15
@@ -1429,7 +1429,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2010
     birth_month: 1
     birth_day: 15
@@ -1446,7 +1446,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2006
     birth_month: 1
     birth_day: 15
@@ -1467,7 +1467,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2005
     birth_month: 1
     birth_day: 15
@@ -1497,7 +1497,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2014
     birth_month: 1
     birth_day: 15
@@ -1524,7 +1524,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2014
     birth_month: 1
     birth_day: 15
@@ -1542,7 +1542,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2014
     birth_month: 1
     birth_day: 15
@@ -1560,7 +1560,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2014
     birth_month: 1
     birth_day: 15
@@ -1578,7 +1578,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2014
     birth_month: 1
     birth_day: 15
@@ -1601,7 +1601,7 @@ patients:
       BH_08:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2011
     birth_month: 1
     birth_day: 15
@@ -1619,7 +1619,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1985
     birth_month: 4
     birth_day: 10
@@ -1639,7 +1639,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1990
     birth_month: 7
     birth_day: 20
@@ -1658,7 +1658,7 @@ patients:
       BH_01:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1978
     birth_month: 1
     birth_day: 5
@@ -1680,7 +1680,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1975
     birth_month: 9
     birth_day: 12
@@ -1700,7 +1700,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1982
     birth_month: 11
     birth_day: 3
@@ -1720,7 +1720,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 6
     birth_day: 15
@@ -1739,7 +1739,7 @@ patients:
       BH_09:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1979
     birth_month: 3
     birth_day: 22
@@ -1760,7 +1760,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1960
     birth_month: 2
     birth_day: 14
@@ -1780,7 +1780,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1955
     birth_month: 8
     birth_day: 30
@@ -1800,7 +1800,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2010
     birth_month: 5
     birth_day: 20
@@ -1820,7 +1820,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2008
     birth_month: 12
     birth_day: 1
@@ -1840,7 +1840,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 4
     birth_day: 1
@@ -1860,7 +1860,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1968
     birth_month: 10
     birth_day: 12
@@ -1880,7 +1880,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1965
     birth_month: 2
     birth_day: 28
@@ -1903,7 +1903,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2022
     birth_month: 1
     birth_day: 15
@@ -1924,7 +1924,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2022
     birth_month: 1
     birth_day: 15
@@ -1944,7 +1944,7 @@ patients:
       PS_04:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2022
     birth_month: 6
     birth_day: 1
@@ -1962,7 +1962,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1955
     birth_month: 1
     birth_day: 1
@@ -1994,7 +1994,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1954
     birth_month: 5
     birth_day: 10
@@ -2026,7 +2026,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1953
     birth_month: 8
     birth_day: 20
@@ -2058,7 +2058,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1950
     birth_month: 6
     birth_day: 10
@@ -2086,7 +2086,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1960
     birth_month: 3
     birth_day: 5
@@ -2114,7 +2114,7 @@ patients:
       CVR_05:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1958
     birth_month: 9
     birth_day: 20
@@ -2141,7 +2141,7 @@ patients:
       CVR_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1992
     birth_month: 7
     birth_day: 14
@@ -2167,7 +2167,7 @@ patients:
       BH_01:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1985
     birth_month: 3
     birth_day: 10
@@ -2188,7 +2188,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1988
     birth_month: 2
     birth_day: 14
@@ -2210,7 +2210,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 8
     birth_day: 5
@@ -2231,7 +2231,7 @@ patients:
       BH_02:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1975
     birth_month: 4
     birth_day: 22
@@ -2252,7 +2252,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 7
     birth_day: 18
@@ -2274,7 +2274,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 1
     birth_day: 10
@@ -2297,7 +2297,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1982
     birth_month: 11
     birth_day: 5
@@ -2316,7 +2316,7 @@ patients:
       BH_09:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1979
     birth_month: 5
     birth_day: 14
@@ -2341,7 +2341,7 @@ patients:
       BH_08:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2018
     birth_month: 1
     birth_day: 15
@@ -2359,7 +2359,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2014
     birth_month: 6
     birth_day: 1
@@ -2380,7 +2380,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 5
     birth_day: 10
@@ -2401,7 +2401,7 @@ patients:
         present: true
         status: 0
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 8
     birth_day: 20
@@ -2420,7 +2420,7 @@ patients:
       CVR_01:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 3
     birth_day: 1
@@ -2437,7 +2437,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2005
     birth_month: 6
     birth_day: 15
@@ -2454,7 +2454,7 @@ patients:
       CVR_02:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2021
     birth_month: 1
     birth_day: 15
@@ -2471,7 +2471,7 @@ patients:
       CVR_01:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 9
     birth_day: 10
@@ -2492,7 +2492,7 @@ patients:
       DIS_01:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1960
     birth_month: 5
     birth_day: 20
@@ -2512,7 +2512,7 @@ patients:
       DIS_01:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1960
     birth_month: 10
     birth_day: 5
@@ -2532,7 +2532,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1962
     birth_month: 3
     birth_day: 12
@@ -2552,7 +2552,7 @@ patients:
       DIS_03:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2010
     birth_month: 8
     birth_day: 15
@@ -2571,7 +2571,7 @@ patients:
       DIS_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2012
     birth_month: 4
     birth_day: 1
@@ -2591,7 +2591,7 @@ patients:
       DIS_04:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2008
     birth_month: 6
     birth_day: 20
@@ -2611,7 +2611,7 @@ patients:
       DIS_04:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2009
     birth_month: 2
     birth_day: 10
@@ -2631,7 +2631,7 @@ patients:
       PS_01:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1975
     birth_month: 6
     birth_day: 1
@@ -2651,7 +2651,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 11
     birth_day: 15
@@ -2675,7 +2675,7 @@ patients:
       PS_03:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1970
     birth_month: 3
     birth_day: 1
@@ -2696,7 +2696,7 @@ patients:
       PS_02:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1970
     birth_month: 4
     birth_day: 10
@@ -2718,7 +2718,7 @@ patients:
       PS_02:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1968
     birth_month: 7
     birth_day: 22
@@ -2742,7 +2742,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2022
     birth_month: 1
     birth_day: 15
@@ -2763,7 +2763,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 2022
     birth_month: 1
     birth_day: 15
@@ -2786,7 +2786,7 @@ patients:
       PS_04:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 2022
     birth_month: 3
     birth_day: 1
@@ -2805,7 +2805,7 @@ patients:
       SDOH_01:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1985
     birth_month: 9
     birth_day: 5
@@ -2822,7 +2822,7 @@ patients:
       SDOH_02:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1986
     birth_month: 4
     birth_day: 12
@@ -2840,7 +2840,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 1
     birth_day: 1
@@ -2856,7 +2856,7 @@ patients:
       PTYPE_04:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 2
     birth_day: 15
@@ -2874,7 +2874,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 5
     birth_day: 10
@@ -2891,7 +2891,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 7
     birth_day: 20
@@ -2907,7 +2907,7 @@ patients:
       PTYPE_05:
         present: false
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1980
     birth_month: 10
     birth_day: 5
@@ -2924,7 +2924,7 @@ patients:
       PTYPE_04:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1980
     birth_month: 12
     birth_day: 1
@@ -2942,7 +2942,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1978
     birth_month: 3
     birth_day: 15
@@ -2958,7 +2958,7 @@ patients:
       PTYPE_08:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1978
     birth_month: 6
     birth_day: 20
@@ -2975,7 +2975,7 @@ patients:
         present: true
         status: 1
     location: boston
-    gender_concept_id: male
+    gender_concept_id: MALE
     birth_year: 1976
     birth_month: 9
     birth_day: 1
@@ -2991,7 +2991,7 @@ patients:
       PTYPE_08:
         present: false
     location: boston
-    gender_concept_id: female
+    gender_concept_id: FEMALE
     birth_year: 1977
     birth_month: 11
     birth_day: 10
@@ -3001,3 +3001,57 @@ patients:
       - concept_id: routine_exam
         date: "2023-06-01"
 
+  - person_source_value: null_patient
+    description: "Patient with visit but no qualifying health dimension data"
+    expected: {}
+    location: boston
+    gender_concept_id: MALE
+    birth_year: 1985
+    birth_month: 5
+    birth_day: 15
+    race_concept_id: white
+    ethnicity_concept_id: not_hispanic
+    observations:
+      - concept_id: routine_exam
+        date: "2023-06-01"
+
+  - person_source_value: inactive_shared
+    description: "Patient with conditions but only a zero-concept visit (inactive across all measures)"
+    expected:
+      BH_01:
+        present: false
+      BH_09:
+        present: false
+      DIS_01:
+        present: false
+      DIS_03:
+        present: false
+      DIS_04:
+        present: false
+    location: boston
+    gender_concept_id: FEMALE
+    birth_year: 1975
+    birth_month: 3
+    birth_day: 1
+    race_concept_id: black
+    ethnicity_concept_id: not_hispanic
+    conditions:
+      - concept_id: depression
+        date: "2023-03-01"
+        visit_concept_id: zero_visit
+      - concept_id: sud_alcohol
+        date: "2023-02-01"
+        visit_concept_id: zero_visit
+      - concept_id: vision_disability
+        date: "2023-01-15"
+        visit_concept_id: zero_visit
+      - concept_id: autism_spectrum
+        date: "2023-04-01"
+        visit_concept_id: zero_visit
+      - concept_id: intellectual_disability
+        date: "2023-05-01"
+        visit_concept_id: zero_visit
+    observations:
+      - concept_id: routine_exam
+        date: "2020-06-01"
+        visit_concept_id: zero_visit
