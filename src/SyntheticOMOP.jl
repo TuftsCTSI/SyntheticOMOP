@@ -11,6 +11,7 @@ include("config.jl")
 include("templates.jl")
 include("generator.jl")
 include("writer.jl")
+include("expected.jl")
 include("review.jl")
 
 """
@@ -39,10 +40,12 @@ function generate(config_path::String, output_dir::String = joinpath("out", spli
     return if haskey(cfg, "sites")
         site_tables, linkage_df = build_all_sites(cfg)
         write_sites(site_tables, linkage_df, output_dir)
+        write_expected(cfg, output_dir)
         (site_tables, linkage_df)
     else
         tables = build_all(cfg)
         write_tables(tables, output_dir)
+        write_expected(cfg, output_dir)
         tables
     end
 end
