@@ -36,14 +36,15 @@ Returns the generated tables.
 """
 function generate(config_path::String, output_dir::String = joinpath("out", splitext(basename(config_path))[1]))
     cfg = load_config(config_path)
+    omop_dir = joinpath(output_dir, "OMOP")
     return if haskey(cfg, "sites")
         site_tables, linkage_df = build_all_sites(cfg)
-        write_sites(site_tables, linkage_df, output_dir)
+        write_sites(site_tables, linkage_df, omop_dir)
         write_expected(cfg, output_dir)
         (site_tables, linkage_df)
     else
         tables = build_all(cfg)
-        write_tables(tables, output_dir)
+        write_tables(tables, omop_dir)
         write_expected(cfg, output_dir)
         tables
     end
@@ -147,3 +148,4 @@ export build, generate, review_table
 end
 
 end # module SyntheticOMOP
+

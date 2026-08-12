@@ -64,7 +64,7 @@ function run_valid_config(filename::String)
             site_tables, linkage_df = result
             for site_id in sort(collect(keys(site_tables)))
                 for tname in sort(collect(keys(site_tables[site_id])))
-                    relfile = joinpath(site_id, "$tname.csv")
+                    relfile = joinpath("OMOP", site_id, "$tname.csv")
                     push!(actual_files, relfile)
                     expected_path = joinpath(expected_dir, relfile)
                     if isfile(expected_path)
@@ -73,21 +73,23 @@ function run_valid_config(filename::String)
                     end
                 end
             end
-            push!(actual_files, "linkage.csv")
+            linkage_relfile = joinpath("OMOP", "linkage.csv")
+            push!(actual_files, linkage_relfile)
             sort!(actual_files)
-            expected_path = joinpath(expected_dir, "linkage.csv")
+            expected_path = joinpath(expected_dir, linkage_relfile)
             if isfile(expected_path)
                 actual_str = table_to_string(linkage_df)
-                actual_str != read(expected_path, String) && push!(mismatches, "linkage.csv")
+                actual_str != read(expected_path, String) && push!(mismatches, linkage_relfile)
             end
         else
             tables = result
             for tname in sort(collect(keys(tables)))
-                push!(actual_files, "$tname.csv")
-                expected_path = joinpath(expected_dir, "$tname.csv")
+                relfile = joinpath("OMOP", "$tname.csv")
+                push!(actual_files, relfile)
+                expected_path = joinpath(expected_dir, relfile)
                 if isfile(expected_path)
                     actual_str = table_to_string(tables[tname])
-                    actual_str != read(expected_path, String) && push!(mismatches, "$tname.csv")
+                    actual_str != read(expected_path, String) && push!(mismatches, relfile)
                 end
             end
         end
@@ -168,3 +170,4 @@ t4 = time()
 @info "Invalid validation ($(length(invalid_configs)) configs): $(round(t3 - t2; digits = 2))s"
 @info "Assertions: $(round(t4 - t3; digits = 2))s"
 @info "Total (post-import): $(round(t4 - t0; digits = 2))s"
+

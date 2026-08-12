@@ -19,8 +19,6 @@ function _read_version()::String
         m = match(r"^version\s*=\s*\"(.+)\"$", line)
         m !== nothing && return String(m.captures[1])
     end
-    # Reached when running under Pkg.test() where Project.toml exists but
-    # the version line has already been stripped by the test environment.
     return "test"
 end
 
@@ -39,7 +37,7 @@ function write_provenance(output_dir::String, config_path::String)
 end
 
 function warn_empty_obs(output_dir::String)
-    obs_path = joinpath(output_dir, "observation_period.csv")
+    obs_path = joinpath(output_dir, "OMOP", "observation_period.csv")
     isfile(obs_path) || return
     first_line = true
     date_col = 0
@@ -82,3 +80,4 @@ function main(args = ARGS)
 end
 
 main()
+
