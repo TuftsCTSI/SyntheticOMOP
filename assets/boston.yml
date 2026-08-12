@@ -2020,9 +2020,9 @@ patients:
   description: "Type 2 diabetes since 2020; end-stage renal disease diagnosed Aug 2022; A1c 8.0% in May 2023"
   expected:
     CVR_04:
-      '2023': absent
+      '2023': 1
     CVR_05:
-      '2023': absent
+      '2023': 1
   location: boston
   gender_concept_id: MALE
   birth_year: 1960
@@ -2048,9 +2048,9 @@ patients:
   description: "Type 2 diabetes since 2018; kidney transplant in Nov 2021; A1c 7.2% in Apr 2023"
   expected:
     CVR_04:
-      '2023': absent
+      '2023': 1
     CVR_05:
-      '2023': absent
+      '2023': 1
   location: boston
   gender_concept_id: FEMALE
   birth_year: 1958
