@@ -25,6 +25,7 @@ function _validate(cfg::Dict)
     end
     _validate_always_write_tables(cfg)
     _validate_locations(cfg)
+    _validate_care_sites(cfg)
     _validate_concept_ancestors(cfg)
     if haskey(cfg, "sites")
         _validate_multi(cfg)
@@ -80,6 +81,29 @@ function _validate_locations(cfg::Dict)
     return
 end
 
+function _validate_care_sites(cfg::Dict)
+    care_sites = get(cfg, "care_sites", nothing)
+    care_sites === nothing && return
+    care_sites isa Vector || throw(ConfigError("'care_sites' must be a list"))
+    location_ids = _location_ids(cfg)
+    seen = Set{String}()
+    for (i, cs) in enumerate(care_sites)
+        cs isa Dict || throw(ConfigError("care_sites[$i] must be a mapping"))
+        id = get(cs, "id", nothing)
+        id isa String && !isempty(id) ||
+            throw(ConfigError("care_sites[$i] missing non-empty 'id'"))
+        id ∉ seen || throw(ConfigError("Duplicate care site id: '$id'"))
+        push!(seen, id)
+        loc = get(cs, "location", nothing)
+        if loc !== nothing
+            loc isa String || throw(ConfigError("care_sites[$i].location must be a string"))
+            loc ∈ location_ids ||
+                throw(ConfigError("care_sites[$i].location references unknown location: '$loc'"))
+        end
+    end
+    return
+end
+
 function _validate_concept_ancestors(cfg::Dict)
     ancestors = get(cfg, "concept_ancestors", nothing)
     ancestors === nothing && return
@@ -103,6 +127,7 @@ function _validate_patients(cfg::Dict)
     concepts = cfg["concepts"]
     is_multi = haskey(cfg, "sites")
     location_ids = _location_ids(cfg)
+    cs_ids = _care_site_ids(cfg)
 
     seen = Set{String}()
     for (i, p) in enumerate(patients)
@@ -130,10 +155,10 @@ function _validate_patients(cfg::Dict)
                     throw(ConfigError("patients[$i].appearances[$j] missing 'site'"))
                 sid ∈ site_ids ||
                     throw(ConfigError("patients[$i].appearances[$j] references unknown site: '$sid'"))
-                _validate_events(app, "patients[$i].appearances[$j]", concepts)
+                _validate_events(app, "patients[$i].appearances[$j]", concepts, cs_ids)
             end
         else
-            _validate_events(p, "patients[$i]", concepts)
+            _validate_events(p, "patients[$i]", concepts, cs_ids)
         end
     end
     return
@@ -206,7 +231,7 @@ function _validate_single_concept_ref(value, path::String, concepts::Dict)
         throw(ConfigError("$path references unknown concept: '$value'"))
 end
 
-function _validate_events(node::Dict, path::String, concepts::Dict)
+function _validate_events(node::Dict, path::String, concepts::Dict, care_site_ids::Set{String} = Set{String}())
     for (k, v) in node
         if endswith(k, "_concept_id")
             _validate_single_concept_ref(v, "$path.$k", concepts)
@@ -229,6 +254,11 @@ function _validate_events(node::Dict, path::String, concepts::Dict)
                 if endswith(k, "_concept_id")
                     _validate_single_concept_ref(v, "$path.$key[$i].$k", concepts)
                 end
+            end
+            cs_ref = get(event, "care_site_id", nothing)
+            if cs_ref !== nothing && !isempty(care_site_ids)
+                string(cs_ref) ∈ care_site_ids ||
+                    throw(ConfigError("$path.$key[$i].care_site_id references unknown care site: '$(cs_ref)'"))
             end
         end
     end
@@ -266,6 +296,12 @@ function _location_ids(cfg::Dict)::Set{String}
     return Set{String}(string(loc["id"]) for loc in locations)
 end
 
+function _care_site_ids(cfg::Dict)::Set{String}
+    care_sites = get(cfg, "care_sites", nothing)
+    care_sites === nothing && return Set{String}()
+    return Set{String}(string(cs["id"]) for cs in care_sites)
+end
+
 function _validate_location_ref(node::Dict, path::String, location_ids::Set{String})
     loc = get(node, "location", nothing)
     loc === nothing && return
@@ -273,8 +309,6 @@ function _validate_location_ref(node::Dict, path::String, location_ids::Set{Stri
     return loc ∈ location_ids ||
         throw(ConfigError("$path.location references unknown location: '$loc'"))
 end
-
-# PII validation
 
 const PII_VALID_FIELDS = Set(["name", "street", "city", "state", "zip", "dob"])
 const PII_CORRUPTIBLE_FIELDS = Set(["name", "street", "city", "state", "zip"])
