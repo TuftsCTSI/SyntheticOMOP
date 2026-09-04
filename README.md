@@ -7,7 +7,8 @@ Given a YAML file describing fictional patients and their clinical events, it pr
 
 - This tool is mainly intended for preparing datasets for use in software testing.
 - The input file serves as a design artifact, preserving the intent of each patient scenario, which might be lost if we prepared the dataset directly.
-- No randomness is used. Data generation is entirely deterministic.
+- OMOP table generation uses no randomness and is entirely deterministic.
+- PII generation, when enabled, is also deterministic for a given config: synthetic identity fields and corruption patterns are derived from the config seed, patient handles, and site identifiers.
 - This tool creates entirely fictional test data. Assuming real patient records weren't used to make the input file, the output cannot contain protected health information (PHI).
 - Coherence of medical records isn't a major design aim. Other tools exist for creating realistic patient data.
 
@@ -127,6 +128,7 @@ All events require `concept_id` (alias) and `date` (YYYY-MM-DD).
 
 Optional `visit_concept_id` overrides the default outpatient visit for that date.
 Optional `visit_end_date` sets a multi-day visit end (for inpatient stays).
+Optional `care_site_id` assigns events on that date to a declared care site.
 
 ### Templates
 
@@ -206,6 +208,15 @@ Visits default to outpatient (concept 9202).
 To override, set `visit_concept_id` on any event for that date.
 To create a multi-day visit, set `visit_end_date` on any event for that date.
 
+### Locations and care sites
+
+Locations are declared in a top-level `locations` list.
+Patients can reference a location by `location`.
+Care sites are declared in a top-level `care_sites` list.
+Each care site may reference a declared location and a place-of-service concept alias.
+Events can reference a care site by `care_site_id`.
+All location and care site references are validated when the config is loaded.
+
 ## Scenario configs
 
 Example configs are in `assets/`:
@@ -244,7 +255,9 @@ linkage_df                           # ground-truth cross-site linkage
 This tool is designed so that its output is provably synthetic:
 
 * Input is a YAML config file which should not be based on real data.
-* Every record in the output traces to a specific config entry or template expansion.
+* Every record in the OMOP output traces to a specific config entry or template expansion.
+* OMOP output is deterministic for a given config.
+* PII output, when enabled, is deterministic for a given config because all synthetic identity fields and corruption patterns are derived from the config seed and patient handles.
 * All medical concept codes are declared as named aliases, making them more readily reviewable.
 * Each output directory contains a `_provenance.yml` file recording the generator version and source config, providing an audit trail.
 * The generator has no database connections, no file readers beyond the config, and no network access.
