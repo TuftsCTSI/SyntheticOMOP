@@ -398,13 +398,13 @@ function build_location_row(loc::Dict, loc_id::Int)
     )
 end
 
-function build_care_site_row(cs::Dict, cs_id::Int, location_map::Dict{String, Int})
+function build_care_site_row(cs::Dict, cs_id::Int, location_map::Dict{String, Int}, concepts::Dict)
     loc_ref = get(cs, "location", nothing)
     loc_id = loc_ref !== nothing ? get(location_map, string(loc_ref), missing) : missing
     return (
         care_site_id = cs_id,
         care_site_name = get(cs, "care_site_name", missing),
-        place_of_service_concept_id = get(cs, "place_of_service_concept_id", 0),
+        place_of_service_concept_id = coalesce(resolve_opt(concepts, cs, "place_of_service_concept_id"), 0),
         location_id = loc_id,
         care_site_source_value = get(cs, "id", missing),
         place_of_service_source_value = missing,
@@ -509,7 +509,10 @@ function process_patient!(state::BuildState, patient::Dict, pid::Int)
         end
     end
 
-    return death_spec !== nothing && push!(state.accum[:death], build_death(death_spec, pid, state.concepts))
+    if death_spec !== nothing
+        push!(state.accum[:death], build_death(death_spec, pid, state.concepts))
+    end
+    return
 end
 
 function _process_locations!(state::BuildState, cfg::Dict)::Dict{String, Int}
@@ -533,7 +536,7 @@ function _process_care_sites!(state::BuildState, cfg::Dict)::Dict{String, Int}
         cs_id = i
         id_key = string(cs["id"])
         cs_map[id_key] = cs_id
-        push!(state.accum[:care_site], build_care_site_row(cs, cs_id, state.location_map))
+        push!(state.accum[:care_site], build_care_site_row(cs, cs_id, state.location_map, state.concepts))
     end
     return cs_map
 end

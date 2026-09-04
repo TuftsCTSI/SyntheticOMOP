@@ -13,6 +13,77 @@ struct PIIConfigError <: Exception
 end
 Base.showerror(io::IO, e::PIIConfigError) = print(io, "PIIConfigError: ", e.msg)
 
+function _corruption_rng(pii_cfg::Dict, handle::String, site_id::String, field::String)::Random.MersenneTwister
+    seed = pii_cfg["seed"]
+    hbytes = SHA.sha256(string(seed) * ":corrupt:" * handle * ":" * site_id * ":" * field)[1:8]
+    return Random.MersenneTwister(reinterpret(UInt64, hbytes)[1])
+end
+
+function _apply_typo(s::String, rng::AbstractRNG)::String
+    isempty(s) && return s
+    chars = collect(s)
+    pos = rand(rng, 1:length(chars))
+    op = rand(rng, 1:3)
+    if op == 1 && length(chars) > 1
+        deleteat!(chars, pos)
+    elseif op == 2
+        chars[pos] = Char(rand(rng, 'a':'z'))
+    elseif op == 3 && pos < length(chars)
+        chars[pos], chars[pos + 1] = chars[pos + 1], chars[pos]
+    else
+        chars[pos] = Char(rand(rng, 'a':'z'))
+    end
+    return String(chars)
+end
+
+function _corrupt(value, ctype::String, rng::AbstractRNG)
+    ctype == "missing" && return ""
+    ctype == "uppercase" && return uppercase(string(value))
+    ctype == "lowercase" && return lowercase(string(value))
+    ctype == "typo" && return _apply_typo(string(value), rng)
+    return value
+end
+
+function _build_override_map(overrides, handle::String, site_id::String)::Dict{String, String}
+    result = Dict{String, String}()
+    overrides === nothing && return result
+    for entry in overrides
+        string(get(entry, "handle", "")) == handle || continue
+        for app in get(entry, "appearances", [])
+            string(get(app, "site", "")) == site_id || continue
+            for c in get(app, "corrupt", [])
+                result[string(c["field"])] = string(c["type"])
+            end
+        end
+    end
+    return result
+end
+
+function apply_corruptions!(pii_data::Dict, pii_cfg::Dict, handle::String, site_id::String)
+    corruptions = get(pii_cfg, "corruptions", nothing)
+    overrides = get(pii_cfg, "overrides", nothing)
+    (corruptions === nothing && overrides === nothing) && return pii_data
+
+    override_map = _build_override_map(overrides, handle, site_id)
+
+    for field_sym in collect(keys(pii_data))
+        field_str = string(field_sym)
+        field_str ∈ PII_CORRUPTIBLE_FIELDS || continue
+
+        rng = _corruption_rng(pii_cfg, handle, site_id, field_str)
+
+        if haskey(override_map, field_str)
+            pii_data[field_sym] = _corrupt(pii_data[field_sym], override_map[field_str], rng)
+        elseif corruptions !== nothing && haskey(corruptions, field_str)
+            spec = corruptions[field_str]
+            if rand(rng) < spec["rate"]
+                pii_data[field_sym] = _corrupt(pii_data[field_sym], string(spec["type"]), rng)
+            end
+        end
+    end
+    return pii_data
+end
+
 function build_pii(cfg::Dict)
     pii_cfg = get(cfg, "pii", nothing)
     pii_cfg !== nothing || throw(PIIConfigError("Missing 'pii' section in config"))
@@ -57,6 +128,7 @@ function build_pii(cfg::Dict)
                 handle = patient["person_source_value"]
                 seed = per_patient_seed(pii_cfg, handle)
                 pii_data = gen_pii_fields(seed)
+                apply_corruptions!(pii_data, pii_cfg, handle, site_id)
                 row = build_pii_row(length(rows) + 1, site_id, fields, pii_data)
                 push!(rows, row)
                 push!(linkage_rows, (person_source_value = handle, site_id = site_id, row_id = length(rows)))
