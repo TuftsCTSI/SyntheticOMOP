@@ -591,6 +591,18 @@ function _process_concepts!(state::BuildState, cfg::Dict)
     return
 end
 
+function _check_duplicate_psvs(patients)
+    seen = Set{String}()
+    for p in patients
+        psv = get(p, "person_source_value", nothing)
+        psv === nothing && continue
+        psv ∈ seen &&
+            throw(ConfigError("Duplicate person_source_value after template expansion: '$psv'"))
+        push!(seen, psv)
+    end
+    return
+end
+
 function build_all(cfg::Dict)::Dict{String, DataFrame}
     concepts = cfg["concepts"]
     state = BuildState(concepts)
@@ -618,6 +630,7 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String, Dict{String, DataFrame}}
     hand_crafted = get(cfg, "patients", Dict{String, Any}[])
     templated = expand_templates(cfg)
     all_patients = vcat(hand_crafted, templated)
+    _check_duplicate_psvs(all_patients)
 
     site_tables = Dict{String, Dict{String, DataFrame}}()
     linkage_rows = []
