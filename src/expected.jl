@@ -8,13 +8,15 @@ function build_expected(cfg::Dict)::DataFrame
         expected === nothing && continue
         for (group, year_map) in expected
             for (year, status) in year_map
-                push!(rows, (
-                    person_source_value = psv,
-                    description = desc,
-                    group = string(group),
-                    year = string(year),
-                    status = status isa Number ? string(Int(status)) : string(status),
-                ))
+                push!(
+                    rows, (
+                        person_source_value = psv,
+                        description = desc,
+                        group = string(group),
+                        year = string(year),
+                        status = status isa Number ? string(Int(status)) : string(status),
+                    )
+                )
             end
         end
     end
@@ -24,5 +26,5 @@ end
 function write_expected(cfg::Dict, output_dir::String)
     df = build_expected(cfg)
     isempty(df) && return
-    CSV.write(joinpath(output_dir, "expected.csv"), df; quotestrings = true)
+    return CSV.write(joinpath(output_dir, "expected.csv"), df; quotestrings = true)
 end

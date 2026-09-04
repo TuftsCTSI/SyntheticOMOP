@@ -1,4 +1,4 @@
-.PHONY: test boston update-expected format review-boston
+.PHONY: test boston update-expected format
 
 test:
 	julia --project test/runtests.jl

@@ -1,10 +1,3 @@
-using CSV
-using DataFrames
-using Dates
-using SHA
-using Random
-using Faker
-
 const DEFAULT_PII_FIELDS = ["name", "street", "city", "state", "zip", "dob"]
 const PII_FIELD_SPEC = Dict(
     "name" => :name,
@@ -209,4 +202,3 @@ function write_pii_summary(pii_tables::Dict{String, DataFrame}, pii_linkage::Dat
     end
     return
 end
-

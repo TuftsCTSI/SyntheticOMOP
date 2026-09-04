@@ -16,7 +16,7 @@ function load_config(path::String)::Dict
 end
 
 function _validate(cfg::Dict)
-    has_pii      = haskey(cfg, "pii")
+    has_pii = haskey(cfg, "pii")
     has_patients = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
     has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
     has_topology = has_pii && haskey(get(cfg, "pii", Dict()), "topology")
@@ -276,9 +276,9 @@ end
 
 # PII validation
 
-const PII_VALID_FIELDS      = Set(["name", "street", "city", "state", "zip", "dob"])
+const PII_VALID_FIELDS = Set(["name", "street", "city", "state", "zip", "dob"])
 const PII_CORRUPTIBLE_FIELDS = Set(["name", "street", "city", "state", "zip"])
-const PII_CORRUPTION_TYPES  = Set(["typo", "missing", "uppercase", "lowercase"])
+const PII_CORRUPTION_TYPES = Set(["typo", "missing", "uppercase", "lowercase"])
 
 function _pii_gen_handle(idx::Int, total::Int)::String
     pad = max(length(string(total)), 2)
@@ -286,17 +286,17 @@ function _pii_gen_handle(idx::Int, total::Int)::String
 end
 
 function _pii_handle_sites(cfg::Dict)::Dict{String, Vector{String}}
-    pii      = cfg["pii"]
+    pii = cfg["pii"]
     site_ids = [string(s["id"]) for s in cfg["sites"]]
     handle_sites = Dict{String, Vector{String}}()
 
     if haskey(pii, "topology")
-        topo          = pii["topology"]
-        n_all         = get(topo, "all_sites", 0)
-        pairs         = get(topo, "pairs", [])
-        n_ups         = get(topo, "unique_per_site", 0)
+        topo = pii["topology"]
+        n_all = get(topo, "all_sites", 0)
+        pairs = get(topo, "pairs", [])
+        n_ups = get(topo, "unique_per_site", 0)
         n_pairs_total = isempty(pairs) ? 0 : sum(Int(p[3]) for p in pairs)
-        total         = n_all + n_pairs_total + n_ups * length(site_ids)
+        total = n_all + n_pairs_total + n_ups * length(site_ids)
         idx = 0
         for _ in 1:n_all
             idx += 1
@@ -352,15 +352,15 @@ function _validate_pii(cfg::Dict)
         _validate_pii_topology(pii["topology"], site_ids)
         hand_crafted_psvs = Set(
             string(p["person_source_value"])
-            for p in get(cfg, "patients", [])
-            if haskey(p, "person_source_value")
+                for p in get(cfg, "patients", [])
+                if haskey(p, "person_source_value")
         )
-        topo          = pii["topology"]
-        n_all         = get(topo, "all_sites", 0)
-        pairs_raw     = get(topo, "pairs", [])
-        n_ups         = get(topo, "unique_per_site", 0)
+        topo = pii["topology"]
+        n_all = get(topo, "all_sites", 0)
+        pairs_raw = get(topo, "pairs", [])
+        n_ups = get(topo, "unique_per_site", 0)
         n_pairs_total = isempty(pairs_raw) ? 0 : sum(Int(p[3]) for p in pairs_raw)
-        total         = n_all + n_pairs_total + n_ups * length(cfg["sites"])
+        total = n_all + n_pairs_total + n_ups * length(cfg["sites"])
         for i in 1:total
             h = _pii_gen_handle(i, total)
             h ∈ hand_crafted_psvs &&
@@ -441,7 +441,7 @@ function _validate_pii_overrides(overrides, handle_sites::Dict{String, Vector{St
         haskey(handle_sites, handle) ||
             throw(ConfigError("'pii.overrides[$i]' references unknown handle: '$(handle)'"))
         patient_sites = Set(handle_sites[handle])
-        appearances   = get(entry, "appearances", nothing)
+        appearances = get(entry, "appearances", nothing)
         appearances isa Vector ||
             throw(ConfigError("'pii.overrides[$i]' must have an 'appearances' list"))
         for (j, app) in enumerate(appearances)
@@ -474,4 +474,3 @@ function _validate_pii_overrides(overrides, handle_sites::Dict{String, Vector{St
     end
     return
 end
-

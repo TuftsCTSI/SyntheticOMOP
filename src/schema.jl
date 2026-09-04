@@ -304,4 +304,3 @@ const DEFAULT_ALWAYS_WRITE_TABLES = Symbol[
 ]
 
 const EVENT_KEYS = Set(["conditions", "drugs", "procedures", "devices", "measurements", "observations", "notes"])
-

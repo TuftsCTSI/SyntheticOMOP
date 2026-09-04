@@ -71,9 +71,9 @@ function run_valid_config(filename::String)
     mismatches = String[]
     try
         cfg = SyntheticOMOP.load_config(config_path)
-        has_patients  = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
+        has_patients = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
         has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
-        has_clinical  = has_patients || has_templates
+        has_clinical = has_patients || has_templates
 
         if has_clinical
             result = SyntheticOMOP.build(config_path)
@@ -182,4 +182,3 @@ t4 = time()
 @info "Invalid validation ($(length(invalid_configs)) configs): $(round(t3 - t2; digits = 2))s"
 @info "Assertions: $(round(t4 - t3; digits = 2))s"
 @info "Total (post-import): $(round(t4 - t0; digits = 2))s"
-

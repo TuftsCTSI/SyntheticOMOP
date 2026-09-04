@@ -41,9 +41,9 @@ Returns the generated OMOP tables (or nothing for PII-only configs).
 """
 function generate(config_path::String, output_dir::String = joinpath("out", splitext(basename(config_path))[1]))
     cfg = load_config(config_path)
-    has_patients  = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
+    has_patients = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
     has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
-    has_clinical  = has_patients || has_templates
+    has_clinical = has_patients || has_templates
     result = if has_clinical
         omop_dir = joinpath(output_dir, "OMOP")
         if haskey(cfg, "sites")
@@ -69,7 +69,7 @@ function generate(config_path::String, output_dir::String = joinpath("out", spli
     return result
 end
 
-export build, build_pii, generate, review_table
+export build, build_pii, generate
 
 @setup_workload begin
     _pc_single = joinpath(tempdir(), "_syntheticomop_pc_single.yml")
@@ -167,4 +167,3 @@ export build, build_pii, generate, review_table
 end
 
 end # module SyntheticOMOP
-

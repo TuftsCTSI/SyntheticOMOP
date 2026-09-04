@@ -3,7 +3,9 @@ using Runic
 const FILE_LIST = [
     "generate.jl",
     "src/config.jl",
+    "src/expected.jl",
     "src/generator.jl",
+    "src/pii.jl",
     "src/schema.jl",
     "src/SyntheticOMOP.jl",
     "src/templates.jl",

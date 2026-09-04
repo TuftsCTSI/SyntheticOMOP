@@ -585,6 +585,7 @@ function _process_concepts!(state::BuildState, cfg::Dict)
             )
         )
     end
+    return
 end
 
 function build_all(cfg::Dict)::Dict{String, DataFrame}
@@ -661,4 +662,3 @@ function build_all_sites(cfg::Dict)::Tuple{Dict{String, Dict{String, DataFrame}}
         DataFrame(linkage_rows)
     return (site_tables, linkage_df)
 end
-
