@@ -1,7 +1,7 @@
 .PHONY: test boston update-expected format
 
 test:
-	julia --project test/runtests.jl
+	julia --project -e 'using Pkg; Pkg.test()'
 
 boston:
 	julia --project generate.jl assets/boston.yml
