@@ -148,23 +148,28 @@ function per_patient_seed(pii_cfg, handle::String)
 end
 
 function gen_pii_fields(seed::UInt64)
-    Random.seed!(seed)
-    fname = Faker.first_name()
-    lname = Faker.last_name()
-    streetnum = rand(1:9999)
-    street = string(streetnum, " ", Faker.street_name())
-    city = Faker.city()
-    state = Faker.state_abbr()
-    zip = lpad(string(rand(0:99999)), 5, '0')
-    dob = gen_dob()
-    return Dict(
-        :name => string(fname, " ", lname),
-        :street => street,
-        :city => city,
-        :state => state,
-        :zip => zip,
-        :dob => dob,
-    )
+    saved_rng = copy(Random.default_rng())
+    try
+        Random.seed!(seed)
+        fname = Faker.first_name()
+        lname = Faker.last_name()
+        streetnum = rand(1:9999)
+        street = string(streetnum, " ", Faker.street_name())
+        city = Faker.city()
+        state = Faker.state_abbr()
+        zip = lpad(string(rand(0:99999)), 5, '0')
+        dob = gen_dob()
+        return Dict(
+            :name => string(fname, " ", lname),
+            :street => street,
+            :city => city,
+            :state => state,
+            :zip => zip,
+            :dob => dob,
+        )
+    finally
+        copy!(Random.default_rng(), saved_rng)
+    end
 end
 
 function gen_dob()
