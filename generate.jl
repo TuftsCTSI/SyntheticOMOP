@@ -11,15 +11,16 @@ Table names are lower-cased (person.csv, visit_occurrence.csv, etc.).
 using SyntheticOMOP
 using SyntheticOMOP: DEFAULT_OBSERVATION_DATE
 using Dates
+using TOML
 
 function _read_version()::String
     path = joinpath(@__DIR__, "Project.toml")
     isfile(path) || return "unknown"
-    for line in eachline(path)
-        m = match(r"^version\s*=\s*\"(.+)\"$", line)
-        m !== nothing && return String(m.captures[1])
+    return try
+        string(TOML.parsefile(path)["version"])
+    catch
+        "unknown"
     end
-    return "test"
 end
 
 function write_provenance(output_dir::String, config_path::String)
