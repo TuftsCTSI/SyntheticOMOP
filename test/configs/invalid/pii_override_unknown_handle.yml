@@ -1,0 +1,22 @@
+# expect: references unknown handle
+concepts:
+  female: 8532
+
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  overrides:
+    - handle: an_unknown_handle
+      appearances:
+        - site: a
+
+patients:
+  - person_source_value: real
+    appearances:
+      - site: a
+        gender_concept_id: female
+        birth_year: 1990
+

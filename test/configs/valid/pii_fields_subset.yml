@@ -1,0 +1,11 @@
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 55
+  fields: [name, dob, zip]
+  topology:
+    all_sites: 3
+    unique_per_site: 2
+

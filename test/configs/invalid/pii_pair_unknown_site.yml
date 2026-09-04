@@ -1,0 +1,13 @@
+# expect: references unknown site: 'z'
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  topology:
+    all_sites: 1
+    pairs:
+      - [a, z, 5]
+    unique_per_site: 0
+

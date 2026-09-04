@@ -1,0 +1,21 @@
+# expect: collides with hand-crafted
+concepts:
+  female: 8532
+
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  topology:
+    all_sites: 2
+    unique_per_site: 0
+
+patients:
+  - person_source_value: pii_01
+    appearances:
+      - site: a
+        gender_concept_id: female
+        birth_year: 1990
+

@@ -1,0 +1,12 @@
+# expect: references unknown field: 'ssn'
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  fields: [name, ssn]
+  topology:
+    all_sites: 1
+    unique_per_site: 0
+

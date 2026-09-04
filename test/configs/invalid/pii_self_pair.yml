@@ -1,0 +1,12 @@
+# expect: is a self-pair
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  topology:
+    all_sites: 0
+    pairs:
+      - [a, a, 5]
+    unique_per_site: 0

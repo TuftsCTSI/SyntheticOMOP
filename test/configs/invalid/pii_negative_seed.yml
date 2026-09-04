@@ -1,0 +1,11 @@
+# expect: 'pii.seed' must be a positive integer
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: -1
+  topology:
+    all_sites: 2
+    unique_per_site: 1
+

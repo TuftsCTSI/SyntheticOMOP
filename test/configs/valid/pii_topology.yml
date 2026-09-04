@@ -1,0 +1,15 @@
+sites:
+  - id: a
+  - id: b
+  - id: c
+
+pii:
+  seed: 99
+  topology:
+    all_sites: 5
+    pairs:
+      - [a, b, 3]
+      - [b, c, 3]
+      - [a, c, 3]
+    unique_per_site: 2
+

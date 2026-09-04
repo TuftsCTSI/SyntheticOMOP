@@ -16,19 +16,26 @@ function load_config(path::String)::Dict
 end
 
 function _validate(cfg::Dict)
-    _validate_concepts(cfg)
+    has_pii      = haskey(cfg, "pii")
+    has_patients = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
+    has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
+    has_topology = has_pii && haskey(get(cfg, "pii", Dict()), "topology")
+    if !(has_pii && !has_patients && !has_templates)
+        _validate_concepts(cfg)
+    end
     _validate_always_write_tables(cfg)
     _validate_locations(cfg)
     _validate_concept_ancestors(cfg)
     if haskey(cfg, "sites")
         _validate_multi(cfg)
     end
-    has_patients = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
-    has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
-    has_patients || has_templates ||
+    has_any_patients = has_patients || has_templates || has_topology
+    has_any_patients ||
         throw(ConfigError("Config must have at least one of 'patients' or 'templates'"))
     has_patients && _validate_patients(cfg)
-    return has_templates && _validate_templates(cfg)
+    has_templates && _validate_templates(cfg)
+    has_pii && _validate_pii(cfg)
+    return
 end
 
 function _validate_concepts(cfg::Dict)
@@ -266,3 +273,205 @@ function _validate_location_ref(node::Dict, path::String, location_ids::Set{Stri
     return loc ∈ location_ids ||
         throw(ConfigError("$path.location references unknown location: '$loc'"))
 end
+
+# PII validation
+
+const PII_VALID_FIELDS      = Set(["name", "street", "city", "state", "zip", "dob"])
+const PII_CORRUPTIBLE_FIELDS = Set(["name", "street", "city", "state", "zip"])
+const PII_CORRUPTION_TYPES  = Set(["typo", "missing", "uppercase", "lowercase"])
+
+function _pii_gen_handle(idx::Int, total::Int)::String
+    pad = max(length(string(total)), 2)
+    return string("pii_", lpad(string(idx), pad, '0'))
+end
+
+function _pii_handle_sites(cfg::Dict)::Dict{String, Vector{String}}
+    pii      = cfg["pii"]
+    site_ids = [string(s["id"]) for s in cfg["sites"]]
+    handle_sites = Dict{String, Vector{String}}()
+
+    if haskey(pii, "topology")
+        topo          = pii["topology"]
+        n_all         = get(topo, "all_sites", 0)
+        pairs         = get(topo, "pairs", [])
+        n_ups         = get(topo, "unique_per_site", 0)
+        n_pairs_total = isempty(pairs) ? 0 : sum(Int(p[3]) for p in pairs)
+        total         = n_all + n_pairs_total + n_ups * length(site_ids)
+        idx = 0
+        for _ in 1:n_all
+            idx += 1
+            handle_sites[_pii_gen_handle(idx, total)] = copy(site_ids)
+        end
+        for pair in pairs
+            s1, s2, k = string(pair[1]), string(pair[2]), Int(pair[3])
+            for _ in 1:k
+                idx += 1
+                handle_sites[_pii_gen_handle(idx, total)] = [s1, s2]
+            end
+        end
+        for sid in site_ids
+            for _ in 1:n_ups
+                idx += 1
+                handle_sites[_pii_gen_handle(idx, total)] = [sid]
+            end
+        end
+    end
+
+    for p in get(cfg, "patients", [])
+        h = get(p, "person_source_value", nothing)
+        h === nothing && continue
+        appearances = get(p, "appearances", [])
+        handle_sites[string(h)] = [string(get(a, "site", "")) for a in appearances]
+    end
+
+    return handle_sites
+end
+
+function _validate_pii(cfg::Dict)
+    pii = cfg["pii"]
+    pii isa Dict || throw(ConfigError("'pii' must be a mapping"))
+
+    seed = get(pii, "seed", nothing)
+    seed !== nothing || throw(ConfigError("'pii.seed' is required"))
+    seed isa Integer || throw(ConfigError("'pii.seed' must be a positive integer"))
+    seed > 0        || throw(ConfigError("'pii.seed' must be a positive integer"))
+
+    haskey(cfg, "sites") || throw(ConfigError("'pii' requires 'sites' to be defined"))
+    site_ids = Set(string(s["id"]) for s in cfg["sites"])
+
+    fields = get(pii, "fields", nothing)
+    if fields !== nothing
+        fields isa Vector || throw(ConfigError("'pii.fields' must be a list"))
+        for (i, f) in enumerate(fields)
+            string(f) ∈ PII_VALID_FIELDS ||
+                throw(ConfigError("'pii.fields[$i]' references unknown field: '$(f)'"))
+        end
+    end
+
+    if haskey(pii, "topology")
+        _validate_pii_topology(pii["topology"], site_ids)
+        hand_crafted_psvs = Set(
+            string(p["person_source_value"])
+            for p in get(cfg, "patients", [])
+            if haskey(p, "person_source_value")
+        )
+        topo          = pii["topology"]
+        n_all         = get(topo, "all_sites", 0)
+        pairs_raw     = get(topo, "pairs", [])
+        n_ups         = get(topo, "unique_per_site", 0)
+        n_pairs_total = isempty(pairs_raw) ? 0 : sum(Int(p[3]) for p in pairs_raw)
+        total         = n_all + n_pairs_total + n_ups * length(cfg["sites"])
+        for i in 1:total
+            h = _pii_gen_handle(i, total)
+            h ∈ hand_crafted_psvs &&
+                throw(ConfigError("Auto-generated PII handle '$h' collides with hand-crafted person_source_value"))
+        end
+    end
+
+    if haskey(pii, "corruptions")
+        _validate_pii_corruptions(pii["corruptions"])
+    end
+
+    if haskey(pii, "overrides")
+        _validate_pii_overrides(pii["overrides"], _pii_handle_sites(cfg))
+    end
+
+    return
+end
+
+function _validate_pii_topology(topo, site_ids::Set{String})
+    topo isa Dict || throw(ConfigError("'pii.topology' must be a mapping"))
+
+    n_all = get(topo, "all_sites", 0)
+    n_all isa Integer && n_all >= 0 ||
+        throw(ConfigError("'pii.topology.all_sites' must be a non-negative integer"))
+
+    ups = get(topo, "unique_per_site", 0)
+    ups isa Integer && ups >= 0 ||
+        throw(ConfigError("'pii.topology.unique_per_site' must be a non-negative integer"))
+
+    pairs = get(topo, "pairs", [])
+    pairs isa Vector || throw(ConfigError("'pii.topology.pairs' must be a list"))
+    seen_pairs = Set{Tuple{String, String}}()
+    for (i, pair) in enumerate(pairs)
+        length(pair) == 3 ||
+            throw(ConfigError("'pii.topology.pairs[$i]' must have exactly three elements [site_a, site_b, count]"))
+        s1, s2, k = string(pair[1]), string(pair[2]), pair[3]
+        k isa Integer && k >= 0 ||
+            throw(ConfigError("'pii.topology.pairs[$i]' count must be a non-negative integer"))
+        s1 ∈ site_ids ||
+            throw(ConfigError("'pii.topology.pairs[$i]' references unknown site: '$s1'"))
+        s2 ∈ site_ids ||
+            throw(ConfigError("'pii.topology.pairs[$i]' references unknown site: '$s2'"))
+        s1 != s2 ||
+            throw(ConfigError("'pii.topology.pairs[$i]' is a self-pair: '$s1'"))
+        canonical = s1 < s2 ? (s1, s2) : (s2, s1)
+        canonical ∉ seen_pairs ||
+            throw(ConfigError("'pii.topology.pairs[$i]' is a duplicate pair: ('$s1', '$s2')"))
+        push!(seen_pairs, canonical)
+    end
+    return
+end
+
+function _validate_pii_corruptions(corruptions)
+    corruptions isa Dict || throw(ConfigError("'pii.corruptions' must be a mapping"))
+    for (field, spec) in corruptions
+        string(field) ∈ PII_CORRUPTIBLE_FIELDS ||
+            throw(ConfigError("'pii.corruptions' field '$(field)' is not corruptible (dob cannot be corrupted)"))
+        spec isa Dict || throw(ConfigError("'pii.corruptions.$(field)' must be a mapping"))
+        ctype = get(spec, "type", nothing)
+        ctype !== nothing || throw(ConfigError("'pii.corruptions.$(field).type' is required"))
+        string(ctype) ∈ PII_CORRUPTION_TYPES ||
+            throw(ConfigError("'pii.corruptions.$(field).type' must be one of: typo, missing, uppercase, lowercase"))
+        rate = get(spec, "rate", nothing)
+        rate !== nothing || throw(ConfigError("'pii.corruptions.$(field).rate' is required"))
+        rate isa Number && 0.0 <= rate <= 1.0 ||
+            throw(ConfigError("'pii.corruptions.$(field).rate' must be a float between 0.0 and 1.0"))
+    end
+    return
+end
+
+function _validate_pii_overrides(overrides, handle_sites::Dict{String, Vector{String}})
+    overrides isa Vector || throw(ConfigError("'pii.overrides' must be a list"))
+    for (i, entry) in enumerate(overrides)
+        entry isa Dict || throw(ConfigError("'pii.overrides[$i]' must be a mapping"))
+        handle = get(entry, "handle", nothing)
+        handle isa String && !isempty(handle) ||
+            throw(ConfigError("'pii.overrides[$i]' missing non-empty 'handle'"))
+        haskey(handle_sites, handle) ||
+            throw(ConfigError("'pii.overrides[$i]' references unknown handle: '$(handle)'"))
+        patient_sites = Set(handle_sites[handle])
+        appearances   = get(entry, "appearances", nothing)
+        appearances isa Vector ||
+            throw(ConfigError("'pii.overrides[$i]' must have an 'appearances' list"))
+        for (j, app) in enumerate(appearances)
+            app isa Dict ||
+                throw(ConfigError("'pii.overrides[$i].appearances[$j]' must be a mapping"))
+            sid = get(app, "site", nothing)
+            sid isa String && !isempty(sid) ||
+                throw(ConfigError("'pii.overrides[$i].appearances[$j]' missing 'site'"))
+            sid ∈ patient_sites ||
+                throw(ConfigError("'pii.overrides[$i].appearances[$j]' references site '$(sid)' not assigned to patient '$(handle)'"))
+            corrupt = get(app, "corrupt", nothing)
+            corrupt === nothing && continue
+            corrupt isa Vector ||
+                throw(ConfigError("'pii.overrides[$i].appearances[$j].corrupt' must be a list"))
+            for (k, c) in enumerate(corrupt)
+                c isa Dict ||
+                    throw(ConfigError("'pii.overrides[$i].appearances[$j].corrupt[$k]' must be a mapping"))
+                cfield = get(c, "field", nothing)
+                cfield isa String && !isempty(cfield) ||
+                    throw(ConfigError("'pii.overrides[$i].appearances[$j].corrupt[$k]' missing 'field'"))
+                string(cfield) ∈ PII_VALID_FIELDS ||
+                    throw(ConfigError("'pii.overrides[$i].appearances[$j].corrupt[$k].field' references unknown PII field: '$(cfield)'"))
+                ctype = get(c, "type", nothing)
+                ctype isa String && !isempty(ctype) ||
+                    throw(ConfigError("'pii.overrides[$i].appearances[$j].corrupt[$k]' missing 'type'"))
+                string(ctype) ∈ PII_CORRUPTION_TYPES ||
+                    throw(ConfigError("'pii.overrides[$i].appearances[$j].corrupt[$k].type' must be one of: typo, missing, uppercase, lowercase"))
+            end
+        end
+    end
+    return
+end
+

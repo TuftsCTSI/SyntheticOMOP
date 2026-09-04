@@ -1,0 +1,10 @@
+# expect: 'pii.seed' is required
+sites:
+  - id: a
+  - id: b
+
+pii:
+  topology:
+    all_sites: 2
+    unique_per_site: 1
+

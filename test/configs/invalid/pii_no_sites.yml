@@ -1,0 +1,12 @@
+# expect: 'pii' requires 'sites' to be defined
+concepts:
+  female: 8532
+
+pii:
+  seed: 1
+
+patients:
+  - person_source_value: p1
+    gender_concept_id: female
+    birth_year: 1990
+

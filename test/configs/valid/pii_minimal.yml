@@ -1,0 +1,44 @@
+concepts:
+  female: 8532
+  hypertension: 320128
+
+sites:
+  - id: site_a
+  - id: site_b
+
+pii:
+  seed: 42
+
+patients:
+  - person_source_value: alice
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1985
+        birth_month: 6
+        birth_day: 15
+        conditions:
+          - concept_id: hypertension
+            date: "2023-01-10"
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 1985
+        birth_month: 6
+        birth_day: 15
+
+  - person_source_value: bob
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1990
+        birth_month: 1
+        birth_day: 1
+
+  - person_source_value: carol
+    appearances:
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 1970
+        birth_month: 12
+        birth_day: 25
+

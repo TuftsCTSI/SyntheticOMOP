@@ -1,0 +1,44 @@
+concepts:
+  female: 8532
+
+sites:
+  - id: site_a
+  - id: site_b
+
+pii:
+  seed: 7
+  corruptions:
+    name:
+      type: typo
+      rate: 1.0
+    city:
+      type: uppercase
+      rate: 1.0
+
+patients:
+  - person_source_value: shared_1
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1980
+        birth_month: 3
+        birth_day: 10
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 1980
+        birth_month: 3
+        birth_day: 10
+
+  - person_source_value: shared_2
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1995
+        birth_month: 7
+        birth_day: 20
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 1995
+        birth_month: 7
+        birth_day: 20
+

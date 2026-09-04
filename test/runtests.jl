@@ -10,6 +10,7 @@ function collect_files(dir::String)::Vector{String}
     files = String[]
     for (root, _, filenames) in walkdir(dir)
         for f in filenames
+            endswith(f, ".csv") || continue
             push!(files, relpath(joinpath(root, f), dir))
         end
     end
@@ -45,6 +46,16 @@ struct InvalidResult
     expected_msg::String
 end
 
+function compare_csv!(actual_files::Vector{String}, mismatches::Vector{String}, expected_dir::String, relfile::String, df)
+    push!(actual_files, relfile)
+    expected_path = joinpath(expected_dir, relfile)
+    if isfile(expected_path)
+        actual_str = table_to_string(df)
+        actual_str != read(expected_path, String) && push!(mismatches, relfile)
+    end
+    return
+end
+
 function run_valid_config(filename::String)
     name = splitext(filename)[1]
     config_path = joinpath(VALID_DIR, filename)
@@ -59,40 +70,41 @@ function run_valid_config(filename::String)
     actual_files = String[]
     mismatches = String[]
     try
-        result = SyntheticOMOP.build(config_path)
-        if result isa Tuple
-            site_tables, linkage_df = result
-            for site_id in sort(collect(keys(site_tables)))
-                for tname in sort(collect(keys(site_tables[site_id])))
-                    relfile = joinpath("OMOP", site_id, "$tname.csv")
-                    push!(actual_files, relfile)
-                    expected_path = joinpath(expected_dir, relfile)
-                    if isfile(expected_path)
-                        actual_str = table_to_string(site_tables[site_id][tname])
-                        actual_str != read(expected_path, String) && push!(mismatches, relfile)
+        cfg = SyntheticOMOP.load_config(config_path)
+        has_patients  = haskey(cfg, "patients") && !isempty(get(cfg, "patients", []))
+        has_templates = haskey(cfg, "templates") && !isempty(get(cfg, "templates", Dict()))
+        has_clinical  = has_patients || has_templates
+
+        if has_clinical
+            result = SyntheticOMOP.build(config_path)
+            if result isa Tuple
+                site_tables, linkage_df = result
+                for site_id in sort(collect(keys(site_tables)))
+                    for tname in sort(collect(keys(site_tables[site_id])))
+                        relfile = joinpath("OMOP", site_id, "$tname.csv")
+                        compare_csv!(actual_files, mismatches, expected_dir, relfile, site_tables[site_id][tname])
                     end
                 end
-            end
-            linkage_relfile = joinpath("OMOP", "linkage.csv")
-            push!(actual_files, linkage_relfile)
-            sort!(actual_files)
-            expected_path = joinpath(expected_dir, linkage_relfile)
-            if isfile(expected_path)
-                actual_str = table_to_string(linkage_df)
-                actual_str != read(expected_path, String) && push!(mismatches, linkage_relfile)
-            end
-        else
-            tables = result
-            for tname in sort(collect(keys(tables)))
-                relfile = joinpath("OMOP", "$tname.csv")
-                push!(actual_files, relfile)
-                expected_path = joinpath(expected_dir, relfile)
-                if isfile(expected_path)
-                    actual_str = table_to_string(tables[tname])
-                    actual_str != read(expected_path, String) && push!(mismatches, relfile)
+                compare_csv!(actual_files, mismatches, expected_dir, joinpath("OMOP", "linkage.csv"), linkage_df)
+            else
+                tables = result
+                for tname in sort(collect(keys(tables)))
+                    relfile = joinpath("OMOP", "$tname.csv")
+                    compare_csv!(actual_files, mismatches, expected_dir, relfile, tables[tname])
                 end
             end
         end
+
+        if haskey(cfg, "pii")
+            pii_tables, pii_linkage_df = SyntheticOMOP.build_pii(cfg)
+            for site_id in sort(collect(keys(pii_tables)))
+                relfile = joinpath("PII", site_id, "patients.csv")
+                compare_csv!(actual_files, mismatches, expected_dir, relfile, pii_tables[site_id])
+            end
+            compare_csv!(actual_files, mismatches, expected_dir, joinpath("PII", "linkage.csv"), pii_linkage_df)
+        end
+
+        sort!(actual_files)
     catch e
         exit_code = 1
         err = sprint(showerror, e)

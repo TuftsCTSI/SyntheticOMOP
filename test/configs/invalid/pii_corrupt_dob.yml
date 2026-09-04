@@ -1,0 +1,25 @@
+# expect: not corruptible
+concepts:
+  female: 8532
+
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  corruptions:
+    dob:
+      type: typo
+      rate: 0.5
+
+patients:
+  - person_source_value: p1
+    appearances:
+      - site: a
+        gender_concept_id: female
+        birth_year: 1990
+      - site: b
+        gender_concept_id: female
+        birth_year: 1990
+

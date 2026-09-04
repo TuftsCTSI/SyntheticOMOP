@@ -1,0 +1,22 @@
+# expect: not assigned to patient
+concepts:
+  female: 8532
+
+sites:
+  - id: a
+  - id: b
+
+pii:
+  seed: 1
+  overrides:
+    - handle: p1
+      appearances:
+        - site: b
+
+patients:
+  - person_source_value: p1
+    appearances:
+      - site: a
+        gender_concept_id: female
+        birth_year: 1990
+

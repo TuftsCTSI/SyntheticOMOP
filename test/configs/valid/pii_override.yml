@@ -1,0 +1,49 @@
+concepts:
+  female: 8532
+
+sites:
+  - id: site_a
+  - id: site_b
+
+pii:
+  seed: 11
+  corruptions:
+    name:
+      type: typo
+      rate: 1.0
+  overrides:
+    - handle: override_patient
+      appearances:
+        - site: site_a
+        - site: site_b
+          corrupt:
+            - field: name
+              type: missing
+
+patients:
+  - person_source_value: override_patient
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 1975
+        birth_month: 4
+        birth_day: 1
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 1975
+        birth_month: 4
+        birth_day: 1
+
+  - person_source_value: normal_patient
+    appearances:
+      - site: site_a
+        gender_concept_id: female
+        birth_year: 2000
+        birth_month: 1
+        birth_day: 1
+      - site: site_b
+        gender_concept_id: female
+        birth_year: 2000
+        birth_month: 1
+        birth_day: 1
+

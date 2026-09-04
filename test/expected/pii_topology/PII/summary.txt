@@ -1,0 +1,15 @@
+Total patients: 20
+
+Per-site record counts:
+  a: 13
+  b: 13
+  c: 13
+
+Overlap statistics:
+  All 3 sites: 5
+  a + b: 8
+  a + c: 8
+  b + c: 8
+  a only: 2
+  b only: 2
+  c only: 2

@@ -1,0 +1,11 @@
+Total patients: 2
+
+Per-site record counts:
+  site_a: 2
+  site_b: 2
+
+Overlap statistics:
+  All 2 sites: 2
+  site_a + site_b: 2
+  site_a only: 0
+  site_b only: 0
