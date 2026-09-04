@@ -1,20 +1,11 @@
 using Runic
 
-const FILE_LIST = [
-    "generate.jl",
-    "src/config.jl",
-    "src/expected.jl",
-    "src/generator.jl",
-    "src/pii.jl",
-    "src/schema.jl",
-    "src/SyntheticOMOP.jl",
-    "src/templates.jl",
-    "src/writer.jl",
-    "test/runtests.jl",
-    "test/update_expected.jl",
-    "tools/format.jl",
-]
+const ROOT = dirname(@__DIR__)
 
-foreach(FILE_LIST) do file
-    Runic.format_file(file, inplace = true)
+for (root, _, filenames) in walkdir(ROOT)
+    startswith(root, joinpath(ROOT, ".git")) && continue
+    for f in filenames
+        endswith(f, ".jl") || continue
+        Runic.format_file(joinpath(root, f); inplace = true)
+    end
 end
