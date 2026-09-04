@@ -88,6 +88,8 @@ concepts:
   colectomy_proc: 4096461
   tobacco_unknown_val: 45884037
   zero_visit: 0
+  community_health_center: 8761
+  office_visit: 8940
 
 concept_ancestors:
 - ancestor: substance_abuse
@@ -99,11 +101,11 @@ concept_ancestors:
 care_sites:
 - id: boston_chc
   care_site_name: "Boston CHC"
-  place_of_service_concept_id: 8761
+  place_of_service_concept_id: community_health_center
   location: boston
 - id: pcp_office
   care_site_name: "Primary Care Office"
-  place_of_service_concept_id: 8940
+  place_of_service_concept_id: office_visit
   location: boston
 
 locations:
