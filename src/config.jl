@@ -32,7 +32,7 @@ function _validate(cfg::Dict)
     end
     has_any_patients = has_patients || has_templates || has_topology
     has_any_patients ||
-        throw(ConfigError("Config must have at least one of 'patients' or 'templates'"))
+        throw(ConfigError("Config must have at least one of 'patients', 'templates', or 'pii.topology'"))
     has_patients && _validate_patients(cfg)
     has_templates && _validate_templates(cfg)
     has_pii && _validate_pii(cfg)
@@ -256,7 +256,9 @@ function _validate_events(node::Dict, path::String, concepts::Dict, care_site_id
                 end
             end
             cs_ref = get(event, "care_site_id", nothing)
-            if cs_ref !== nothing && !isempty(care_site_ids)
+            if cs_ref !== nothing
+                isempty(care_site_ids) &&
+                    throw(ConfigError("$path.$key[$i].care_site_id references '$(cs_ref)' but no 'care_sites' are declared"))
                 string(cs_ref) ∈ care_site_ids ||
                     throw(ConfigError("$path.$key[$i].care_site_id references unknown care site: '$(cs_ref)'"))
             end
