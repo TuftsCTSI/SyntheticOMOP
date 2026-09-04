@@ -24,9 +24,9 @@ function parse_expected_error(config_path::String)::String
     return m.captures[1]
 end
 
-function table_to_string(df)::String
+function table_to_string(df; kwargs...)::String
     buf = IOBuffer()
-    CSV.write(buf, df; missingstring = "")
+    CSV.write(buf, df; missingstring = "", kwargs...)
     return String(take!(buf))
 end
 
@@ -46,11 +46,11 @@ struct InvalidResult
     expected_msg::String
 end
 
-function compare_csv!(actual_files::Vector{String}, mismatches::Vector{String}, expected_dir::String, relfile::String, df)
+function compare_csv!(actual_files::Vector{String}, mismatches::Vector{String}, expected_dir::String, relfile::String, df; kwargs...)
     push!(actual_files, relfile)
     expected_path = joinpath(expected_dir, relfile)
     if isfile(expected_path)
-        actual_str = table_to_string(df)
+        actual_str = table_to_string(df; kwargs...)
         actual_str != read(expected_path, String) && push!(mismatches, relfile)
     end
     return
@@ -93,6 +93,11 @@ function run_valid_config(filename::String)
                     compare_csv!(actual_files, mismatches, expected_dir, relfile, tables[tname])
                 end
             end
+        end
+
+        expected_df = SyntheticOMOP.build_expected(cfg)
+        if !isempty(expected_df)
+            compare_csv!(actual_files, mismatches, expected_dir, "expected.csv", expected_df; quotestrings = true)
         end
 
         if haskey(cfg, "pii")
