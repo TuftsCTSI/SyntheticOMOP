@@ -13,6 +13,8 @@ struct PIIConfigError <: Exception
 end
 Base.showerror(io::IO, e::PIIConfigError) = print(io, "PIIConfigError: ", e.msg)
 
+const _PII_RNG_LOCK = ReentrantLock()
+
 function _corruption_rng(pii_cfg::Dict, handle::String, site_id::String, field::String)::Random.MersenneTwister
     seed = pii_cfg["seed"]
     hbytes = SHA.sha256(string(seed) * ":corrupt:" * handle * ":" * site_id * ":" * field)[1:8]
@@ -148,27 +150,29 @@ function per_patient_seed(pii_cfg, handle::String)
 end
 
 function gen_pii_fields(seed::UInt64)
-    saved_rng = copy(Random.default_rng())
-    try
-        Random.seed!(seed)
-        fname = Faker.first_name()
-        lname = Faker.last_name()
-        streetnum = rand(1:9999)
-        street = string(streetnum, " ", Faker.street_name())
-        city = Faker.city()
-        state = Faker.state_abbr()
-        zip = lpad(string(rand(0:99999)), 5, '0')
-        dob = gen_dob()
-        return Dict(
-            :name => string(fname, " ", lname),
-            :street => street,
-            :city => city,
-            :state => state,
-            :zip => zip,
-            :dob => dob,
-        )
-    finally
-        copy!(Random.default_rng(), saved_rng)
+    return lock(_PII_RNG_LOCK) do
+        saved_rng = copy(Random.default_rng())
+        try
+            Random.seed!(seed)
+            fname = Faker.first_name()
+            lname = Faker.last_name()
+            streetnum = rand(1:9999)
+            street = string(streetnum, " ", Faker.street_name())
+            city = Faker.city()
+            state = Faker.state_abbr()
+            zip = lpad(string(rand(0:99999)), 5, '0')
+            dob = gen_dob()
+            return Dict(
+                :name => string(fname, " ", lname),
+                :street => street,
+                :city => city,
+                :state => state,
+                :zip => zip,
+                :dob => dob,
+            )
+        finally
+            copy!(Random.default_rng(), saved_rng)
+        end
     end
 end
 
