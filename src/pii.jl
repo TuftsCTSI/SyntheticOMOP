@@ -168,7 +168,7 @@ function gen_pii_fields(seed::UInt64)
 end
 
 function gen_dob()
-    y = rand(1926:2025)
+    y = rand(1926:2035)
     m = rand(1:12)
     d = rand(1:28)
     return Dates.Date(y, m, d)
