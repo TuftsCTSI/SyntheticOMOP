@@ -56,7 +56,7 @@ This produces one patient with one condition record, one auto-generated outpatie
 | `cdm_source` | no | Provenance metadata for cdm_source.csv |
 | `always_write_tables` | no | Table names to write even when empty |
 
-\* At least one of `patients` or `templates` is required.
+\* At least one of `patients`, `templates`, or `pii.topology` is required.
 
 ### Concepts
 
