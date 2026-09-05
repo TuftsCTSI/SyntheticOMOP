@@ -89,7 +89,7 @@ end
 
 function _always_write_tables(cfg::Dict)::Vector{Symbol}
     raw = get(cfg, "always_write_tables", nothing)
-    raw === nothing && return DEFAULT_ALWAYS_WRITE_TABLES
+    raw === nothing && return copy(DEFAULT_ALWAYS_WRITE_TABLES)
     return [Symbol(name) for name in raw]
 end
 
@@ -617,6 +617,7 @@ function build_all(cfg::Dict)::Dict{String, DataFrame}
     hand_crafted = get(cfg, "patients", Dict{String, Any}[])
     templated = expand_templates(cfg)
     all_patients = vcat(hand_crafted, templated)
+    _check_duplicate_psvs(all_patients)
 
     for (i, patient) in enumerate(all_patients)
         process_patient!(state, patient, i)
