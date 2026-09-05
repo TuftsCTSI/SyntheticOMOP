@@ -72,8 +72,8 @@ function main(args = ARGS)
     output_dir = length(args) == 2 ? args[2] : joinpath("out", splitext(basename(config_path))[1])
     return try
         SyntheticOMOP.generate(config_path, output_dir)
-        warn_empty_obs(output_dir)
         write_provenance(output_dir, config_path)
+        warn_empty_obs(output_dir)
     catch e
         println(stderr, sprint(showerror, e))
         exit(1)
