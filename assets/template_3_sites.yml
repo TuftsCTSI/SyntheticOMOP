@@ -1,0 +1,117 @@
+concepts:
+  condition: 201826          # Type 2 diabetes mellitus
+  observation: 3013822       # Systolic blood pressure
+  drug: 1125315              # Metformin
+
+templates:
+  placeholder:
+    appearances:
+      - site: A
+      - site: B
+      - site: C
+
+sites:
+  - id: A
+    patients: |
+      {% for i in range(1,6) %}
+      - id: "ABD_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,6) %}
+      - id: "AB_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,6) %}
+      - id: "AC_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,86) %}
+      - id: "A_{{ '{:04d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+
+  - id: B
+    patients: |
+      {% for i in range(1,6) %}
+      - id: "ABD_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,6) %}
+      - id: "AB_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,6) %}
+      - id: "BC_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,86) %}
+      - id: "B_{{ '{:04d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+
+  - id: C
+    patients: |
+      {% for i in range(1,6) %}
+      - id: "ABD_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,6) %}
+      - id: "AC_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,6) %}
+      - id: "BC_{{ '{:03d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
+      {% for i in range(1,86) %}
+      - id: "C_{{ '{:04d}'.format(i) }}"
+        gender: "{{ random_choice(['M','F']) }}"
+        birth_year: "{{ random_choice([1970,1980,1990]) }}"
+        condition_concept_id: {{ concepts.condition }}
+        observation_concept_id: {{ concepts.observation }}
+        drug_concept_id: {{ concepts.drug }}
+      {% endfor %}
