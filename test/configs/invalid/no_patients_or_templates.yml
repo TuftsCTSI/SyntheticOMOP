@@ -1,4 +1,4 @@
-# expect: at least one of 'patients' or 'templates'
+# expect: at least one of 'patients', 'templates', or 'pii.topology'
 concepts:
   hypertension: 320128
 
