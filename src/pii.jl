@@ -104,8 +104,12 @@ function build_pii(cfg::Dict)
     end
 
     patients = get(cfg, "patients", [])
+    # Expand topology from either the pii section or the top‑level config
     if haskey(pii_cfg, "topology")
         topo_patients = expand_topology(pii_cfg["topology"], site_ids)
+        patients = vcat(topo_patients, patients)
+    elseif haskey(cfg, "topology")
+        topo_patients = expand_topology(cfg["topology"], site_ids)
         patients = vcat(topo_patients, patients)
     end
 
