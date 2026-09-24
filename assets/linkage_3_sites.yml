@@ -1,0 +1,267 @@
+cdm_source:
+  name: "Linkage, 3 Sites, 100 patients"
+  abbreviation: "linkage_3_sites"
+  holder: "TuftsCTSI"
+  description: "Small linkage test"
+
+sites:
+  - id: Site_A
+  - id: Site_B
+  - id: Site_C
+
+concepts:
+  # Demographics
+  MALE: 8507
+  FEMALE: 8532
+  white: 8527
+  black_or_african_american: 8516
+  asian: 8526
+  native_hawaiian_or_other_pacific_islander: 8657
+  american_indian_or_alaska_native: 8656
+  other_race: 8522
+  unknown_race: 8552
+  hispanic_or_latino: 38003563
+  not_hispanic_or_latino: 38003564
+  unknown_ethnicity: 44789059
+  # Visits
+  outpatient: 9202
+  inpatient: 9201
+  # Conditions
+  hypertension: 320128
+  type_2_diabetes: 201826
+  # Measurements
+  systolic_bp: 3004249
+  diastolic_bp: 3012888
+  hba1c: 3004410
+  bmi: 3038553
+  bmi_percentile: 40490382
+  fobt: 3027299
+  sdna_fit: 46236059
+  phq9: 35609425
+  # Procedures
+  mammography: 3016169
+  mastectomy: 2006395
+  colonoscopy: 37163368
+  sigmoidoscopy: 4262589
+  ct_colonography: 40763569
+  # Observations
+  food_security_q1: 36304041
+  food_security_q2: 36306143
+  housing_stability: 42869557
+  homelessness: 4139934
+  housing_lack: 4144274
+  psc17_internalization: 2000000095
+  psc17_externalization: 2000000096
+  psc17_attention: 2000000097
+  psc17_total: 2000000094
+  routine_exam: 4085802
+  # Drugs
+  covid_pfizer: 702866
+  # Units
+  percent: 8554
+  # Value concepts (food/housing responses)
+  never_true: 36309869
+  sometimes_true: 45877955
+  steady_place: 1
+  worried_about_losing: 2
+  yes_homeless: 3
+  # Behavioral Health conditions
+  depression: 4102973
+  anxiety: 4217945
+  schizophrenia: 432598
+  bipolar: 4031928
+  substance_abuse: 4279309
+  sud_alcohol: 433753
+  # Disabilities
+  vision_disability: 372906
+  hearing_disability: 443608
+  autism_spectrum: 43020503
+  intellectual_disability: 35207238
+  # Smoking
+  tobacco_status: 4275495
+  tobacco_user: 4005823
+  tobacco_nonuser: 4022662
+  # MMR
+  mmr_vaccine: 40213183
+  # NQF Exclusions
+  advanced_illness: 4004279
+  frailty_dx: 438567
+  frailty_encounter: 2514578
+  frailty_symptom: 4008159
+  hospice_enc: 4140947
+  acute_inpatient_admission: 4138051
+  # Renal / Pregnancy
+  esrd: 193782
+  kidney_transplant_proc: 4322471
+  pregnancy: 4299535
+  # Additional test concepts
+  opioid_sud: 4032799
+  colectomy_proc: 4096461
+  tobacco_unknown_val: 45884037
+  zero_visit: 0
+  community_health_center: 8761
+  office_visit: 8940
+
+concept_ancestors:
+  - ancestor: substance_abuse
+    descendant: sud_alcohol
+  - ancestor: substance_abuse
+    descendant: opioid_sud
+
+care_sites:
+  - id: Site_A_primary
+    care_site_name: "Site_A Primary Care"
+    place_of_service_concept_id: office_visit
+    location: Site_A_primary_loc
+  - id: Site_A_chc
+    care_site_name: "Site_A Community Health Center"
+    place_of_service_concept_id: community_health_center
+    location: Site_A_chc_loc
+  - id: Site_A_pcp
+    care_site_name: "Site_A PCP Office"
+    place_of_service_concept_id: office_visit
+    location: Site_A_pcp_loc
+  - id: Site_B_primary
+    care_site_name: "Site_B Primary Care"
+    place_of_service_concept_id: office_visit
+    location: Site_B_primary_loc
+  - id: Site_B_chc
+    care_site_name: "Site_B Community Health Center"
+    place_of_service_concept_id: community_health_center
+    location: Site_B_chc_loc
+  - id: Site_B_pcp
+    care_site_name: "Site_B PCP Office"
+    place_of_service_concept_id: office_visit
+    location: Site_B_pcp_loc
+  - id: Site_C_primary
+    care_site_name: "Site_C Primary Care"
+    place_of_service_concept_id: office_visit
+    location: Site_C_primary_loc
+  - id: Site_C_chc
+    care_site_name: "Site_C Community Health Center"
+    place_of_service_concept_id: community_health_center
+    location: Site_C_chc_loc
+  - id: Site_C_pcp
+    care_site_name: "Site_C PCP Office"
+    place_of_service_concept_id: office_visit
+    location: Site_C_pcp_loc
+
+locations:
+  - id: Site_A_primary_loc
+    address_1: "10 Primary St"
+    city: "Boston"
+    state: "MA"
+    zip: "02118"
+  - id: Site_A_chc_loc
+    address_1: "20 Health Ave"
+    city: "Boston"
+    state: "MA"
+    zip: "02119"
+  - id: Site_A_pcp_loc
+    address_1: "30 PCP Rd"
+    city: "Boston"
+    state: "MA"
+    zip: "02120"
+  - id: Site_B_primary_loc
+    address_1: "40 Primary St"
+    city: "Boston"
+    state: "MA"
+    zip: "02121"
+  - id: Site_B_chc_loc
+    address_1: "50 Health Ave"
+    city: "Boston"
+    state: "MA"
+    zip: "02122"
+  - id: Site_B_pcp_loc
+    address_1: "60 PCP Rd"
+    city: "Boston"
+    state: "MA"
+    zip: "02123"
+  - id: Site_C_primary_loc
+    address_1: "70 Primary St"
+    city: "Boston"
+    state: "MA"
+    zip: "02124"
+  - id: Site_C_chc_loc
+    address_1: "80 Health Ave"
+    city: "Boston"
+    state: "MA"
+    zip: "02125"
+  - id: Site_C_pcp_loc
+    address_1: "90 PCP Rd"
+    city: "Boston"
+    state: "MA"
+    zip: "02126"
+
+topology:
+  all_sites: 5
+  pairs:
+    - [Site_A, Site_B, 5]
+    - [Site_A, Site_C, 5]
+    - [Site_B, Site_C, 5]
+  unique_per_site: 85
+
+templates:
+  template_patient:
+    appearances:
+      - {site: Site_A}
+      - {site: Site_B}
+      - {site: Site_C}
+    gender_concept_id: [MALE, FEMALE]
+    race_concept_id:
+      - white
+      - black_or_african_american
+      - asian
+      - native_hawaiian_or_other_pacific_islander
+      - american_indian_or_alaska_native
+      - other_race
+      - unknown_race
+    ethnicity_concept_id:
+      - hispanic_or_latino
+      - not_hispanic_or_latino
+      - unknown_ethnicity
+    location:
+      - Site_A_primary_loc
+      - Site_B_primary_loc
+      - Site_C_primary_loc
+    conditions:
+      - []
+      - [{concept_id: hypertension, date: "2023-01-10"}]
+      - [{concept_id: type_2_diabetes, date: "2023-01-12"}]
+    measurements:
+      - []
+      - [{concept_id: systolic_bp, date: "2023-06-15", value_as_number: 120}]
+      - [{concept_id: diastolic_bp, date: "2023-06-15", value_as_number: 80}]
+      - [{concept_id: bmi, date: "2023-06-16", value_as_number: 25}]
+    observations:
+      - []
+      - [{concept_id: food_security_q1, date: "2023-07-01", value_as_concept_id: never_true}]
+    drugs:
+      - []
+      - [{concept_id: covid_pfizer, date: "2023-08-01"}]
+    procedures:
+      - []
+      - [{concept_id: mammography, date: "2023-09-01"}]
+
+patients: []
+
+pii:
+  seed: 12345
+  fields: [name, street, city, state, zip, dob]
+  corruptions:
+    name:
+      rate: 0.1
+      type: typo
+    street:
+      rate: 0.1
+      type: typo
+    city:
+      rate: 0.05
+      type: typo
+    state:
+      rate: 0.05
+      type: uppercase
+    zip:
+      rate: 0.02
+      type: missing
+
